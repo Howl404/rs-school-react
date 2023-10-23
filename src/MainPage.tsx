@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Search from './components/Search';
 
 class MainPage extends Component {
   state = {
@@ -10,7 +11,14 @@ class MainPage extends Component {
   };
 
   render() {
-    return <></>;
+    return (
+      <>
+        <Search
+          onSearch={this.handleSearch}
+          searchTerm={this.state.searchTerm}
+        />
+      </>
+    );
   }
 }
 

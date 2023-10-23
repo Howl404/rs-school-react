@@ -2,18 +2,22 @@ import React, { Component } from 'react';
 
 interface SearchProps {
   onSearch: (searchTerm: string) => void;
-  searchTerm: string;
+  searchTerm: string | null;
 }
 
 class Search extends Component<SearchProps> {
-  state = {
-    inputText: this.props.searchTerm,
+  state: { inputText: string | null } = {
+    inputText: null,
   };
 
   componentDidMount(): void {
     const searchTerm = localStorage.getItem('searchTerm');
     if (searchTerm) {
       this.setState({ inputText: searchTerm });
+      this.props.onSearch(searchTerm);
+    } else {
+      this.setState({ inputText: '' });
+      this.props.onSearch('');
     }
   }
 
@@ -22,9 +26,11 @@ class Search extends Component<SearchProps> {
   };
 
   handleSearch = () => {
-    const trimmedSearchTerm = this.state.inputText.trim();
-    localStorage.setItem('searchTerm', trimmedSearchTerm);
-    this.props.onSearch(trimmedSearchTerm);
+    if (typeof this.state.inputText === 'string') {
+      const trimmedSearchTerm = this.state.inputText.trim();
+      localStorage.setItem('searchTerm', trimmedSearchTerm);
+      this.props.onSearch(trimmedSearchTerm);
+    }
   };
 
   render() {
@@ -32,7 +38,7 @@ class Search extends Component<SearchProps> {
       <div>
         <input
           type="text"
-          value={this.state.inputText}
+          value={this.state.inputText || ''}
           onChange={this.handleInputChange}
         />
         <button onClick={this.handleSearch}>Search</button>

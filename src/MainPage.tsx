@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Search from './components/Search';
+import Results from './components/Results';
 
 class MainPage extends Component {
-  state = {
-    searchTerm: '',
+  state: { searchTerm: string | null } = {
+    searchTerm: null,
   };
 
   handleSearch = (searchTerm: string) => {
@@ -17,6 +18,7 @@ class MainPage extends Component {
           onSearch={this.handleSearch}
           searchTerm={this.state.searchTerm}
         />
+        <Results searchTerm={this.state.searchTerm} />
       </>
     );
   }

@@ -1,0 +1,24 @@
+@import '../../fonts/fonts';
+
+.container {
+  width: 412px;
+  margin: 0 auto;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.button,
+.input {
+  padding: 7px 10px;
+}
+
+.button {
+  font-family: $font-family-primary;
+}
+
+.input {
+  font-family: $font-family-secondary;
+}

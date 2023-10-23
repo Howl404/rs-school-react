@@ -1,0 +1,25 @@
+@import '../../fonts/fonts';
+
+.card {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 5px;
+  box-shadow: hsl(206 22% 7% / 35%) 0 0 38px -10px;
+  text-align: center;
+}
+
+.card_header {
+  font-family: $font-family-primary;
+}
+
+.card_description {
+  font-family: $font-family-secondary;
+}
+
+.card_image {
+  height: 300px;
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Search from './components/Search';
-import Results from './components/Results';
+import Search from 'src/components/search/Search';
+import Results from 'src/components/results/Results';
 
 class MainPage extends Component {
   state: { searchTerm: string | null } = {

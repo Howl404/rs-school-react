@@ -1,24 +1,22 @@
 @import 'src/fonts/fonts.scss';
 
 .container {
-  width: 412px;
-  margin: 0 auto;
-  height: 50px;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  height: 100vh;
   justify-content: center;
-  gap: 20px;
 }
 
-.button,
-.input {
-  padding: 7px 10px;
-}
-
-.button {
+.header {
   font-family: $font-family-primary;
 }
 
-.input {
+.text, .button {
   font-family: $font-family-secondary;
+}
+
+
+.card_header {
+  font-family: $font-family-primary;
 }

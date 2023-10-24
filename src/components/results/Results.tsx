@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Card from 'src/components/card/Card';
 import styles from 'src/components/Results/Results.module.scss';
-import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
+import LoadingSpinner from 'src/components/loadingSpinner/LoadingSpinner';
 
 interface ResultsProps {
   searchTerm: string | null;
@@ -22,27 +22,23 @@ class Results extends Component<ResultsProps> {
   };
 
   async fetchResults(searchTerm: string) {
-    this.setState({ isLoading: true });
     let api = 'https://api.punkapi.com/v2/beers/?page=1&per_page=9';
     if (searchTerm) {
       api += `&beer_name=${searchTerm}`;
     }
 
-    try {
-      const response = await fetch(api);
-      const data = await response.json();
-      this.setState({ results: data });
-      this.setState({ isLoading: false });
-    } catch (error) {
-      console.error('Error fetching results:', error);
-    }
+    const response = await fetch(api);
+    const data = await response.json();
+    this.setState({ results: data, isLoading: false });
   }
 
   componentDidUpdate(prevProps: ResultsProps) {
-    if (this.props.searchTerm !== prevProps.searchTerm) {
-      if (typeof this.props.searchTerm === 'string') {
-        this.fetchResults(this.props.searchTerm);
-      }
+    if (
+      this.props.searchTerm !== prevProps.searchTerm &&
+      typeof this.props.searchTerm === 'string'
+    ) {
+      this.setState({ isLoading: true });
+      this.fetchResults(this.props.searchTerm);
     }
   }
 

@@ -1,54 +1,52 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from 'src/components/Search/Search.module.scss';
 
 interface SearchProps {
-  onSearch: (searchTerm: string) => void;
   searchTerm: string | null;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-class Search extends Component<SearchProps> {
-  state: { inputText: string | null } = {
-    inputText: null,
-  };
+function Search(props: SearchProps) {
+  const { setSearchTerm } = props;
 
-  componentDidMount(): void {
+  const [inputText, setInputText] = useState<string | null>(null);
+
+  useEffect(() => {
     const searchTerm = localStorage.getItem('searchTerm');
     if (searchTerm) {
-      this.setState({ inputText: searchTerm });
-      this.props.onSearch(searchTerm);
+      setInputText(searchTerm);
+      setSearchTerm(searchTerm);
     } else {
-      this.setState({ inputText: '' });
-      this.props.onSearch('');
+      setInputText('');
+      setSearchTerm('');
     }
+  }, [setSearchTerm]);
+
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setInputText(event.target.value);
   }
 
-  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ inputText: event.target.value });
-  };
-
-  handleSearch = () => {
-    if (typeof this.state.inputText === 'string') {
-      const trimmedSearchTerm = this.state.inputText.trim();
+  function handleSearch() {
+    if (typeof inputText === 'string') {
+      const trimmedSearchTerm = inputText.trim();
       localStorage.setItem('searchTerm', trimmedSearchTerm);
-      this.props.onSearch(trimmedSearchTerm);
+      setSearchTerm(trimmedSearchTerm);
     }
-  };
-
-  render() {
-    return (
-      <div className={styles.container}>
-        <input
-          type="text"
-          value={this.state.inputText || ''}
-          onChange={this.handleInputChange}
-          className={styles.input}
-        />
-        <button onClick={this.handleSearch} className={styles.button}>
-          Search
-        </button>
-      </div>
-    );
   }
+
+  return (
+    <div className={styles.container}>
+      <input
+        type="text"
+        value={inputText || ''}
+        onChange={handleInputChange}
+        className={styles.input}
+      />
+      <button onClick={handleSearch} className={styles.button}>
+        Search
+      </button>
+    </div>
+  );
 }
 
 export default Search;

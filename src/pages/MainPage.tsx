@@ -1,43 +1,30 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import Search from 'src/components/search/Search';
 import Results from 'src/components/results/Results';
 import styles from 'src/pages/MainPage.module.scss';
 
-class MainPage extends Component {
-  state: {
-    searchTerm: string | null;
-    error: boolean;
-  } = {
-    searchTerm: null,
-    error: false,
-  };
+function MainPage() {
+  const [searchTerm, setSearchTerm] = useState<string | null>(null);
+  const [error, setError] = useState(false);
 
-  handleSearch = (searchTerm: string) => {
-    this.setState({ searchTerm });
-  };
-
-  render() {
-    if (this.state.error) {
-      throw new Error('This is a test error');
-    }
-    return (
-      <>
-        <button
-          className={styles.button}
-          onClick={() => {
-            this.setState({ error: true });
-          }}
-        >
-          Throw Error
-        </button>
-        <Search
-          onSearch={this.handleSearch}
-          searchTerm={this.state.searchTerm}
-        />
-        <Results searchTerm={this.state.searchTerm} />
-      </>
-    );
+  if (error) {
+    throw new Error('This is a test error');
   }
+
+  return (
+    <>
+      <button
+        className={styles.button}
+        onClick={() => {
+          setError(true);
+        }}
+      >
+        Throw Error
+      </button>
+      <Search setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
+      <Results searchTerm={searchTerm} />
+    </>
+  );
 }
 
 export default MainPage;

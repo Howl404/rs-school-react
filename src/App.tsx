@@ -1,9 +1,9 @@
-import MainPage from 'src/pages/MainPage';
 import 'src/App.scss';
+import { Router } from './router/Router';
 function App() {
   return (
     <>
-      <MainPage />
+      <Router />
     </>
   );
 }

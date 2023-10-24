@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Card from 'src/components/card/Card';
 import styles from 'src/components/Results/Results.module.scss';
 import LoadingSpinner from 'src/components/loadingSpinner/LoadingSpinner';
+import { useSearchParams } from 'react-router-dom';
+import Pagination from 'src/components/pagination/Pagination';
 
 interface ResultsProps {
   searchTerm: string | null;
@@ -17,39 +19,50 @@ type Result = {
 function Results(props: ResultsProps) {
   const { searchTerm } = props;
 
-  const [results, setResults] = useState<Result[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageQueryParam = searchParams.get('page');
+  const page = pageQueryParam ? Number(pageQueryParam) : 1;
 
+  const [results, setResults] = useState<Result[]>([]);
   const [loading, isLoading] = useState(false);
 
-  async function fetchResults(searchTerm: string) {
-    let api = 'https://api.punkapi.com/v2/beers/?page=1&per_page=9';
-    if (searchTerm) {
-      api += `&beer_name=${searchTerm}`;
-    }
+  const fetchResults = useCallback(
+    async (searchTerm: string) => {
+      let api = `https://api.punkapi.com/v2/beers/?page=${page}&per_page=9`;
+      if (searchTerm) {
+        api += `&beer_name=${searchTerm}`;
+      }
 
-    const response = await fetch(api);
-    const data = await response.json();
-    setResults(data);
-    isLoading(false);
-  }
+      const response = await fetch(api);
+      const data = await response.json();
+      setResults(data);
+      isLoading(false);
+    },
+    [page]
+  );
 
   useEffect(() => {
     if (typeof searchTerm === 'string') {
       isLoading(true);
       fetchResults(searchTerm);
     }
-  }, [searchTerm]);
+  }, [searchTerm, fetchResults]);
 
   return (
     <>
       {loading ? (
-        <LoadingSpinner />
+        <>
+          <LoadingSpinner />
+        </>
       ) : (
-        <div className={styles.container}>
-          {results.map((result) => (
-            <Card result={result} key={result.id} />
-          ))}
-        </div>
+        <>
+          <div className={styles.container}>
+            {results.map((result) => (
+              <Card result={result} key={result.id} />
+            ))}
+          </div>
+          <Pagination setSearchParams={setSearchParams} page={page} />
+        </>
       )}
     </>
   );

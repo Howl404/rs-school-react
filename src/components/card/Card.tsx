@@ -4,7 +4,7 @@ import styles from 'src/components/card/Card.module.scss';
 interface CardProps {
   result: {
     name: string;
-    description: string;
+    tagline: string;
     id: number;
     image_url: string;
   };
@@ -12,7 +12,7 @@ interface CardProps {
 
 class Card extends Component<CardProps> {
   render() {
-    const { id, description, name, image_url } = this.props.result;
+    const { id, tagline, name, image_url } = this.props.result;
 
     return (
       <div key={id} className={styles.card}>
@@ -22,7 +22,7 @@ class Card extends Component<CardProps> {
           alt={`${name} image`}
           className={styles.card_image}
         />
-        <p className={styles.card_description}>{description}</p>
+        <p className={styles.card_description}>{tagline}</p>
       </div>
     );
   }

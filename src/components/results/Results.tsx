@@ -11,7 +11,7 @@ class Results extends Component<ResultsProps> {
   state: {
     results: {
       name: string;
-      description: string;
+      tagline: string;
       id: number;
       image_url: string;
     }[];

@@ -12,7 +12,7 @@ function Search(props: SearchProps) {
   const [inputText, setInputText] = useState<string | null>(null);
 
   useEffect(() => {
-    const searchTerm = localStorage.getItem('searchTerm');
+    const searchTerm = localStorage.getItem('howl-searchTerm');
     if (searchTerm) {
       setInputText(searchTerm);
       setSearchTerm(searchTerm);
@@ -29,7 +29,7 @@ function Search(props: SearchProps) {
   function handleSearch() {
     if (typeof inputText === 'string') {
       const trimmedSearchTerm = inputText.trim();
-      localStorage.setItem('searchTerm', trimmedSearchTerm);
+      localStorage.setItem('howl-searchTerm', trimmedSearchTerm);
       setSearchTerm(trimmedSearchTerm);
     }
   }

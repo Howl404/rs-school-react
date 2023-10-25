@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from 'src/components/Search/Search.module.scss';
+import styles from 'components/Search/Search.module.scss';
 
 interface SearchProps {
   onSearch: (searchTerm: string) => void;

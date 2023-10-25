@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import styles from 'src/components/card/Card.module.scss';
+import styles from 'components/card/Card.module.scss';
 
 interface CardProps {
   result: {

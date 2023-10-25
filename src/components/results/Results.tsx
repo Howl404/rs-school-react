@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import Card from 'src/components/card/Card';
-import styles from 'src/components/Results/Results.module.scss';
-import LoadingSpinner from 'src/components/loadingSpinner/LoadingSpinner';
+import Card from 'components/card/Card';
+import styles from 'components/Results/Results.module.scss';
+import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
 
 interface ResultsProps {
   searchTerm: string | null;

@@ -10,11 +10,17 @@ function Pagination(props: PaginationProps) {
   const { setSearchParams, page } = props;
 
   function previousPage() {
-    setSearchParams({ page: (page - 1).toString() });
+    setSearchParams((searchParams) => {
+      searchParams.set('page', (page - 1).toString());
+      return searchParams;
+    });
   }
 
   function nextPage() {
-    setSearchParams({ page: (page + 1).toString() });
+    setSearchParams((searchParams) => {
+      searchParams.set('page', (page + 1).toString());
+      return searchParams;
+    });
   }
 
   return (

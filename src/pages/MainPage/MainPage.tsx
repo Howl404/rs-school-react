@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Search from 'src/components/search/Search';
 import Results from 'src/components/results/Results';
-import styles from 'src/pages/MainPage.module.scss';
+import styles from 'src/pages/MainPage/MainPage.module.scss';
 
 function MainPage() {
   const [searchTerm, setSearchTerm] = useState<string | null>(null);

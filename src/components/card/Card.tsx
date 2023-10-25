@@ -1,26 +1,33 @@
+import { useSearchParams } from 'react-router-dom';
 import styles from 'src/components/card/Card.module.scss';
+import { Product } from '../results/Results';
 
-interface CardProps {
-  result: {
-    name: string;
-    description: string;
-    id: number;
-    image_url: string;
-  };
+export interface CardProps {
+  product: Product;
 }
 
 function Card(props: CardProps): JSX.Element {
-  const { id, description, name, image_url } = props.result;
+  const { id, tagline, name, image_url } = props.product;
+  const [, setSearchParams] = useSearchParams();
 
   return (
-    <div key={id} className={styles.card}>
+    <div
+      key={id}
+      className={styles.card}
+      onClick={() => {
+        setSearchParams((searchParams) => {
+          searchParams.set('productId', id.toString());
+          return searchParams;
+        });
+      }}
+    >
       <h3 className={styles.card_header}>{name}</h3>
       <img
         src={image_url}
         alt={`${name} image`}
         className={styles.card_image}
       />
-      <p className={styles.card_description}>{description}</p>
+      <p className={styles.card_description}>{tagline}</p>
     </div>
   );
 }

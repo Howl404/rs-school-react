@@ -2,18 +2,20 @@ import { useCallback, useEffect, useState } from 'react';
 import Card from 'src/components/card/Card';
 import styles from 'src/components/Results/Results.module.scss';
 import LoadingSpinner from 'src/components/loadingSpinner/LoadingSpinner';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 import Pagination from 'src/components/pagination/Pagination';
+import { fetchItems } from 'src/services/apiService';
 
 interface ResultsProps {
   searchTerm: string | null;
 }
 
-type Result = {
+export type Product = {
   name: string;
   description: string;
   id: number;
   image_url: string;
+  tagline: string;
 };
 
 function Results(props: ResultsProps) {
@@ -22,49 +24,48 @@ function Results(props: ResultsProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageQueryParam = searchParams.get('page');
   const page = pageQueryParam ? Number(pageQueryParam) : 1;
+  const productId = searchParams.get('productId');
 
-  const [results, setResults] = useState<Result[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, isLoading] = useState(false);
 
-  const fetchResults = useCallback(
-    async (searchTerm: string) => {
-      let api = `https://api.punkapi.com/v2/beers/?page=${page}&per_page=9`;
-      if (searchTerm) {
-        api += `&beer_name=${searchTerm}`;
-      }
-
-      const response = await fetch(api);
-      const data = await response.json();
-      setResults(data);
-      isLoading(false);
-    },
-    [page]
-  );
-
-  useEffect(() => {
+  const loadProducts = useCallback(async () => {
     if (typeof searchTerm === 'string') {
       isLoading(true);
-      fetchResults(searchTerm);
+      const data = await fetchItems(searchTerm, page);
+      setProducts(data);
+      isLoading(false);
     }
-  }, [searchTerm, fetchResults]);
+  }, [searchTerm, page]);
+
+  useEffect(() => {
+    loadProducts();
+  }, [loadProducts]);
 
   return (
-    <>
+    <div className={productId ? styles.wrapper : ''}>
       {loading ? (
-        <>
-          <LoadingSpinner />
-        </>
+        <LoadingSpinner />
       ) : (
-        <>
-          <div className={styles.container}>
-            {results.map((result) => (
-              <Card result={result} key={result.id} />
-            ))}
-          </div>
-          <Pagination setSearchParams={setSearchParams} page={page} />
-        </>
+        <div
+          className={styles.container}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setSearchParams((searchParams) => {
+                searchParams.delete('productId');
+                return searchParams;
+              });
+            }
+          }}
+        >
+          {products.map((product) => (
+            <Card product={product} key={product.id} />
+          ))}
+        </div>
       )}
-    </>
+      <Outlet />
+      <Pagination setSearchParams={setSearchParams} page={page} />
+    </div>
   );
 }
 

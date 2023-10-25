@@ -12,7 +12,7 @@ class Search extends Component<SearchProps> {
   };
 
   componentDidMount(): void {
-    const searchTerm = localStorage.getItem('searchTerm');
+    const searchTerm = localStorage.getItem('howl-searchTerm');
     if (searchTerm) {
       this.setState({ inputText: searchTerm });
       this.props.onSearch(searchTerm);
@@ -29,7 +29,7 @@ class Search extends Component<SearchProps> {
   handleSearch = () => {
     if (typeof this.state.inputText === 'string') {
       const trimmedSearchTerm = this.state.inputText.trim();
-      localStorage.setItem('searchTerm', trimmedSearchTerm);
+      localStorage.setItem('howl-searchTerm', trimmedSearchTerm);
       this.props.onSearch(trimmedSearchTerm);
     }
   };

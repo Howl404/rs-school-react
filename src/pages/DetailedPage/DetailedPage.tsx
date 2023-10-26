@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import LoadingSpinner from 'src/components/loadingSpinner/LoadingSpinner';
-import { Product } from 'src/components/results/Results';
-import { fetchItem } from 'src/services/apiService';
-import styles from 'src/pages/DetailedPage/DetailedPage.module.scss';
-import DetailedCard from 'src/components/detailedCard/DetailedCard';
+import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
+import { Product } from 'components/results/Results';
+import { fetchItem } from 'services/apiService';
+import styles from 'pages/DetailedPage/DetailedPage.module.scss';
+import DetailedCard from 'components/detailedCard/DetailedCard';
 
 function DetailedPage() {
   const [searchParams] = useSearchParams();

@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import Card from 'src/components/card/Card';
-import styles from 'src/components/Results/Results.module.scss';
-import LoadingSpinner from 'src/components/loadingSpinner/LoadingSpinner';
+import Card from 'components/card/Card';
+import styles from 'components/Results/Results.module.scss';
+import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
 import { Outlet, useSearchParams } from 'react-router-dom';
-import Pagination from 'src/components/pagination/Pagination';
-import { fetchItems } from 'src/services/apiService';
+import Pagination from 'components/pagination/Pagination';
+import { fetchItems } from 'services/apiService';
 
 interface ResultsProps {
   searchTerm: string | null;

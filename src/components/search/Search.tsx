@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from 'src/components/Search/Search.module.scss';
+import styles from 'components/Search/Search.module.scss';
 
 interface SearchProps {
   searchTerm: string | null;

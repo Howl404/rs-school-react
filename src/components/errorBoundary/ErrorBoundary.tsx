@@ -1,5 +1,5 @@
 import { Component, PropsWithChildren } from 'react';
-import styles from 'src/components/errorBoundary/ErrorBoundary.module.scss';
+import styles from 'components/errorBoundary/ErrorBoundary.module.scss';
 
 interface ErrorBoundaryState {
   error: Error | null;

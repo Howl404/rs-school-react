@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
-import styles from 'src/components/card/Card.module.scss';
-import { Product } from '../results/Results';
+import styles from 'components/card/Card.module.scss';
+import { Product } from 'components/results/Results';
 
 export interface CardProps {
   product: Product;

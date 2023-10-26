@@ -2,13 +2,11 @@ import { Component, PropsWithChildren } from 'react';
 import styles from 'components/errorBoundary/ErrorBoundary.module.scss';
 
 interface ErrorBoundaryState {
-  hasError: boolean;
   error: Error | null;
 }
 
 class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundaryState> {
   state: ErrorBoundaryState = {
-    hasError: false,
     error: null,
   };
 
@@ -20,15 +18,15 @@ class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundaryState> {
   }
 
   resetError = () => {
-    this.setState({ hasError: false, error: null });
+    this.setState({ error: null });
   };
 
   render() {
-    if (this.state.hasError) {
+    if (this.state.error) {
       return (
         <div className={styles.container}>
           <h1 className={styles.header}>Something went wrong</h1>
-          <p className={styles.text}>{this.state.error?.toString()}</p>
+          <p className={styles.text}>{this.state.error.toString()}</p>
           <button onClick={this.resetError} className={styles.button}>
             Reset
           </button>

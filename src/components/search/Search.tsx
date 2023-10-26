@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from 'components/Search/Search.module.scss';
+import { useSearchParams } from 'react-router-dom';
 
 interface SearchProps {
   searchTerm: string | null;
@@ -10,6 +11,7 @@ function Search(props: SearchProps) {
   const { setSearchTerm } = props;
 
   const [inputText, setInputText] = useState<string | null>(null);
+  const [, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     const searchTerm = localStorage.getItem('howl-searchTerm');
@@ -28,6 +30,10 @@ function Search(props: SearchProps) {
 
   function handleSearch() {
     if (typeof inputText === 'string') {
+      setSearchParams((searchParams) => {
+        searchParams.delete('page');
+        return searchParams;
+      });
       const trimmedSearchTerm = inputText.trim();
       localStorage.setItem('howl-searchTerm', trimmedSearchTerm);
       setSearchTerm(trimmedSearchTerm);

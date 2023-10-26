@@ -1,12 +1,10 @@
 .container {
-  margin-top: 50px;
-  margin-bottom: 100px;
   display: flex;
   flex-wrap: wrap;
   justify-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 6px;
+  padding: 50px 6px 50px 6px;
   background-color: #8c92ac44;
   border-radius: 6px;
 }
@@ -15,4 +13,14 @@
   display: grid;
   grid-template-columns: 1fr auto;
   min-height: 800px;
+}
+
+@media (max-width: 560px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .container {
+    padding-bottom: 100px;
+  }
 }

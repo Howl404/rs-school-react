@@ -7,7 +7,7 @@ function DetailedCard(props: CardProps): JSX.Element {
   const [, setSearchParams] = useSearchParams();
 
   return (
-    <div key={id} className={styles.card}>
+    <div key={id} className={styles.detailedCard}>
       <button
         className={styles.button}
         onClick={() => {
@@ -17,7 +17,7 @@ function DetailedCard(props: CardProps): JSX.Element {
           });
         }}
       >
-        X
+        close
       </button>
       <h3 className={styles.card_header}>{name}</h3>
       <img

@@ -1,10 +1,20 @@
 .container {
-  margin-top: 50px;
+  padding-top: 50px;
   display: flex;
   justify-content: center;
   height: 100%;
   width: 320px;
   div {
     position: fixed;
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    width: 100%;
+    padding-bottom: 50px;
+    div {
+      position: relative;
+    }
   }
 }

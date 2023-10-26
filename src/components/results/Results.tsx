@@ -63,7 +63,7 @@ function Results(props: ResultsProps) {
           ))}
         </div>
       )}
-      <Outlet />
+      {productId ? <Outlet /> : ''}
       <Pagination setSearchParams={setSearchParams} page={page} />
     </div>
   );

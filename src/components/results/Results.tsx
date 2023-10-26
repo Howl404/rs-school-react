@@ -23,7 +23,18 @@ function Results(props: ResultsProps) {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const pageQueryParam = searchParams.get('page');
-  const page = pageQueryParam ? Number(pageQueryParam) : 1;
+
+  let page: number;
+  if (!pageQueryParam) {
+    setSearchParams((searchParams) => {
+      searchParams.set('page', '1');
+      return searchParams;
+    });
+    page = 1;
+  } else {
+    page = Number(pageQueryParam);
+  }
+
   const productId = searchParams.get('productId');
 
   const [products, setProducts] = useState<Product[]>([]);

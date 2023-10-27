@@ -9,27 +9,31 @@ interface PaginationProps {
 function Pagination(props: PaginationProps) {
   const { setSearchParams, page } = props;
 
-  function previousPage() {
+  function changePage(page: number) {
     setSearchParams((searchParams) => {
-      searchParams.set('page', (page - 1).toString());
-      return searchParams;
-    });
-  }
-
-  function nextPage() {
-    setSearchParams((searchParams) => {
-      searchParams.set('page', (page + 1).toString());
+      searchParams.set('page', page.toString());
       return searchParams;
     });
   }
 
   return (
     <div className={styles.container}>
-      <button onClick={previousPage} disabled={page === 1}>
+      <button
+        onClick={() => {
+          changePage(page - 1);
+        }}
+        disabled={page === 1}
+      >
         {'<'}
       </button>
       <p>{page}</p>
-      <button onClick={nextPage}>{'>'}</button>
+      <button
+        onClick={() => {
+          changePage(page + 1);
+        }}
+      >
+        {'>'}
+      </button>
     </div>
   );
 }

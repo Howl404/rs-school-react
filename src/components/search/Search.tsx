@@ -31,7 +31,7 @@ function Search(props: SearchProps) {
   function handleSearch() {
     if (typeof inputText === 'string') {
       setSearchParams((searchParams) => {
-        searchParams.delete('page');
+        searchParams.set('page', '1');
         return searchParams;
       });
       const trimmedSearchTerm = inputText.trim();

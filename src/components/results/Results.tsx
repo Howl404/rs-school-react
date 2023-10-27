@@ -41,8 +41,15 @@ function Results(props: ResultsProps) {
   }, [searchTerm, page]);
 
   useEffect(() => {
+    if (!pageQueryParam) {
+      setSearchParams((searchParams) => {
+        searchParams.set('page', '1');
+        return searchParams;
+      });
+    }
+
     loadProducts();
-  }, [loadProducts]);
+  }, [loadProducts, pageQueryParam, setSearchParams]);
 
   return (
     <div className={productId ? styles.wrapper : ''}>

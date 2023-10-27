@@ -1,7 +1,7 @@
 import { Product } from 'components/results/Results';
 
 export async function fetchItems(searchTerm: string, page: number) {
-  let api = `https://api.punkapi.com/v2/beers/?page=${page}&per_page=9`;
+  let api = `https://api.punkapi.com/v2/beers/?page=${page}&per_page=16`;
   if (searchTerm) {
     api += `&beer_name=${searchTerm}`;
   }

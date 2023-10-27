@@ -1,3 +1,5 @@
+import { Product } from 'components/results/Results';
+
 export async function fetchItems(searchTerm: string, page: number) {
   let api = `https://api.punkapi.com/v2/beers/?page=${page}&per_page=9`;
   if (searchTerm) {
@@ -5,7 +7,7 @@ export async function fetchItems(searchTerm: string, page: number) {
   }
 
   const response = await fetch(api);
-  const data = await response.json();
+  const data: Product[] = await response.json();
   return data;
 }
 
@@ -13,6 +15,6 @@ export async function fetchItem(id: string) {
   const api = `https://api.punkapi.com/v2/beers/${id}`;
 
   const response = await fetch(api);
-  const data = await response.json();
+  const data: Product[] = await response.json();
   return data[0];
 }

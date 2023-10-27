@@ -3,7 +3,7 @@ import styles from 'src/components/detailedCard/DetailedCard.module.scss';
 import { CardProps } from 'src/components/card/Card';
 
 function DetailedCard(props: CardProps): JSX.Element {
-  const { id, description, name, image_url } = props.product;
+  const { id, description, name, image_url, first_brewed } = props.product;
   const [, setSearchParams] = useSearchParams();
 
   return (
@@ -26,6 +26,7 @@ function DetailedCard(props: CardProps): JSX.Element {
         className={styles.card_image}
       />
       <p className={styles.card_description}>{description}</p>
+      <p className={styles.card_description}>{first_brewed}</p>
     </div>
   );
 }

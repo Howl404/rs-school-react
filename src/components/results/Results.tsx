@@ -1,14 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import Card from 'components/card/Card';
 import styles from 'components/Results/Results.module.scss';
 import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import Pagination from 'components/pagination/Pagination';
 import { fetchItems } from 'services/apiService';
-
-interface ResultsProps {
-  searchTerm: string | null;
-}
+import { SearchTermContext } from 'src/contexts/SearchTermContext';
+import { ProductsContext } from 'src/contexts/ProductsContext';
 
 export type Product = {
   name: string;
@@ -19,8 +17,9 @@ export type Product = {
   first_brewed: string;
 };
 
-function Results(props: ResultsProps) {
-  const { searchTerm } = props;
+function Results() {
+  const { searchTerm } = useContext(SearchTermContext);
+  const { products, setProducts } = useContext(ProductsContext);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const pageQueryParam = searchParams.get('page');
@@ -28,7 +27,6 @@ function Results(props: ResultsProps) {
 
   const productId = searchParams.get('productId');
 
-  const [products, setProducts] = useState<Product[]>([]);
   const [loading, isLoading] = useState(false);
 
   const loadProducts = useCallback(async () => {
@@ -38,7 +36,7 @@ function Results(props: ResultsProps) {
       setProducts(data);
       isLoading(false);
     }
-  }, [searchTerm, page]);
+  }, [searchTerm, page, setProducts]);
 
   useEffect(() => {
     loadProducts();

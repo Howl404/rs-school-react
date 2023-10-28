@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from 'components/Search/Search.module.scss';
 import { useSearchParams } from 'react-router-dom';
+import { SearchTermContext } from 'src/contexts/SearchTermContext';
 
-interface SearchProps {
-  searchTerm: string | null;
-  setSearchTerm: React.Dispatch<React.SetStateAction<string | null>>;
-}
-
-function Search(props: SearchProps) {
-  const { setSearchTerm } = props;
+function Search() {
+  const { setSearchTerm } = useContext(SearchTermContext);
 
   const [inputText, setInputText] = useState<string | null>(null);
   const [, setSearchParams] = useSearchParams();

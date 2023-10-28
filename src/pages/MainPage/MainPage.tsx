@@ -2,9 +2,10 @@ import { useState } from 'react';
 import Search from 'src/components/search/Search';
 import Results from 'src/components/results/Results';
 import styles from 'src/pages/MainPage/MainPage.module.scss';
+import { SearchTermContextProvider } from 'src/contexts/SearchTermContext';
+import { ProductsContextProvider } from 'src/contexts/ProductsContext';
 
 function MainPage() {
-  const [searchTerm, setSearchTerm] = useState<string | null>(null);
   const [error, setError] = useState(false);
 
   if (error) {
@@ -21,8 +22,12 @@ function MainPage() {
       >
         Throw Error
       </button>
-      <Search setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
-      <Results searchTerm={searchTerm} />
+      <SearchTermContextProvider>
+        <Search />
+        <ProductsContextProvider>
+          <Results />
+        </ProductsContextProvider>
+      </SearchTermContextProvider>
     </>
   );
 }

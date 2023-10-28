@@ -1,10 +1,11 @@
-import { useSearchParams } from 'react-router-dom';
 import styles from 'src/components/detailedCard/DetailedCard.module.scss';
 import { CardProps } from 'src/components/card/Card';
+import { useContext } from 'react';
+import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
 
 function DetailedCard(props: CardProps): JSX.Element {
   const { id, description, name, image_url, first_brewed } = props.product;
-  const [, setSearchParams] = useSearchParams();
+  const { setSearchParams } = useContext(SearchParamsContext);
 
   return (
     <div key={id} className={styles.detailedCard}>

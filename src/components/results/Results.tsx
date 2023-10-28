@@ -21,8 +21,8 @@ export type Product = {
 function Results() {
   const { searchTerm } = useContext(SearchTermContext);
   const { setProducts } = useContext(ProductsContext);
-
   const { searchParams, setSearchParams } = useContext(SearchParamsContext);
+
   const pageQueryParam = searchParams.get('page');
   const page = pageQueryParam ? Number(pageQueryParam) : 1;
 
@@ -55,7 +55,7 @@ function Results() {
   return (
     <div className={productId ? styles.wrapper : ''}>
       {loading ? <LoadingSpinner /> : <CardList />}
-      <Outlet />
+      {productId ? <Outlet /> : null}
       <Pagination page={page} />
     </div>
   );

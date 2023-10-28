@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
 
-it('renders the specified number of cards', () => {
+it('Verify that the component renders the specified number of cards', () => {
   const mockProducts: Product[] = [
     {
       id: 1,
@@ -56,7 +56,7 @@ it('renders the specified number of cards', () => {
   expect(cards).toHaveLength(2);
 });
 
-it('displays a message when no cards are present', () => {
+it('Check that an appropriate message is displayed if no cards are present', () => {
   const mockProducts: Product[] = [];
 
   const mockSetProducts: React.Dispatch<
@@ -87,7 +87,7 @@ it('displays a message when no cards are present', () => {
   expect(message).toBeInTheDocument();
 });
 
-it('calls function on click', async () => {
+it('Calls function to set product id', async () => {
   const mockProducts: Product[] = [
     {
       id: 1,

@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+
 import pages from 'src/router/pages';
 
 export const Router = () => {
@@ -10,6 +11,10 @@ export const Router = () => {
           element={pages.detailedPage.element}
         />
       </Route>
+      <Route
+        path={pages.notFoundPage.path}
+        element={pages.notFoundPage.element}
+      />
     </Routes>
   );
 };

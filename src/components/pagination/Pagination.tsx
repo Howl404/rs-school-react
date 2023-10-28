@@ -1,5 +1,6 @@
-import { useSearchParams } from 'react-router-dom';
+import { useContext } from 'react';
 import styles from 'src/components/pagination/Pagination.module.scss';
+import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
 
 interface PaginationProps {
   page: number;
@@ -7,7 +8,7 @@ interface PaginationProps {
 
 function Pagination(props: PaginationProps) {
   const { page } = props;
-  const [, setSearchParams] = useSearchParams();
+  const { setSearchParams } = useContext(SearchParamsContext);
 
   function changePage(page: number) {
     setSearchParams((searchParams) => {

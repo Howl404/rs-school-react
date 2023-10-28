@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import * as path from 'path';
 
@@ -12,5 +12,9 @@ export default defineConfig({
       pages: path.resolve(__dirname, './src/pages'),
       services: path.resolve(__dirname, './src/services'),
     },
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
   },
 });

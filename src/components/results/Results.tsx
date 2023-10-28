@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import Card from 'components/card/Card';
 import styles from 'components/Results/Results.module.scss';
 import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import Pagination from 'components/pagination/Pagination';
 import { fetchItems } from 'services/apiService';
+import CardList from 'components/cardList/CardList';
 
 interface ResultsProps {
   searchTerm: string | null;
@@ -58,21 +58,7 @@ function Results(props: ResultsProps) {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <div
-          className={styles.container}
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setSearchParams((searchParams) => {
-                searchParams.delete('productId');
-                return searchParams;
-              });
-            }
-          }}
-        >
-          {products.map((product) => (
-            <Card product={product} key={product.id} />
-          ))}
-        </div>
+        <CardList products={products} setSearchParams={setSearchParams} />
       )}
       {productId ? <Outlet /> : ''}
       <Pagination setSearchParams={setSearchParams} page={page} />

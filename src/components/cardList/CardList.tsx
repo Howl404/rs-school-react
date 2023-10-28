@@ -1,15 +1,12 @@
 import styles from 'components/cardList/CardList.module.scss';
 import Card from 'components/card/Card';
-import { Product } from 'components/results/Results';
-import { SetURLSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import { ProductsContext } from 'src/contexts/ProductsContext';
+import { useContext } from 'react';
 
-interface CardListProps {
-  products: Product[];
-  setSearchParams: SetURLSearchParams;
-}
-
-function CardList(props: CardListProps) {
-  const { products, setSearchParams } = props;
+function CardList() {
+  const [, setSearchParams] = useSearchParams();
+  const { products } = useContext(ProductsContext);
   return (
     <div
       className={styles.container}

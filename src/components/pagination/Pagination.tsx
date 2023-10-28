@@ -1,13 +1,13 @@
-import { SetURLSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import styles from 'src/components/pagination/Pagination.module.scss';
 
 interface PaginationProps {
-  setSearchParams: SetURLSearchParams;
   page: number;
 }
 
 function Pagination(props: PaginationProps) {
-  const { setSearchParams, page } = props;
+  const { page } = props;
+  const [, setSearchParams] = useSearchParams();
 
   function changePage(page: number) {
     setSearchParams((searchParams) => {

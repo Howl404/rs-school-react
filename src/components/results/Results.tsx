@@ -1,7 +1,6 @@
 import { Component } from 'react';
-import Card from 'components/card/Card';
-import styles from 'components/Results/Results.module.scss';
 import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
+import CardList from 'components/cardList/CardList';
 
 interface ResultsProps {
   searchTerm: string | null;
@@ -48,11 +47,7 @@ class Results extends Component<ResultsProps> {
         {this.state.isLoading ? (
           <LoadingSpinner />
         ) : (
-          <div className={styles.container}>
-            {this.state.results.map((result) => (
-              <Card result={result} key={result.id} />
-            ))}
-          </div>
+          <CardList results={this.state.results} />
         )}
       </>
     );

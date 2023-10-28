@@ -1,6 +1,7 @@
-import { useSearchParams } from 'react-router-dom';
 import styles from 'components/card/Card.module.scss';
 import { Product } from 'components/results/Results';
+import { useContext } from 'react';
+import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
 
 export type CardProps = {
   product: Product;
@@ -8,12 +9,13 @@ export type CardProps = {
 
 function Card(props: CardProps): JSX.Element {
   const { id, tagline, name, image_url } = props.product;
-  const [, setSearchParams] = useSearchParams();
+  const { setSearchParams } = useContext(SearchParamsContext);
 
   return (
     <div
       key={id}
       className={styles.card}
+      data-testid="card"
       onClick={() => {
         setSearchParams((searchParams) => {
           searchParams.set('productId', id.toString());

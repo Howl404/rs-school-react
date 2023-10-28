@@ -4,6 +4,7 @@ import Results from 'src/components/results/Results';
 import styles from 'src/pages/MainPage/MainPage.module.scss';
 import { SearchTermContextProvider } from 'src/contexts/SearchTermContext';
 import { ProductsContextProvider } from 'src/contexts/ProductsContext';
+import { SearchParamsProvider } from 'src/contexts/SearchParamsContext';
 
 function MainPage() {
   const [error, setError] = useState(false);
@@ -25,7 +26,9 @@ function MainPage() {
       <SearchTermContextProvider>
         <Search />
         <ProductsContextProvider>
-          <Results />
+          <SearchParamsProvider>
+            <Results />
+          </SearchParamsProvider>
         </ProductsContextProvider>
       </SearchTermContextProvider>
     </>

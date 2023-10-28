@@ -1,12 +1,13 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import styles from 'components/Results/Results.module.scss';
 import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Pagination from 'components/pagination/Pagination';
 import { fetchItems } from 'services/apiService';
 import CardList from 'components/cardList/CardList';
 import { SearchTermContext } from 'src/contexts/SearchTermContext';
 import { ProductsContext } from 'src/contexts/ProductsContext';
+import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
 
 export type Product = {
   name: string;
@@ -21,7 +22,7 @@ function Results() {
   const { searchTerm } = useContext(SearchTermContext);
   const { setProducts } = useContext(ProductsContext);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { searchParams, setSearchParams } = useContext(SearchParamsContext);
   const pageQueryParam = searchParams.get('page');
   const page = pageQueryParam ? Number(pageQueryParam) : 1;
 
@@ -53,12 +54,8 @@ function Results() {
 
   return (
     <div className={productId ? styles.wrapper : ''}>
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
-        <CardList setSearchParams={setSearchParams} />
-      )}
-      {productId ? <Outlet /> : ''}
+      {loading ? <LoadingSpinner /> : <CardList />}
+      <Outlet />
       <Pagination page={page} />
     </div>
   );

@@ -6,6 +6,7 @@ import { ProductsContext } from 'src/contexts/ProductsContext';
 import { Product } from 'components/results/Results';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
+import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
 
 it('renders the specified number of cards', () => {
   const mockProducts: Product[] = [
@@ -32,13 +33,21 @@ it('renders the specified number of cards', () => {
   > = () => {};
 
   const mockSetSearchParams = vi.fn();
+  const mockSearchParams = {} as URLSearchParams;
 
   render(
     <BrowserRouter>
       <ProductsContext.Provider
         value={{ products: mockProducts, setProducts: mockSetProducts }}
       >
-        <CardList setSearchParams={mockSetSearchParams} />
+        <SearchParamsContext.Provider
+          value={{
+            searchParams: mockSearchParams,
+            setSearchParams: mockSetSearchParams,
+          }}
+        >
+          <CardList />
+        </SearchParamsContext.Provider>
       </ProductsContext.Provider>
     </BrowserRouter>
   );
@@ -55,13 +64,21 @@ it('displays a message when no cards are present', () => {
   > = () => {};
 
   const mockSetSearchParams = vi.fn();
+  const mockSearchParams = {} as URLSearchParams;
 
   render(
     <BrowserRouter>
       <ProductsContext.Provider
         value={{ products: mockProducts, setProducts: mockSetProducts }}
       >
-        <CardList setSearchParams={mockSetSearchParams} />
+        <SearchParamsContext.Provider
+          value={{
+            searchParams: mockSearchParams,
+            setSearchParams: mockSetSearchParams,
+          }}
+        >
+          <CardList />
+        </SearchParamsContext.Provider>
       </ProductsContext.Provider>
     </BrowserRouter>
   );
@@ -95,13 +112,21 @@ it('calls function on click', async () => {
   > = () => {};
 
   const mockSetSearchParams = vi.fn();
+  const mockSearchParams = {} as URLSearchParams;
 
   render(
     <BrowserRouter>
       <ProductsContext.Provider
         value={{ products: mockProducts, setProducts: mockSetProducts }}
       >
-        <CardList setSearchParams={mockSetSearchParams} />
+        <SearchParamsContext.Provider
+          value={{
+            searchParams: mockSearchParams,
+            setSearchParams: mockSetSearchParams,
+          }}
+        >
+          <CardList />
+        </SearchParamsContext.Provider>
       </ProductsContext.Provider>
     </BrowserRouter>
   );

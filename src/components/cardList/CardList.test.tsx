@@ -1,9 +1,9 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
-import CardList from './CardList';
+import CardList from 'components/cardList/CardList';
 import { ProductsContext } from 'src/contexts/ProductsContext';
-import { Product } from '../results/Results';
+import { Product } from 'components/results/Results';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 

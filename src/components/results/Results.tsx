@@ -53,7 +53,11 @@ function Results() {
 
   return (
     <div className={productId ? styles.wrapper : ''}>
-      {loading ? <LoadingSpinner /> : <CardList />}
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <CardList setSearchParams={setSearchParams} />
+      )}
       {productId ? <Outlet /> : ''}
       <Pagination page={page} />
     </div>

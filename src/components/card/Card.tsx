@@ -2,9 +2,9 @@ import { useSearchParams } from 'react-router-dom';
 import styles from 'components/card/Card.module.scss';
 import { Product } from 'components/results/Results';
 
-export interface CardProps {
+export type CardProps = {
   product: Product;
-}
+};
 
 function Card(props: CardProps): JSX.Element {
   const { id, tagline, name, image_url } = props.product;

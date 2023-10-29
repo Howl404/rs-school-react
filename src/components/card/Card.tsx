@@ -1,13 +1,9 @@
 import { Component } from 'react';
 import styles from 'components/card/Card.module.scss';
+import { Result } from '../results/Results';
 
 interface CardProps {
-  result: {
-    name: string;
-    tagline: string;
-    id: number;
-    image_url: string;
-  };
+  result: Result;
 }
 
 class Card extends Component<CardProps> {

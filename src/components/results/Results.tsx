@@ -6,14 +6,16 @@ interface ResultsProps {
   searchTerm: string | null;
 }
 
+export type Result = {
+  name: string;
+  tagline: string;
+  id: number;
+  image_url: string;
+};
+
 class Results extends Component<ResultsProps> {
   state: {
-    results: {
-      name: string;
-      tagline: string;
-      id: number;
-      image_url: string;
-    }[];
+    results: Result[];
     isLoading: boolean;
   } = {
     results: [],

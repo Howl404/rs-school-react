@@ -1,4 +1,4 @@
-import { Component, PropsWithChildren } from 'react';
+import { Component, ErrorInfo, PropsWithChildren } from 'react';
 import styles from 'components/errorBoundary/ErrorBoundary.module.scss';
 
 interface ErrorBoundaryState {
@@ -14,6 +14,10 @@ class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundaryState> {
     return {
       error,
     };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    console.error(error.message, errorInfo.componentStack);
   }
 
   resetError = () => {

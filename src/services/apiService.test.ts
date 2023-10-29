@@ -30,7 +30,7 @@ describe('fetchItems', () => {
     const data = await fetchItems(searchTerm, page);
 
     expect(global.fetch).toHaveBeenCalledWith(
-      `https://api.punkapi.com/v2/beers/?page=${page}&per_page=4&beer_name=${searchTerm}`
+      `https://api.punkapi.com/v2/beers/?page=${page}&per_page=16&beer_name=${searchTerm}`
     );
 
     expect(data).toEqual([
@@ -81,7 +81,7 @@ describe('fetchItems', () => {
     const data = await fetchItems(searchTerm, page);
 
     expect(global.fetch).toHaveBeenCalledWith(
-      `https://api.punkapi.com/v2/beers/?page=${page}&per_page=4`
+      `https://api.punkapi.com/v2/beers/?page=${page}&per_page=16`
     );
 
     expect(data).toEqual([

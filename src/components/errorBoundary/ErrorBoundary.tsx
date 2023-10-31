@@ -1,4 +1,5 @@
 import { Component, ErrorInfo, PropsWithChildren } from 'react';
+
 import styles from 'components/errorBoundary/ErrorBoundary.module.scss';
 
 interface ErrorBoundaryState {
@@ -28,7 +29,7 @@ class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundaryState> {
     if (this.state.error) {
       return (
         <div className={styles.container}>
-          <h1 className={styles.header}>Something went wrong</h1>
+          <h1 className={styles.heading}>Something went wrong</h1>
           <p className={styles.text}>{this.state.error.toString()}</p>
           <button onClick={this.resetError} className={styles.button}>
             Reset

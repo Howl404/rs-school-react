@@ -1,17 +1,17 @@
 .spinner {
   width: 60px;
   height: 60px;
-  margin: 0 auto;
-  transform-origin: center;
-  animation: snipperAnimation 0.75s infinite linear;
+  animation: spinnerAnimation 0.75s infinite linear;
 }
 
 .container {
   display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 50px;
 }
 
-@keyframes snipperAnimation {
+@keyframes spinnerAnimation {
   100% {
     transform: rotate(360deg);
   }

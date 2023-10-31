@@ -1,7 +1,9 @@
 import { Component } from 'react';
-import styles from 'components/cardList/CardList.module.scss';
+
+import { Result } from 'components/results/Results';
 import Card from 'components/card/Card';
-import { Result } from '../results/Results';
+
+import styles from 'components/cardList/CardList.module.scss';
 
 interface CardListProps {
   results: Result[];

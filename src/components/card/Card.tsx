@@ -1,6 +1,8 @@
 import { Component } from 'react';
+
+import { Result } from 'components/results/Results';
+
 import styles from 'components/card/Card.module.scss';
-import { Result } from '../results/Results';
 
 interface CardProps {
   result: Result;
@@ -8,10 +10,10 @@ interface CardProps {
 
 class Card extends Component<CardProps> {
   render() {
-    const { id, tagline, name, image_url } = this.props.result;
+    const { tagline, name, image_url } = this.props.result;
 
     return (
-      <div key={id} className={styles.card}>
+      <div className={styles.card}>
         <h3 className={styles.card_header}>{name}</h3>
         <img
           src={image_url}

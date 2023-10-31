@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
+
 import Search from 'components/search/Search';
 import Results from 'components/results/Results';
+
 import styles from 'src/pages/MainPage.module.scss';
 
 class MainPage extends Component {

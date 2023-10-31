@@ -1,4 +1,5 @@
 import { Component } from 'react';
+
 import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
 import CardList from 'components/cardList/CardList';
 
@@ -23,14 +24,17 @@ class Results extends Component<ResultsProps> {
   };
 
   async fetchResults(searchTerm: string) {
-    let api = 'https://api.punkapi.com/v2/beers/?page=1&per_page=9';
+    const api = new URL('https://api.punkapi.com/v2/beers/');
+    const params = new URLSearchParams({ page: '1', per_page: '9' });
+
     if (searchTerm) {
-      api += `&beer_name=${searchTerm}`;
+      params.set('beer_name', searchTerm);
     }
 
-    const response = await fetch(api);
-    const data = await response.json();
-    this.setState({ results: data, isLoading: false });
+    api.search = params.toString();
+
+    const response = await fetch(api).then((res) => res.json());
+    this.setState({ results: response });
   }
 
   componentDidUpdate(prevProps: ResultsProps) {

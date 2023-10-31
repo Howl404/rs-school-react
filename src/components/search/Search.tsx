@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import styles from 'components/Search/Search.module.scss';
 
 interface SearchProps {

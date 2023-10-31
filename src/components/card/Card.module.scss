@@ -1,0 +1,26 @@
+@import 'src/fonts/fonts.scss';
+@import 'src/_variables.scss';
+
+.card {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid $black;
+  border-radius: 6px;
+  padding: 5px;
+  box-shadow: $black-shadow;
+  text-align: center;
+}
+
+.card_header {
+  font-family: $font-family-primary;
+}
+
+.card_description {
+  font-family: $font-family-secondary;
+}
+
+.card_image {
+  height: 300px;
+}

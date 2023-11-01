@@ -24,6 +24,14 @@ export default function CardList(props: CardListProps) {
     }
   };
 
+  if (products.length === 0) {
+    return (
+      <div className={styles.container}>
+        <p className={styles.errorText}>Nothing is found</p>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container} onClick={closeDetailedPage}>
       {products.map((product) => (

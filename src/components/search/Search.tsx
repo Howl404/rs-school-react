@@ -33,6 +33,12 @@ export default function Search(props: SearchProps) {
     }
   }
 
+  function handleKeyDown(event: React.KeyboardEvent) {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  }
+
   return (
     <div className={styles.searchContainer}>
       <input
@@ -40,6 +46,7 @@ export default function Search(props: SearchProps) {
         defaultValue={searchTerm}
         className={styles.searchInput}
         ref={input}
+        onKeyDown={handleKeyDown}
       />
       <button onClick={handleSearch} className={styles.submitButton}>
         Search

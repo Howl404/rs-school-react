@@ -13,6 +13,8 @@ export default function Pagination(props: PaginationProps) {
 
   const isFirstPage = page === 1;
 
+  const perPageOptions = [5, 10, 15];
+
   const amountPerPage = (perPage: string) => {
     changePage(1);
     setSearchParams((searchParams) => {
@@ -48,10 +50,12 @@ export default function Pagination(props: PaginationProps) {
         </button>
         <p>{page}</p>
         <button onClick={nextPage}>{'>'}</button>
-        <select onChange={handlePerPageChange} defaultValue={perPage}>
-          <option value="5">5 items per page</option>
-          <option value="10">10 items per page</option>
-          <option value="15">15 items per page</option>
+        <select onChange={handlePerPageChange} value={perPage}>
+          {perPageOptions.map((option) => (
+            <option key={option} value={option}>
+              {`${option} items per page`}
+            </option>
+          ))}
         </select>
       </div>
     </>

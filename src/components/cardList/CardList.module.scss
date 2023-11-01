@@ -1,12 +1,19 @@
 @import 'src/variables.scss';
+@import 'src/fonts/fonts.scss';
 
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-items: center;
   justify-content: center;
+  align-content: center;
   gap: 10px;
   padding: 50px 6px 100px 6px;
   background-color: $grey;
   border-radius: 6px;
+}
+
+.errorText {
+  font-size: 24px;
+  font-family: $font-family-primary;
 }

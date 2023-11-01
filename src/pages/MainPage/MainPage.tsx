@@ -1,11 +1,17 @@
 import { useState } from 'react';
+
 import Search from 'src/components/search/Search';
 import Results from 'src/components/results/Results';
+
 import styles from 'src/pages/MainPage/MainPage.module.scss';
 
-function MainPage() {
-  const [searchTerm, setSearchTerm] = useState<string | null>(null);
+export default function MainPage() {
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [error, setError] = useState(false);
+
+  const throwError = () => {
+    setError(true);
+  };
 
   if (error) {
     throw new Error('This is a test error');
@@ -13,12 +19,7 @@ function MainPage() {
 
   return (
     <>
-      <button
-        className={styles.button}
-        onClick={() => {
-          setError(true);
-        }}
-      >
+      <button className={styles.errorButton} onClick={throwError}>
         Throw Error
       </button>
       <Search setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
@@ -26,5 +27,3 @@ function MainPage() {
     </>
   );
 }
-
-export default MainPage;

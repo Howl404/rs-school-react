@@ -1,7 +1,7 @@
 import MainPage from 'src/pages/MainPage/MainPage';
 import DetailedPage from 'src/pages/DetailedPage/DetailedPage';
 
-const pages = {
+export const pages = {
   mainPage: {
     path: '/',
     element: <MainPage />,
@@ -11,5 +11,3 @@ const pages = {
     element: <DetailedPage />,
   },
 };
-
-export default pages;

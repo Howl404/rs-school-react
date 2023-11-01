@@ -1,11 +1,7 @@
-import 'src/App.scss';
-import { Router } from 'src/router/Router';
-function App() {
-  return (
-    <>
-      <Router />
-    </>
-  );
-}
+import Router from 'src/router/Router';
 
-export default App;
+import 'src/App.scss';
+
+export default function App() {
+  return <Router />;
+}

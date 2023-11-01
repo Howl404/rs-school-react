@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
-import { Product } from 'components/results/Results';
+
+import { Product } from 'src/interfaces/product';
 import { fetchItem } from 'services/apiService';
-import styles from 'pages/DetailedPage/DetailedPage.module.scss';
+
+import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
 import DetailedCard from 'components/detailedCard/DetailedCard';
 
-function DetailedPage() {
+import styles from 'pages/DetailedPage/DetailedPage.module.scss';
+
+export default function DetailedPage() {
   const [searchParams] = useSearchParams();
   const productId = searchParams.get('productId');
 
@@ -30,11 +33,9 @@ function DetailedPage() {
     <div className={styles.container}>
       {loading ? (
         <LoadingSpinner />
-      ) : product ? (
-        <DetailedCard product={product} />
-      ) : null}
+      ) : (
+        product && <DetailedCard product={product} />
+      )}
     </div>
   );
 }
-
-export default DetailedPage;

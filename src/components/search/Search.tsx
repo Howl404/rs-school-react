@@ -1,58 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import styles from 'components/Search/Search.module.scss';
+import React, { useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+import styles from 'components/Search/Search.module.scss';
+
 interface SearchProps {
-  searchTerm: string | null;
-  setSearchTerm: React.Dispatch<React.SetStateAction<string | null>>;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Search(props: SearchProps) {
-  const { setSearchTerm } = props;
-
-  const [inputText, setInputText] = useState<string | null>(null);
+export default function Search(props: SearchProps) {
+  const { setSearchTerm, searchTerm } = props;
   const [, setSearchParams] = useSearchParams();
+
+  const input = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const searchTerm = localStorage.getItem('howl-searchTerm');
     if (searchTerm) {
-      setInputText(searchTerm);
       setSearchTerm(searchTerm);
-    } else {
-      setInputText('');
-      setSearchTerm('');
     }
   }, [setSearchTerm]);
 
-  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setInputText(event.target.value);
-  }
-
   function handleSearch() {
-    if (typeof inputText === 'string') {
-      setSearchParams((searchParams) => {
-        searchParams.set('page', '1');
-        return searchParams;
-      });
-      const trimmedSearchTerm = inputText.trim();
+    setSearchParams((searchParams) => {
+      searchParams.set('page', '1');
+      return searchParams;
+    });
+    if (input.current) {
+      const trimmedSearchTerm = input.current.value.trim();
       localStorage.setItem('howl-searchTerm', trimmedSearchTerm);
       setSearchTerm(trimmedSearchTerm);
     }
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.searchContainer}>
       <input
         type="text"
-        value={inputText || ''}
-        onChange={handleInputChange}
-        className={styles.input}
+        defaultValue={searchTerm}
+        className={styles.searchInput}
+        ref={input}
       />
-      <button onClick={handleSearch} className={styles.button}>
+      <button onClick={handleSearch} className={styles.submitButton}>
         Search
       </button>
     </div>
   );
 }
-
-export default Search;

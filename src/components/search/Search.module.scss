@@ -1,6 +1,6 @@
 @import 'src/fonts/fonts.scss';
 
-.container {
+.searchContainer {
   width: 320px;
   margin: 0 auto;
   height: 50px;
@@ -10,15 +10,15 @@
   gap: 20px;
 }
 
-.button,
-.input {
+.submitButton,
+.searchInput {
   padding: 7px 10px;
 }
 
-.button {
+.submitButton {
   font-family: $font-family-primary;
 }
 
-.input {
+.searchInput {
   font-family: $font-family-secondary;
 }

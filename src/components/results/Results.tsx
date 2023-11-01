@@ -1,25 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
-import styles from 'components/Results/Results.module.scss';
-import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
 import { Outlet, useSearchParams } from 'react-router-dom';
-import Pagination from 'components/pagination/Pagination';
+
 import { fetchItems } from 'services/apiService';
+import { Product } from 'src/interfaces/product';
+
+import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
+import Pagination from 'components/pagination/Pagination';
 import CardList from 'components/cardList/CardList';
 
+import styles from 'components/Results/Results.module.scss';
+
 interface ResultsProps {
-  searchTerm: string | null;
+  searchTerm: string;
 }
 
-export type Product = {
-  name: string;
-  description: string;
-  id: number;
-  image_url: string;
-  tagline: string;
-  first_brewed: string;
-};
-
-function Results(props: ResultsProps) {
+export default function Results(props: ResultsProps) {
   const { searchTerm } = props;
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,11 +27,13 @@ function Results(props: ResultsProps) {
   const [loading, isLoading] = useState(false);
 
   const loadProducts = useCallback(async () => {
-    if (typeof searchTerm === 'string') {
+    try {
       isLoading(true);
       const data = await fetchItems(searchTerm, page);
       setProducts(data);
       isLoading(false);
+    } catch (error) {
+      console.error(error);
     }
   }, [searchTerm, page]);
 
@@ -60,10 +57,8 @@ function Results(props: ResultsProps) {
       ) : (
         <CardList products={products} setSearchParams={setSearchParams} />
       )}
-      {productId ? <Outlet /> : ''}
+      {productId && <Outlet />}
       <Pagination setSearchParams={setSearchParams} page={page} />
     </div>
   );
 }
-
-export default Results;

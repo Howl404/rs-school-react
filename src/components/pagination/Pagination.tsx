@@ -1,4 +1,5 @@
 import { SetURLSearchParams } from 'react-router-dom';
+
 import styles from 'src/components/pagination/Pagination.module.scss';
 
 interface PaginationProps {
@@ -6,36 +7,33 @@ interface PaginationProps {
   page: number;
 }
 
-function Pagination(props: PaginationProps) {
+export default function Pagination(props: PaginationProps) {
   const { setSearchParams, page } = props;
 
-  function changePage(page: number) {
+  const isFirstPage = page === 1;
+
+  const changePage = (page: number) => {
     setSearchParams((searchParams) => {
       searchParams.set('page', page.toString());
       return searchParams;
     });
-  }
+  };
+
+  const nextPage = () => {
+    changePage(page + 1);
+  };
+
+  const previousPage = () => {
+    changePage(page - 1);
+  };
 
   return (
-    <div className={styles.container}>
-      <button
-        onClick={() => {
-          changePage(page - 1);
-        }}
-        disabled={page === 1}
-      >
+    <div className={styles.paginationContainer}>
+      <button onClick={previousPage} disabled={isFirstPage}>
         {'<'}
       </button>
       <p>{page}</p>
-      <button
-        onClick={() => {
-          changePage(page + 1);
-        }}
-      >
-        {'>'}
-      </button>
+      <button onClick={nextPage}>{'>'}</button>
     </div>
   );
 }
-
-export default Pagination;

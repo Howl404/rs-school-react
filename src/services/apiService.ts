@@ -1,4 +1,4 @@
-import { Product } from 'components/results/Results';
+import { Product } from 'src/interfaces/product';
 
 export async function fetchItems(searchTerm: string, page: number) {
   let api = `https://api.punkapi.com/v2/beers/?page=${page}&per_page=16`;

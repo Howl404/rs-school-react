@@ -1,3 +1,5 @@
+@import 'src/variables.scss';
+
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -5,6 +7,6 @@
   justify-content: center;
   gap: 10px;
   padding: 50px 6px 100px 6px;
-  background-color: #8c92ac44;
+  background-color: $grey;
   border-radius: 6px;
 }

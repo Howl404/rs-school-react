@@ -1,8 +1,8 @@
 import styles from 'components/loadingSpinner/LoadingSpinner.module.scss';
 
-function LoadingSpinner() {
+export default function LoadingSpinner() {
   return (
-    <div className={styles.container}>
+    <div className={styles.spinnerContainer}>
       <svg
         className={styles.spinner}
         width="36"
@@ -20,5 +20,3 @@ function LoadingSpinner() {
     </div>
   );
 }
-
-export default LoadingSpinner;

@@ -18,8 +18,12 @@ export default function Results(props: ResultsProps) {
   const { searchTerm } = props;
 
   const [searchParams, setSearchParams] = useSearchParams();
+
   const pageQueryParam = searchParams.get('page');
   const page = pageQueryParam ? Number(pageQueryParam) : 1;
+
+  const perPageQueryParam = searchParams.get('perPage');
+  const perPage = perPageQueryParam ? perPageQueryParam : '10';
 
   const productId = searchParams.get('productId');
 
@@ -29,13 +33,13 @@ export default function Results(props: ResultsProps) {
   const loadProducts = useCallback(async () => {
     try {
       isLoading(true);
-      const data = await fetchItems(searchTerm, page);
+      const data = await fetchItems(searchTerm, page, perPage);
       setProducts(data);
       isLoading(false);
     } catch (error) {
       console.error(error);
     }
-  }, [searchTerm, page]);
+  }, [searchTerm, page, perPage]);
 
   useEffect(() => {
     loadProducts();
@@ -48,7 +52,13 @@ export default function Results(props: ResultsProps) {
         return searchParams;
       });
     }
-  }, [pageQueryParam, setSearchParams]);
+    if (!perPageQueryParam) {
+      setSearchParams((searchParams) => {
+        searchParams.set('perPage', '10');
+        return searchParams;
+      });
+    }
+  }, [pageQueryParam, perPageQueryParam, setSearchParams]);
 
   return (
     <div className={productId ? styles.wrapper : ''}>
@@ -58,7 +68,11 @@ export default function Results(props: ResultsProps) {
         <CardList products={products} setSearchParams={setSearchParams} />
       )}
       {productId && <Outlet />}
-      <Pagination setSearchParams={setSearchParams} page={page} />
+      <Pagination
+        setSearchParams={setSearchParams}
+        page={page}
+        perPage={perPage}
+      />
     </div>
   );
 }

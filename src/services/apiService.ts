@@ -1,13 +1,24 @@
 import { Product } from 'src/interfaces/product';
 
-export async function fetchItems(searchTerm: string, page: number) {
-  let api = `https://api.punkapi.com/v2/beers/?page=${page}&per_page=16`;
+export async function fetchItems(
+  searchTerm: string,
+  page: number,
+  perPage: string
+) {
+  const api = new URL('https://api.punkapi.com/v2/beers/');
+  const params = new URLSearchParams({
+    page: page.toString(),
+    per_page: perPage,
+  });
+
   if (searchTerm) {
-    api += `&beer_name=${searchTerm}`;
+    params.set('beer_name', searchTerm);
   }
 
-  const response = await fetch(api);
-  const data: Product[] = await response.json();
+  api.search = params.toString();
+
+  const data: Product[] = await fetch(api).then((res) => res.json());
+
   return data;
 }
 

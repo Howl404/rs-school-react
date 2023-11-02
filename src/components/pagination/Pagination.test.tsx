@@ -8,6 +8,7 @@ import Pagination from 'src/components/pagination/Pagination';
 describe('Make sure the component updates URL query parameter when page changes', () => {
   it('When next page button is clicked', () => {
     const page = 5;
+    const perPage = '1';
     const mockSetSearchParams = vi.fn();
     const mockSearchParams = new URLSearchParams(`page=${page}`);
 
@@ -19,12 +20,12 @@ describe('Make sure the component updates URL query parameter when page changes'
             setSearchParams: mockSetSearchParams,
           }}
         >
-          <Pagination page={page} />
+          <Pagination page={page} perPage={perPage} />
         </SearchParamsContext.Provider>
       </BrowserRouter>
     );
 
-    const nextButton = screen.getByText('>');
+    const nextButton = screen.getByText('ᐳ');
 
     fireEvent.click(nextButton);
 
@@ -37,6 +38,7 @@ describe('Make sure the component updates URL query parameter when page changes'
 
   it('When previous page button is clicked', () => {
     const page = 5;
+    const perPage = '1';
     const mockSetSearchParams = vi.fn();
     const mockSearchParams = new URLSearchParams(`page=${page}`);
 
@@ -48,12 +50,12 @@ describe('Make sure the component updates URL query parameter when page changes'
             setSearchParams: mockSetSearchParams,
           }}
         >
-          <Pagination page={page} />
+          <Pagination page={page} perPage={perPage} />
         </SearchParamsContext.Provider>
       </BrowserRouter>
     );
 
-    const prevButton = screen.getByText('<');
+    const prevButton = screen.getByText('ᐸ');
 
     fireEvent.click(prevButton);
 

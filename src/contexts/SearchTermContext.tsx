@@ -8,7 +8,9 @@ export type SearchTermContextType = {
 export const SearchTermContext = createContext<SearchTermContextType>(null!);
 
 export function SearchTermContextProvider(props: PropsWithChildren) {
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>(
+    localStorage.getItem('howl-searchTerm') || ''
+  );
 
   const value = useMemo(
     () => ({

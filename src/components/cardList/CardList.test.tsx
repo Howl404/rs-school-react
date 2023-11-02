@@ -83,7 +83,7 @@ it('Check that an appropriate message is displayed if no cards are present', () 
     </BrowserRouter>
   );
 
-  const message = screen.getByText('No cards are present');
+  const message = screen.getByText('Nothing is found');
   expect(message).toBeInTheDocument();
 });
 

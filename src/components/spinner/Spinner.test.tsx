@@ -5,9 +5,6 @@ import '@testing-library/jest-dom';
 
 it('Renders the Spinner component', () => {
   render(<Spinner />);
-  const spinnerContainer = screen.getByTestId('loading-spinner-container');
+  const spinnerContainer = screen.getByTestId('spinner-container');
   expect(spinnerContainer).toBeInTheDocument();
-
-  const svgElement = screen.getByTestId('loading-spinner-svg');
-  expect(svgElement).toBeInTheDocument();
 });

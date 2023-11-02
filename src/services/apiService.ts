@@ -25,7 +25,7 @@ export async function fetchItems(
 export async function fetchItem(id: string) {
   const api = `https://api.punkapi.com/v2/beers/${id}`;
 
-  const response = await fetch(api);
-  const data: Product[] = await response.json();
+  const data: Product[] = await fetch(api).then((res) => res.json());
+
   return data[0];
 }

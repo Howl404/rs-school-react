@@ -2,7 +2,7 @@ import styles from 'components/spinner/Spinner.module.scss';
 
 export default function Spinner() {
   return (
-    <div className={styles.container} data-testid="spinner-container">
+    <div className={styles.spinnerContainer} data-testid="spinner-container">
       <svg
         className={styles.spinner}
         width="36"

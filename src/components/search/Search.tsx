@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { SearchTermContext } from 'src/contexts/SearchTermContext';
@@ -11,22 +11,16 @@ export default function Search() {
 
   const input = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    const searchTerm = localStorage.getItem('howl-searchTerm');
-    if (searchTerm) {
-      setSearchTerm(searchTerm);
-    }
-  }, [setSearchTerm]);
-
   function handleSearch() {
-    setSearchParams((searchParams) => {
-      searchParams.set('page', '1');
-      return searchParams;
-    });
     if (input.current) {
       const trimmedSearchTerm = input.current.value.trim();
       localStorage.setItem('howl-searchTerm', trimmedSearchTerm);
       setSearchTerm(trimmedSearchTerm);
+
+      setSearchParams((searchParams) => {
+        searchParams.set('page', '1');
+        return searchParams;
+      });
     }
   }
 

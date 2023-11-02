@@ -5,6 +5,7 @@ describe('fetchItems', () => {
   it('fetches items with a search term and page', async () => {
     const searchTerm = 'test';
     const page = 1;
+    const perPage = '2';
 
     global.fetch = vi.fn().mockResolvedValue({
       json: async () => [
@@ -27,11 +28,17 @@ describe('fetchItems', () => {
       ],
     });
 
-    const data = await fetchItems(searchTerm, page);
+    const data = await fetchItems(searchTerm, page, perPage);
 
-    expect(global.fetch).toHaveBeenCalledWith(
-      `https://api.punkapi.com/v2/beers/?page=${page}&per_page=16&beer_name=${searchTerm}`
-    );
+    const url = new URL('https://api.punkapi.com/v2/beers/');
+    const params = new URLSearchParams({
+      page: page.toString(),
+      per_page: perPage,
+    });
+
+    url.search = params.toString();
+
+    expect(global.fetch).toHaveBeenCalledWith(url);
 
     expect(data).toEqual([
       {
@@ -56,6 +63,7 @@ describe('fetchItems', () => {
   it('fetches items without a search term and with a page', async () => {
     const searchTerm = '';
     const page = 1;
+    const perPage = '2';
 
     global.fetch = vi.fn().mockResolvedValue({
       json: async () => [
@@ -78,11 +86,18 @@ describe('fetchItems', () => {
       ],
     });
 
-    const data = await fetchItems(searchTerm, page);
+    const data = await fetchItems(searchTerm, page, perPage);
 
-    expect(global.fetch).toHaveBeenCalledWith(
-      `https://api.punkapi.com/v2/beers/?page=${page}&per_page=16`
-    );
+    const url = new URL('https://api.punkapi.com/v2/beers/');
+    const params = new URLSearchParams({
+      page: page.toString(),
+      per_page: perPage,
+      beer_name: searchTerm,
+    });
+
+    url.search = params.toString();
+
+    expect(global.fetch).toHaveBeenCalledWith(url);
 
     expect(data).toEqual([
       {

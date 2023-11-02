@@ -5,7 +5,7 @@ import { cls } from 'src/utils/cls';
 import useItems from 'src/hooks/useItems';
 import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
 
-import LoadingSpinner from 'src/components/spinner/Spinner';
+import Spinner from 'src/components/spinner/Spinner';
 import Pagination from 'components/pagination/Pagination';
 import CardList from 'components/cardList/CardList';
 
@@ -47,7 +47,7 @@ export default function Results() {
 
   const content = () => {
     if (isLoading) {
-      return <LoadingSpinner />;
+      return <Spinner />;
     }
     return <CardList />;
   };

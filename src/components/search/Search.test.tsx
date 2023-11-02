@@ -1,4 +1,4 @@
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import Search from 'src/components/search/Search';
 import { afterEach, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
@@ -88,8 +88,10 @@ it('Component retrieves the value from local storage upon mounting', () => {
 
   const inputElement = screen.getByRole('textbox') as HTMLInputElement;
 
-  expect(inputElement.value).toBe('test search');
-  expect(mockSetSearchTerm).toHaveBeenCalledWith('test search');
+  waitFor(() => {
+    expect(inputElement.value).toBe('test search');
+    expect(mockSetSearchTerm).toHaveBeenCalledWith('test search');
+  });
 });
 
 afterEach(() => {

@@ -8,8 +8,7 @@ interface SearchProps {
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Search(props: SearchProps) {
-  const { setSearchTerm, searchTerm } = props;
+export default function Search({ searchTerm, setSearchTerm }: SearchProps) {
   const [, setSearchParams] = useSearchParams();
 
   const input = useRef<HTMLInputElement | null>(null);

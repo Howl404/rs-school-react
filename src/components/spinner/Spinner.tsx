@@ -1,6 +1,6 @@
-import styles from 'components/loadingSpinner/LoadingSpinner.module.scss';
+import styles from 'components/spinner/Spinner.module.scss';
 
-export default function LoadingSpinner() {
+export default function Spinner() {
   return (
     <div className={styles.spinnerContainer}>
       <svg

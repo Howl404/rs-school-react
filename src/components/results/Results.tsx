@@ -1,72 +1,54 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 
-import { fetchItems } from 'services/apiService';
-import { Product } from 'src/interfaces/product';
+import { cls } from 'src/utils/cls';
+import useItems from 'src/hooks/useItems';
 
-import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
+import LoadingSpinner from 'src/components/spinner/Spinner';
 import Pagination from 'components/pagination/Pagination';
 import CardList from 'components/cardList/CardList';
 
 import styles from 'components/Results/Results.module.scss';
 
+const defaultParams = [
+  { key: 'page', value: '1' },
+  { key: 'perPage', value: '10' },
+];
+
 interface ResultsProps {
   searchTerm: string;
 }
 
-export default function Results(props: ResultsProps) {
-  const { searchTerm } = props;
-
+export default function Results({ searchTerm }: ResultsProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const pageQueryParam = searchParams.get('page');
-  const page = pageQueryParam ? Number(pageQueryParam) : 1;
-
-  const perPageQueryParam = searchParams.get('perPage');
-  const perPage = perPageQueryParam ? perPageQueryParam : '10';
-
+  const page = Number(searchParams.get('page') || 1);
+  const perPage = searchParams.get('perPage') || '10';
   const productId = searchParams.get('productId');
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, isLoading] = useState(false);
-
-  const loadProducts = useCallback(async () => {
-    try {
-      isLoading(true);
-      const data = await fetchItems(searchTerm, page, perPage);
-      setProducts(data);
-      isLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [searchTerm, page, perPage]);
+  const { products, isLoading } = useItems({ page, searchTerm, perPage });
 
   useEffect(() => {
-    loadProducts();
-  }, [loadProducts]);
+    defaultParams.forEach(({ key, value }) => {
+      if (!searchParams.get(key)) {
+        setSearchParams((searchParams) => {
+          searchParams.set(key, value);
+          return searchParams;
+        });
+      }
+    });
+  }, [searchParams, setSearchParams]);
 
-  useEffect(() => {
-    if (!pageQueryParam) {
-      setSearchParams((searchParams) => {
-        searchParams.set('page', '1');
-        return searchParams;
-      });
+  const content = () => {
+    if (isLoading) {
+      return <LoadingSpinner />;
     }
-    if (!perPageQueryParam) {
-      setSearchParams((searchParams) => {
-        searchParams.set('perPage', '10');
-        return searchParams;
-      });
-    }
-  }, [pageQueryParam, perPageQueryParam, setSearchParams]);
+    return <CardList products={products} setSearchParams={setSearchParams} />;
+  };
 
   return (
-    <div className={productId ? styles.wrapper : ''}>
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
-        <CardList products={products} setSearchParams={setSearchParams} />
-      )}
+    <div className={cls(productId && styles.wrapper)}>
+      {content()}
       {productId && <Outlet />}
       <Pagination
         setSearchParams={setSearchParams}

@@ -1,5 +1,5 @@
 @import 'src/fonts/fonts.scss';
-@import 'src/variables.scss';
+@import 'src/styles/variables.scss';
 
 .card {
   width: 200px;
@@ -20,12 +20,7 @@
   }
 }
 
-.cardHeading {
-  font-family: $font-family-primary;
-}
-
 .cardText {
-  font-family: $font-family-secondary;
   font-size: 14px;
 }
 

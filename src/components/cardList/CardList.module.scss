@@ -1,5 +1,5 @@
-@import 'src/variables.scss';
 @import 'src/fonts/fonts.scss';
+@import 'src/styles/variables.scss';
 
 .container {
   display: flex;
@@ -11,9 +11,5 @@
   padding: 50px 6px 100px 6px;
   background-color: $grey;
   border-radius: 6px;
-}
-
-.errorText {
-  font-size: 24px;
-  font-family: $font-family-primary;
+  min-height: 70vh;
 }

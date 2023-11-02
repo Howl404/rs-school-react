@@ -4,9 +4,4 @@
   min-height: 800px;
 }
 
-@media (max-width: 560px) {
-  .wrapper {
-    display: flex;
-    flex-direction: column-reverse;
-  }
-}
+@import 'src/styles/media.scss';

@@ -4,8 +4,9 @@ import { CardProps } from 'src/components/card/Card';
 
 import styles from 'src/components/detailedCard/DetailedCard.module.scss';
 
-export default function DetailedCard(props: CardProps): JSX.Element {
-  const { description, name, image_url, first_brewed } = props.product;
+export default function DetailedCard({
+  product: { description, name, image_url, first_brewed },
+}: CardProps): JSX.Element {
   const [, setSearchParams] = useSearchParams();
 
   const closeDetailedPage = (e: React.MouseEvent) => {

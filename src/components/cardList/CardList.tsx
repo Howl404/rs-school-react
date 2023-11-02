@@ -12,9 +12,7 @@ interface CardListProps {
   setSearchParams: SetURLSearchParams;
 }
 
-export default function CardList(props: CardListProps) {
-  const { products, setSearchParams } = props;
-
+export default function CardList({ products, setSearchParams }: CardListProps) {
   const closeDetailedPage = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       setSearchParams((searchParams) => {
@@ -24,10 +22,10 @@ export default function CardList(props: CardListProps) {
     }
   };
 
-  if (products.length === 0) {
+  if (!products.length) {
     return (
       <div className={styles.container}>
-        <p className={styles.errorText}>Nothing is found</p>
+        <h2>Nothing is found</h2>
       </div>
     );
   }

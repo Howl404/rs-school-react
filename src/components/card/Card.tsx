@@ -8,8 +8,9 @@ export interface CardProps {
   product: Product;
 }
 
-export default function Card(props: CardProps): JSX.Element {
-  const { id, tagline, name, image_url } = props.product;
+export default function Card({
+  product: { id, tagline, name, image_url },
+}: CardProps): JSX.Element {
   const [, setSearchParams] = useSearchParams();
 
   const openDetailedPage = () => {

@@ -2,7 +2,7 @@ import MainPage from 'src/pages/MainPage/MainPage';
 import DetailedPage from 'src/pages/DetailedPage/DetailedPage';
 import NotFoundPage from 'src/pages/NotFoundPage/NotFoundPage';
 
-const pages = {
+export const pages = {
   mainPage: {
     path: '/',
     element: <MainPage />,
@@ -16,5 +16,3 @@ const pages = {
     element: <NotFoundPage />,
   },
 };
-
-export default pages;

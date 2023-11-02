@@ -1,13 +1,20 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import styles from 'components/Results/Results.module.scss';
-import LoadingSpinner from 'components/loadingSpinner/LoadingSpinner';
+import { useEffect, useContext } from 'react';
 import { Outlet } from 'react-router-dom';
-import Pagination from 'components/pagination/Pagination';
-import { fetchItems } from 'services/apiService';
-import CardList from 'components/cardList/CardList';
-import { SearchTermContext } from 'src/contexts/SearchTermContext';
-import { ProductsContext } from 'src/contexts/ProductsContext';
+
+import { cls } from 'src/utils/cls';
+import useItems from 'src/hooks/useItems';
 import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
+
+import LoadingSpinner from 'src/components/spinner/Spinner';
+import Pagination from 'components/pagination/Pagination';
+import CardList from 'components/cardList/CardList';
+
+import styles from 'components/Results/Results.module.scss';
+
+const defaultParams = [
+  { key: 'page', value: '1' },
+  { key: 'perPage', value: '10' },
+];
 
 export type Product = {
   name: string;
@@ -18,47 +25,38 @@ export type Product = {
   first_brewed: string;
 };
 
-function Results() {
-  const { searchTerm } = useContext(SearchTermContext);
-  const { setProducts } = useContext(ProductsContext);
+export default function Results() {
   const { searchParams, setSearchParams } = useContext(SearchParamsContext);
 
-  const pageQueryParam = searchParams.get('page');
-  const page = pageQueryParam ? Number(pageQueryParam) : 1;
-
+  const page = Number(searchParams.get('page') || 1);
+  const perPage = searchParams.get('perPage') || '10';
   const productId = searchParams.get('productId');
 
-  const [loading, isLoading] = useState(false);
-
-  const loadProducts = useCallback(async () => {
-    if (typeof searchTerm === 'string') {
-      isLoading(true);
-      const data = await fetchItems(searchTerm, page);
-      setProducts(data);
-      isLoading(false);
-    }
-  }, [searchTerm, page, setProducts]);
+  const { isLoading } = useItems({ page, perPage });
 
   useEffect(() => {
-    loadProducts();
-  }, [loadProducts]);
+    defaultParams.forEach(({ key, value }) => {
+      if (!searchParams.get(key)) {
+        setSearchParams((searchParams) => {
+          searchParams.set(key, value);
+          return searchParams;
+        });
+      }
+    });
+  }, [searchParams, setSearchParams]);
 
-  useEffect(() => {
-    if (!pageQueryParam) {
-      setSearchParams((searchParams) => {
-        searchParams.set('page', '1');
-        return searchParams;
-      });
+  const content = () => {
+    if (isLoading) {
+      return <LoadingSpinner />;
     }
-  }, [pageQueryParam, setSearchParams]);
+    return <CardList />;
+  };
 
   return (
-    <div className={productId ? styles.wrapper : ''}>
-      {loading ? <LoadingSpinner /> : <CardList />}
-      {productId ? <Outlet /> : null}
-      <Pagination page={page} />
+    <div className={cls(productId && styles.wrapper)}>
+      {content()}
+      {productId && <Outlet />}
+      <Pagination page={page} perPage={perPage} />
     </div>
   );
 }
-
-export default Results;

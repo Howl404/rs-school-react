@@ -1,4 +1,5 @@
 @import 'src/fonts/fonts.scss';
+@import 'src/styles/variables.scss';
 
 .card {
   width: 200px;
@@ -6,27 +7,23 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-color: white;
-  border: 1px solid black;
+  background-color: $white;
+  border: 1px solid $black;
   border-radius: 6px;
   padding: 5px;
-  box-shadow: hsl(206 22% 7% / 35%) 0 0 38px -10px;
+  box-shadow: $black-shadow;
   text-align: center;
   cursor: pointer;
+
   &:hover {
     scale: 1.01;
   }
 }
 
-.card_header {
-  font-family: $font-family-primary;
-}
-
-.card_description {
-  font-family: $font-family-secondary;
+.cardText {
   font-size: 14px;
 }
 
-.card_image {
+.cardImage {
   height: 300px;
 }

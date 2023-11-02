@@ -1,6 +1,6 @@
 @import 'src/fonts/fonts.scss';
 
-.container {
+.errorContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,15 +9,11 @@
   text-align: center;
 }
 
-.header {
+.errorHeading {
   font-family: $font-family-primary;
 }
 
-.text,
-.button {
+.errorText,
+.resetButton {
   font-family: $font-family-secondary;
-}
-
-.card_header {
-  font-family: $font-family-primary;
 }

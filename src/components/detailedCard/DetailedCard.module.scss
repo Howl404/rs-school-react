@@ -1,20 +1,20 @@
 @import 'src/fonts/fonts.scss';
+
 @import 'components/card/Card.module.scss';
 
 .detailedCard {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid $black;
   border-radius: 6px;
   padding: 5px;
-  box-shadow: hsl(206 22% 7% / 35%) 0 0 38px -10px;
+  box-shadow: $black-shadow;
   text-align: center;
   width: 300px;
 }
 
-.button {
-  font-family: $font-family-primary;
+.closeButton {
   position: absolute;
   right: 3px;
   top: 3px;

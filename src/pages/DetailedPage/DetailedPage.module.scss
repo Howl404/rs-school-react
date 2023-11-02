@@ -2,7 +2,6 @@
   padding-top: 50px;
   display: flex;
   justify-content: center;
-  height: 100%;
   width: 320px;
   margin: 0 auto;
   div {
@@ -10,12 +9,4 @@
   }
 }
 
-@media (max-width: 560px) {
-  .container {
-    width: 100%;
-    padding-bottom: 50px;
-    div {
-      position: relative;
-    }
-  }
-}
+@import 'src/styles/media.scss';

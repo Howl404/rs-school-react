@@ -1,13 +1,20 @@
 import { useState } from 'react';
-import Search from 'src/components/search/Search';
-import Results from 'src/components/results/Results';
-import styles from 'src/pages/MainPage/MainPage.module.scss';
+
 import { SearchTermContextProvider } from 'src/contexts/SearchTermContext';
 import { ProductsContextProvider } from 'src/contexts/ProductsContext';
 import { SearchParamsProvider } from 'src/contexts/SearchParamsContext';
 
-function MainPage() {
+import Search from 'src/components/search/Search';
+import Results from 'src/components/results/Results';
+
+import styles from 'src/pages/MainPage/MainPage.module.scss';
+
+export default function MainPage() {
   const [error, setError] = useState(false);
+
+  const throwError = () => {
+    setError(true);
+  };
 
   if (error) {
     throw new Error('This is a test error');
@@ -15,12 +22,7 @@ function MainPage() {
 
   return (
     <>
-      <button
-        className={styles.button}
-        onClick={() => {
-          setError(true);
-        }}
-      >
+      <button className={styles.errorButton} onClick={throwError}>
         Throw Error
       </button>
       <SearchTermContextProvider>
@@ -34,5 +36,3 @@ function MainPage() {
     </>
   );
 }
-
-export default MainPage;

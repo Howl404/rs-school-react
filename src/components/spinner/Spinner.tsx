@@ -1,13 +1,13 @@
-import styles from 'components/loadingSpinner/LoadingSpinner.module.scss';
+import styles from 'components/spinner/Spinner.module.scss';
 
-function LoadingSpinner() {
+export default function Spinner() {
   return (
-    <div className={styles.container} data-testid="loading-spinner-container">
+    <div className={styles.container} data-testid="spinner-container">
       <svg
         className={styles.spinner}
         width="36"
         height="36"
-        fill="black"
+        fill="white"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
         data-testid="loading-spinner-svg"
@@ -21,5 +21,3 @@ function LoadingSpinner() {
     </div>
   );
 }
-
-export default LoadingSpinner;

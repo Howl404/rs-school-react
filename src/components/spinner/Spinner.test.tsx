@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import LoadingSpinner from 'src/components/loadingSpinner/LoadingSpinner';
+import Spinner from 'src/components/spinner/Spinner';
 import { expect, it } from 'vitest';
 import '@testing-library/jest-dom';
 
-it('Renders the LoadingSpinner component', () => {
-  render(<LoadingSpinner />);
+it('Renders the Spinner component', () => {
+  render(<Spinner />);
   const spinnerContainer = screen.getByTestId('loading-spinner-container');
   expect(spinnerContainer).toBeInTheDocument();
 

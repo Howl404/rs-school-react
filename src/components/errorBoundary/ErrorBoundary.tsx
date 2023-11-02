@@ -1,11 +1,15 @@
 import { Component, PropsWithChildren } from 'react';
+
 import styles from 'components/errorBoundary/ErrorBoundary.module.scss';
 
 interface ErrorBoundaryState {
   error: Error | null;
 }
 
-class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundaryState> {
+export default class ErrorBoundary extends Component<
+  PropsWithChildren,
+  ErrorBoundaryState
+> {
   state: ErrorBoundaryState = {
     error: null,
   };
@@ -23,10 +27,10 @@ class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundaryState> {
   render() {
     if (this.state.error) {
       return (
-        <div className={styles.container}>
-          <h1 className={styles.header}>Something went wrong</h1>
-          <p className={styles.text}>{this.state.error.toString()}</p>
-          <button onClick={this.resetError} className={styles.button}>
+        <div className={styles.errorContainer}>
+          <h1 className={styles.errorHeading}>Something went wrong</h1>
+          <p className={styles.errorText}>{this.state.error.message}</p>
+          <button onClick={this.resetError} className={styles.resetButton}>
             Reset
           </button>
         </div>
@@ -35,5 +39,3 @@ class ErrorBoundary extends Component<PropsWithChildren, ErrorBoundaryState> {
     return this.props.children;
   }
 }
-
-export default ErrorBoundary;

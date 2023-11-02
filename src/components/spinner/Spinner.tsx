@@ -7,7 +7,7 @@ export default function Spinner() {
         className={styles.spinner}
         width="36"
         height="36"
-        fill="black"
+        fill="white"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
       >

@@ -1,6 +1,5 @@
-import { useContext } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
 import { Product } from 'src/interfaces/product';
 
 import styles from 'components/card/Card.module.scss';
@@ -12,7 +11,7 @@ export type CardProps = {
 export default function Card({
   product: { id, tagline, name, image_url },
 }: CardProps): JSX.Element {
-  const { setSearchParams } = useContext(SearchParamsContext);
+  const [, setSearchParams] = useSearchParams();
 
   const openDetailedPage = () => {
     setSearchParams((searchParams) => {

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { ProductsContext } from 'src/contexts/ProductsContext';
-import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
 
 import Card from 'components/card/Card';
 
@@ -9,7 +9,7 @@ import styles from 'components/cardList/CardList.module.scss';
 
 export default function CardList() {
   const { products } = useContext(ProductsContext);
-  const { setSearchParams } = useContext(SearchParamsContext);
+  const [, setSearchParams] = useSearchParams();
 
   const closeDetailedPage = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {

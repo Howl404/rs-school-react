@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
-import CardList from 'components/cardList/CardList';
-import { ProductsContext } from 'src/contexts/ProductsContext';
-import { Product } from 'components/results/Results';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
+
+import { ProductsContext } from 'src/contexts/ProductsContext';
+
+import CardList from 'components/cardList/CardList';
+import { Product } from 'components/results/Results';
 
 let mockSearchParam = 'productId=123';
 

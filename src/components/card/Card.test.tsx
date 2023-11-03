@@ -1,10 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { expect, it, vi } from 'vitest';
+import { expect, it } from 'vitest';
 import { Product } from 'components/results/Results';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
 import Card from 'src/components/card/Card';
 
 it('Ensure that the card component renders the relevant card data', () => {
@@ -17,19 +16,9 @@ it('Ensure that the card component renders the relevant card data', () => {
     first_brewed: '',
   };
 
-  const mockSetSearchParams = vi.fn();
-  const mockSearchParams = {} as URLSearchParams;
-
   render(
     <BrowserRouter>
-      <SearchParamsContext.Provider
-        value={{
-          searchParams: mockSearchParams,
-          setSearchParams: mockSetSearchParams,
-        }}
-      >
-        <Card product={mockProduct} />
-      </SearchParamsContext.Provider>
+      <Card product={mockProduct} />
     </BrowserRouter>
   );
 

@@ -1,6 +1,4 @@
-import { useContext } from 'react';
-
-import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
+import { useSearchParams } from 'react-router-dom';
 
 import styles from 'src/components/pagination/Pagination.module.scss';
 
@@ -14,7 +12,7 @@ const perPageOptions = [5, 10, 15];
 export default function Pagination({ page, perPage }: PaginationProps) {
   const isFirstPage = page === 1;
 
-  const { setSearchParams } = useContext(SearchParamsContext);
+  const [, setSearchParams] = useSearchParams();
 
   const changePage = (page: number) => {
     setSearchParams((searchParams) => {

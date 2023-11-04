@@ -51,7 +51,6 @@ it('Throw error on button click', async () => {
 
   const errorButton = screen.getByTestId('error-button');
 
-  // Expect the error to be thrown when the button is clicked
   expect(() => {
     fireEvent.click(errorButton);
   }).toThrow('This is a test error');

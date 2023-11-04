@@ -1,4 +1,5 @@
 import { expect, describe, it, vi } from 'vitest';
+
 import { fetchItems, fetchItem } from 'src/services/apiService';
 
 describe('fetchItems', () => {

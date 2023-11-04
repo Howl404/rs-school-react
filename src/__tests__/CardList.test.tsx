@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 
 import { ProductsContext } from 'src/contexts/ProductsContext';
+import { DetailedProductContextProvider } from 'src/contexts/DetailedProductContext';
+import { Product } from 'src/interfaces/product';
 
 import CardList from 'components/cardList/CardList';
-import { Product } from 'components/results/Results';
 
 let mockSearchParam = 'productId=123';
 
@@ -62,7 +63,9 @@ it('Verify that the component renders the specified number of cards', () => {
       <ProductsContext.Provider
         value={{ products: mockProducts, setProducts: mockSetProducts }}
       >
-        <CardList />
+        <DetailedProductContextProvider>
+          <CardList />
+        </DetailedProductContextProvider>
       </ProductsContext.Provider>
     </BrowserRouter>
   );
@@ -79,7 +82,9 @@ it('Check that an appropriate message is displayed if no cards are present', () 
       <ProductsContext.Provider
         value={{ products: mockProducts, setProducts: mockSetProducts }}
       >
-        <CardList />
+        <DetailedProductContextProvider>
+          <CardList />
+        </DetailedProductContextProvider>
       </ProductsContext.Provider>
     </BrowserRouter>
   );
@@ -90,13 +95,15 @@ it('Check that an appropriate message is displayed if no cards are present', () 
 
 it('Calls function to delete product id', async () => {
   render(
-    <MemoryRouter initialEntries={['/?productId=123']}>
+    <BrowserRouter>
       <ProductsContext.Provider
         value={{ products: mockProducts, setProducts: mockSetProducts }}
       >
-        <CardList />
+        <DetailedProductContextProvider>
+          <CardList />
+        </DetailedProductContextProvider>
       </ProductsContext.Provider>
-    </MemoryRouter>
+    </BrowserRouter>
   );
 
   const container = screen.getByTestId('card-container');

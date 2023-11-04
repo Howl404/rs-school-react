@@ -1,13 +1,42 @@
+import { useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
-import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import Results, { Product } from 'src/components/results/Results';
-import { ProductsContext } from 'src/contexts/ProductsContext';
-import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
-import { SearchTermContext } from 'src/contexts/SearchTermContext';
 
-it('Results components renders correctly', async () => {
+import { ProductsContext } from 'src/contexts/ProductsContext';
+import { SearchTermContext } from 'src/contexts/SearchTermContext';
+import { DetailedProductContextProvider } from 'src/contexts/DetailedProductContext';
+
+import { Product } from 'src/interfaces/product';
+
+import Results from 'src/components/results/Results';
+
+let mockSearchParam = '';
+
+vi.mock('react-router-dom', async () => {
+  const actual: object = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useSearchParams: () => {
+      const [params, setParams] = useState(
+        new URLSearchParams(mockSearchParam)
+      );
+
+      return [
+        params,
+        (fn: (searchParams: URLSearchParams) => URLSearchParams) => {
+          const newParams = fn(params);
+          setParams(newParams);
+          mockSearchParam = newParams.toString();
+        },
+      ];
+    },
+  };
+});
+
+it('Results is getting products from API and displays it', async () => {
   vi.mock('services/apiService', () => ({
     fetchItems: vi.fn().mockResolvedValue([
       {
@@ -38,11 +67,6 @@ it('Results components renders correctly', async () => {
     mockProducts.push(...newProducts);
   });
 
-  const mockSetSearchParams = vi.fn();
-
-  const mockSearchParams = new URLSearchParams();
-  mockSearchParams.set('page', '1');
-
   act(() => {
     render(
       <BrowserRouter>
@@ -55,14 +79,9 @@ it('Results components renders correctly', async () => {
           <ProductsContext.Provider
             value={{ products: mockProducts, setProducts: mockSetProducts }}
           >
-            <SearchParamsContext.Provider
-              value={{
-                searchParams: mockSearchParams,
-                setSearchParams: mockSetSearchParams,
-              }}
-            >
+            <DetailedProductContextProvider>
               <Results />
-            </SearchParamsContext.Provider>
+            </DetailedProductContextProvider>
           </ProductsContext.Provider>
         </SearchTermContext.Provider>
       </BrowserRouter>
@@ -70,7 +89,7 @@ it('Results components renders correctly', async () => {
   });
 
   await waitFor(async () => {
-    const products = screen.getAllByRole('heading');
+    const products = screen.getAllByTestId('card');
 
     expect(products).toHaveLength(2);
   });

@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import Spinner from 'src/components/spinner/Spinner';
 import { expect, it } from 'vitest';
 import '@testing-library/jest-dom';
+
+import Spinner from 'src/components/spinner/Spinner';
 
 it('Renders the Spinner component', () => {
   render(<Spinner />);

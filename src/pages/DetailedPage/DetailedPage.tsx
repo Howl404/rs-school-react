@@ -1,5 +1,3 @@
-import { useSearchParams } from 'react-router-dom';
-
 import useItem from 'src/hooks/useItem';
 
 import Spinner from 'components/spinner/Spinner';
@@ -7,11 +5,17 @@ import DetailedCard from 'components/detailedCard/DetailedCard';
 
 import styles from 'pages/DetailedPage/DetailedPage.module.scss';
 
-export default function DetailedPage() {
-  const [searchParams] = useSearchParams();
-  const productId = searchParams.get('productId') || '1';
+import { DetailedProductContext } from 'src/contexts/DetailedProductContext';
+import { useContext } from 'react';
 
-  const { product, isLoading } = useItem(productId);
+export default function DetailedPage() {
+  const { detailedProductId } = useContext(DetailedProductContext);
+
+  const { product, isLoading } = useItem(detailedProductId);
+
+  if (!detailedProductId) {
+    return <h2>Product Id is not provided</h2>;
+  }
 
   return (
     <div className={styles.container}>

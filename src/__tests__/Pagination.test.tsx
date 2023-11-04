@@ -70,4 +70,20 @@ describe('Make sure the component updates URL query parameter when page changes'
 
     expect(mockSearchParam).toContain(`page=${page - 1}`);
   });
+
+  it('When user changes amount of items on page, reset page to first', () => {
+    render(
+      <BrowserRouter>
+        <Pagination page={page} perPage={perPage} />
+      </BrowserRouter>
+    );
+
+    const select = screen.getByRole('combobox');
+
+    expect(mockSearchParam).toBe('page=2&perPage=5');
+
+    fireEvent.change(select, { target: { value: 10 } });
+
+    expect(mockSearchParam).toBe('page=1&perPage=10');
+  });
 });

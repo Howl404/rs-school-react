@@ -6,9 +6,13 @@ import { ProductsContext } from 'src/contexts/ProductsContext';
 import Card from 'components/card/Card';
 
 import styles from 'components/cardList/CardList.module.scss';
+import { DetailedProductContext } from 'src/contexts/DetailedProductContext';
 
 export default function CardList() {
   const { products } = useContext(ProductsContext);
+
+  const { setDetailedProductId } = useContext(DetailedProductContext);
+
   const [, setSearchParams] = useSearchParams();
 
   const closeDetailedPage = (e: React.MouseEvent) => {
@@ -17,6 +21,7 @@ export default function CardList() {
         searchParams.delete('productId');
         return searchParams;
       });
+      setDetailedProductId('');
     }
   };
 

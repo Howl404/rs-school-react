@@ -1,0 +1,103 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Renders main page with all components and 2 products 1`] = `
+<DocumentFragment>
+  <button
+    class="_errorButton_db53ca"
+    data-testid="error-button"
+  >
+    Throw Error
+  </button>
+  <div
+    class="_searchContainer_6ac984"
+  >
+    <input
+      class="_searchInput_6ac984"
+      type="text"
+      value=""
+    />
+    <button
+      class="_submitButton_6ac984"
+    >
+      Search
+    </button>
+  </div>
+  <div
+    class=""
+  >
+    <div
+      class="_container_4eccd3"
+      data-testid="card-container"
+    >
+      <div
+        class="_card_c39673"
+        data-testid="card"
+      >
+        <h3
+          class="_cardHeading_c39673"
+        >
+          Product 1
+        </h3>
+        <img
+          alt="Product 1 image"
+          class="_cardImage_c39673"
+          src=""
+        />
+        <p
+          class="_cardText_c39673"
+        />
+      </div>
+      <div
+        class="_card_c39673"
+        data-testid="card"
+      >
+        <h3
+          class="_cardHeading_c39673"
+        >
+          Product 2
+        </h3>
+        <img
+          alt="Product 2 image"
+          class="_cardImage_c39673"
+          src=""
+        />
+        <p
+          class="_cardText_c39673"
+        />
+      </div>
+    </div>
+    <div
+      class="_paginationContainer_5bac6f"
+    >
+      <button
+        disabled=""
+      >
+        ᐸ
+      </button>
+      <p>
+        1
+      </p>
+      <button>
+        ᐳ
+      </button>
+      <select>
+        <option
+          value="5"
+        >
+          5 items per page
+        </option>
+        <option
+          value="10"
+        >
+          10 items per page
+        </option>
+        <option
+          value="15"
+        >
+          15 items per page
+        </option>
+      </select>
+    </div>
+  </div>
+</DocumentFragment>
+`;

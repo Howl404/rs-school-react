@@ -2,12 +2,12 @@ import { useState } from 'react';
 
 import { SearchTermContextProvider } from 'src/contexts/SearchTermContext';
 import { ProductsContextProvider } from 'src/contexts/ProductsContext';
-import { SearchParamsProvider } from 'src/contexts/SearchParamsContext';
 
 import Search from 'src/components/search/Search';
 import Results from 'src/components/results/Results';
 
 import styles from 'src/pages/MainPage/MainPage.module.scss';
+import { DetailedProductContextProvider } from 'src/contexts/DetailedProductContext';
 
 export default function MainPage() {
   const [error, setError] = useState(false);
@@ -22,15 +22,19 @@ export default function MainPage() {
 
   return (
     <>
-      <button className={styles.errorButton} onClick={throwError}>
+      <button
+        className={styles.errorButton}
+        onClick={throwError}
+        data-testid="error-button"
+      >
         Throw Error
       </button>
       <SearchTermContextProvider>
         <Search />
         <ProductsContextProvider>
-          <SearchParamsProvider>
+          <DetailedProductContextProvider>
             <Results />
-          </SearchParamsProvider>
+          </DetailedProductContextProvider>
         </ProductsContextProvider>
       </SearchTermContextProvider>
     </>

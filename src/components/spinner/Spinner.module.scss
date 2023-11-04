@@ -19,6 +19,14 @@
   left: 0;
   background-color: $transparent-black;
   z-index: 1;
+  opacity: 0;
+  animation: fadeInSpinner 100ms ease forwards;
+}
+
+@keyframes fadeInSpinner {
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes spinnerAnimation {

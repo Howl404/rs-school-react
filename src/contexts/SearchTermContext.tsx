@@ -7,7 +7,7 @@ export type SearchTermContextType = {
 
 export const SearchTermContext = createContext<SearchTermContextType>(null!);
 
-export function SearchTermContextProvider(props: PropsWithChildren) {
+export function SearchTermContextProvider({ children }: PropsWithChildren) {
   const [searchTerm, setSearchTerm] = useState<string>(
     localStorage.getItem('howl-searchTerm') || ''
   );
@@ -22,7 +22,7 @@ export function SearchTermContextProvider(props: PropsWithChildren) {
 
   return (
     <SearchTermContext.Provider value={value}>
-      {props.children}
+      {children}
     </SearchTermContext.Provider>
   );
 }

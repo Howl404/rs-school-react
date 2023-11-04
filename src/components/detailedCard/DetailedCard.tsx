@@ -1,28 +1,33 @@
 import { useContext } from 'react';
-
-import { SearchParamsContext } from 'src/contexts/SearchParamsContext';
+import { useSearchParams } from 'react-router-dom';
 
 import { CardProps } from 'src/components/card/Card';
 
 import styles from 'src/components/detailedCard/DetailedCard.module.scss';
+import { DetailedProductContext } from 'src/contexts/DetailedProductContext';
 
 export default function DetailedCard({
   product: { description, name, image_url, first_brewed },
 }: CardProps): JSX.Element {
-  const { setSearchParams } = useContext(SearchParamsContext);
+  const [, setSearchParams] = useSearchParams();
 
-  const closeDetailedPage = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      setSearchParams((searchParams) => {
-        searchParams.delete('productId');
-        return searchParams;
-      });
-    }
+  const { setDetailedProductId } = useContext(DetailedProductContext);
+
+  const closeDetailedPage = () => {
+    setSearchParams((searchParams) => {
+      searchParams.delete('productId');
+      return searchParams;
+    });
+    setDetailedProductId('');
   };
 
   return (
-    <div className={styles.detailedCard}>
-      <button className={styles.closeButton} onClick={closeDetailedPage}>
+    <div className={styles.detailedCard} data-testid="detailed-card">
+      <button
+        className={styles.closeButton}
+        onClick={closeDetailedPage}
+        data-testid="close-button"
+      >
         close
       </button>
       <h3 className={styles.cardHeading}>{name}</h3>

@@ -1,5 +1,6 @@
 import { PropsWithChildren, createContext, useMemo, useState } from 'react';
-import { Product } from 'src/components/results/Results';
+
+import { Product } from 'src/interfaces/product';
 
 export type ProductsContextType = {
   products: Product[];
@@ -8,7 +9,7 @@ export type ProductsContextType = {
 
 export const ProductsContext = createContext<ProductsContextType>(null!);
 
-export function ProductsContextProvider(props: PropsWithChildren) {
+export function ProductsContextProvider({ children }: PropsWithChildren) {
   const [products, setProducts] = useState<Product[]>([]);
 
   const value = useMemo(
@@ -21,7 +22,7 @@ export function ProductsContextProvider(props: PropsWithChildren) {
 
   return (
     <ProductsContext.Provider value={value}>
-      {props.children}
+      {children}
     </ProductsContext.Provider>
   );
 }

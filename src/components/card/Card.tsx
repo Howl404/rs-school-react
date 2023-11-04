@@ -3,6 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import { Product } from 'src/interfaces/product';
 
 import styles from 'components/card/Card.module.scss';
+import { DetailedProductContext } from 'src/contexts/DetailedProductContext';
+import { useContext } from 'react';
 
 export type CardProps = {
   product: Product;
@@ -13,11 +15,14 @@ export default function Card({
 }: CardProps): JSX.Element {
   const [, setSearchParams] = useSearchParams();
 
+  const { setDetailedProductId } = useContext(DetailedProductContext);
+
   const openDetailedPage = () => {
     setSearchParams((searchParams) => {
       searchParams.set('productId', id.toString());
       return searchParams;
     });
+    setDetailedProductId(id.toString());
   };
 
   return (

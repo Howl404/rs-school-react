@@ -12,16 +12,7 @@ interface CardListProps {
   setSearchParams: SetURLSearchParams;
 }
 
-export default function CardList({ products, setSearchParams }: CardListProps) {
-  const closeDetailedPage = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      setSearchParams((searchParams) => {
-        searchParams.delete('productId');
-        return searchParams;
-      });
-    }
-  };
-
+export default function CardList({ products }: CardListProps) {
   if (!products.length) {
     return (
       <div className={styles.container}>
@@ -31,7 +22,7 @@ export default function CardList({ products, setSearchParams }: CardListProps) {
   }
 
   return (
-    <div className={styles.container} onClick={closeDetailedPage}>
+    <div className={styles.container}>
       {products.map((product) => (
         <Card product={product} key={product.id} />
       ))}

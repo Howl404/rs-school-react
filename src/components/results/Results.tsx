@@ -1,19 +1,14 @@
-import { useEffect } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { cls } from 'src/utils/cls';
 import useItems from 'src/hooks/useItems';
+import useDefaultParams from 'src/hooks/useDefaultParams';
 
-import LoadingSpinner from 'src/components/spinner/Spinner';
+import Spinner from 'src/components/spinner/Spinner';
 import Pagination from 'components/pagination/Pagination';
 import CardList from 'components/cardList/CardList';
 
 import styles from 'components/Results/Results.module.scss';
-
-const defaultParams = [
-  { key: 'page', value: '1' },
-  { key: 'perPage', value: '10' },
-];
 
 interface ResultsProps {
   searchTerm: string;
@@ -22,39 +17,32 @@ interface ResultsProps {
 export default function Results({ searchTerm }: ResultsProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const page = Number(searchParams.get('page') || 1);
-  const perPage = searchParams.get('perPage') || '10';
+  const { page, perPage } = useDefaultParams();
+
   const productId = searchParams.get('productId');
 
   const { products, isLoading } = useItems({ page, searchTerm, perPage });
 
-  useEffect(() => {
-    defaultParams.forEach(({ key, value }) => {
-      if (!searchParams.get(key)) {
-        setSearchParams((searchParams) => {
-          searchParams.set(key, value);
-          return searchParams;
-        });
-      }
-    });
-  }, [searchParams, setSearchParams]);
-
   const content = () => {
     if (isLoading) {
-      return <LoadingSpinner />;
+      return <Spinner />;
     }
-    return <CardList products={products} setSearchParams={setSearchParams} />;
+    return (
+      <>
+        <CardList products={products} setSearchParams={setSearchParams} />
+        <Pagination
+          setSearchParams={setSearchParams}
+          page={page}
+          perPage={perPage}
+        />
+      </>
+    );
   };
 
   return (
     <div className={cls(productId && styles.wrapper)}>
       {content()}
       {productId && <Outlet />}
-      <Pagination
-        setSearchParams={setSearchParams}
-        page={page}
-        perPage={perPage}
-      />
     </div>
   );
 }

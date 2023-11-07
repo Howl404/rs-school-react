@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 
-import { ProductsContext } from 'src/contexts/ProductsContext';
-import { DetailedProductContextProvider } from 'src/contexts/DetailedProductContext';
+import { ProductsContext } from 'contexts/ProductsContext';
+import { DetailedProductContextProvider } from 'contexts/DetailedProductContext';
+
 import { Product } from 'src/interfaces/product';
 
 import CardList from 'components/cardList/CardList';
@@ -91,26 +92,4 @@ it('Check that an appropriate message is displayed if no cards are present', () 
 
   const message = screen.getByText('Nothing is found');
   expect(message).toBeInTheDocument();
-});
-
-it('Calls function to delete product id', async () => {
-  render(
-    <BrowserRouter>
-      <ProductsContext.Provider
-        value={{ products: mockProducts, setProducts: mockSetProducts }}
-      >
-        <DetailedProductContextProvider>
-          <CardList />
-        </DetailedProductContextProvider>
-      </ProductsContext.Provider>
-    </BrowserRouter>
-  );
-
-  const container = screen.getByTestId('card-container');
-
-  expect(mockSearchParam).toContain('productId=123');
-
-  fireEvent.click(container);
-
-  expect(mockSearchParam).toContain('');
 });

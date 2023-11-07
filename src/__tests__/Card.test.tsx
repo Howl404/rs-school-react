@@ -5,43 +5,21 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 
-import * as apiService from 'src/services/apiService';
+import * as apiService from 'services/apiService';
 
 import {
   DetailedProductContext,
   DetailedProductContextProvider,
-} from 'src/contexts/DetailedProductContext';
-import { SearchTermContext } from 'src/contexts/SearchTermContext';
-import { ProductsContext } from 'src/contexts/ProductsContext';
+} from 'contexts/DetailedProductContext';
+import { SearchTermContext } from 'contexts/SearchTermContext';
+import { ProductsContext } from 'contexts/ProductsContext';
 
 import { Product } from 'src/interfaces/product';
 
-import Card from 'src/components/card/Card';
-import DetailedPage from 'src/pages/DetailedPage/DetailedPage';
+import DetailedPage from 'pages/DetailedPage/DetailedPage';
+
+import Card from 'components/card/Card';
 import Results from 'components/results/Results';
-
-let mockSearchParam = 'page=2&perPage=10';
-
-vi.mock('react-router-dom', async () => {
-  const actual: object = await vi.importActual('react-router-dom');
-  return {
-    ...actual,
-    useSearchParams: () => {
-      const [params, setParams] = useState(
-        new URLSearchParams(mockSearchParam)
-      );
-
-      return [
-        params,
-        (fn: (params: URLSearchParams) => URLSearchParams) => {
-          const newParams = fn(params);
-          mockSearchParam = newParams.toString();
-          setParams(newParams);
-        },
-      ];
-    },
-  };
-});
 
 vi.mock('services/apiService', () => ({
   fetchItem: vi.fn().mockImplementation(

@@ -2,17 +2,17 @@ import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { cls } from 'src/utils/cls';
-import { DetailedProductContext } from 'src/contexts/DetailedProductContext';
 
-import useItems from 'src/hooks/useItems';
-import useDefaultParams from 'src/hooks/useDefaultParams';
+import { DetailedProductContext } from 'contexts/DetailedProductContext';
+
+import useItems from 'hooks/useItems';
+import useDefaultParams from 'hooks/useDefaultParams';
 
 import Spinner from 'components/spinner/Spinner';
 import Pagination from 'components/pagination/Pagination';
 import CardList from 'components/cardList/CardList';
 
-import styles from 'components/Results/Results.module.scss';
-import cardListStyles from 'components/cardList/CardList.module.scss';
+import styles from './Results.module.scss';
 
 export default function Results() {
   const { detailedProductId } = useContext(DetailedProductContext);
@@ -21,12 +21,7 @@ export default function Results() {
 
   const content = () => {
     if (isLoading) {
-      return (
-        <>
-          <div className={cardListStyles.container}></div>
-          <Spinner />
-        </>
-      );
+      return <Spinner />;
     }
     return <CardList />;
   };

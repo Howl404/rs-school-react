@@ -21,7 +21,9 @@
       "src/*": ["./src/*"],
       "components/*": ["./src/components/*"],
       "pages/*": ["./src/pages/*"],
-      "services/*": ["./src/services/*"]
+      "services/*": ["./src/services/*"],
+      "hooks/*": ["./src/hooks/*"],
+      "contexts/*": ["./src/contexts/*"]
     }
   },
   "include": ["src"],

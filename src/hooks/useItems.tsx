@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 
 import { fetchItems } from 'services/apiService';
-import { SearchTermContext } from 'src/contexts/SearchTermContext';
-import { ProductsContext } from 'src/contexts/ProductsContext';
+
+import { SearchTermContext } from 'contexts/SearchTermContext';
+import { ProductsContext } from 'contexts/ProductsContext';
 
 interface UseItemsProps {
   page: number;

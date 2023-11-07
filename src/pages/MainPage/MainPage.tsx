@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-import { SearchTermContextProvider } from 'src/contexts/SearchTermContext';
-import { ProductsContextProvider } from 'src/contexts/ProductsContext';
+import { SearchTermContextProvider } from 'contexts/SearchTermContext';
+import { ProductsContextProvider } from 'contexts/ProductsContext';
+import { DetailedProductContextProvider } from 'contexts/DetailedProductContext';
 
-import Search from 'src/components/search/Search';
-import Results from 'src/components/results/Results';
+import Search from 'components/search/Search';
+import Results from 'components/results/Results';
 
-import styles from 'src/pages/MainPage/MainPage.module.scss';
-import { DetailedProductContextProvider } from 'src/contexts/DetailedProductContext';
+import styles from './MainPage.module.scss';
 
 export default function MainPage() {
   const [error, setError] = useState(false);

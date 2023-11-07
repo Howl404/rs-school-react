@@ -1,9 +1,9 @@
 import React, { useContext, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { SearchTermContext } from 'src/contexts/SearchTermContext';
+import { SearchTermContext } from 'contexts/SearchTermContext';
 
-import styles from 'components/Search/Search.module.scss';
+import styles from './Search.module.scss';
 
 export default function Search() {
   const { searchTerm, setSearchTerm } = useContext(SearchTermContext);

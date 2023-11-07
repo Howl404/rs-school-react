@@ -5,13 +5,13 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 
-import { ProductsContext } from 'src/contexts/ProductsContext';
-import { SearchTermContext } from 'src/contexts/SearchTermContext';
-import { DetailedProductContextProvider } from 'src/contexts/DetailedProductContext';
+import { ProductsContext } from 'contexts/ProductsContext';
+import { SearchTermContext } from 'contexts/SearchTermContext';
+import { DetailedProductContextProvider } from 'contexts/DetailedProductContext';
 
 import { Product } from 'src/interfaces/product';
 
-import Results from 'src/components/results/Results';
+import Results from 'components/results/Results';
 
 let mockSearchParam = '';
 

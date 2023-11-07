@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Product } from 'src/interfaces/product';
+
 import { fetchItem } from 'services/apiService';
 
 export default function useItem(productId: string) {

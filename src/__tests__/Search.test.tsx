@@ -4,9 +4,9 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 
-import { SearchTermContext } from 'src/contexts/SearchTermContext';
+import { SearchTermContext } from 'contexts/SearchTermContext';
 
-import Search from 'src/components/search/Search';
+import Search from 'components/search/Search';
 
 class LocalStorageMock {
   store: { [key: string]: string };

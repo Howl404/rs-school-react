@@ -5,7 +5,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 
-import Pagination from 'src/components/pagination/Pagination';
+import Pagination from 'components/pagination/Pagination';
 
 let page: number;
 const perPage = '5';

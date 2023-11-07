@@ -1,11 +1,13 @@
 import { Product } from 'src/interfaces/product';
 
+const API_URL = 'https://api.punkapi.com/v2';
+
 export async function fetchItems(
   searchTerm: string,
   page: number,
   perPage: string
 ) {
-  const api = new URL('https://api.punkapi.com/v2/beers/');
+  const api = new URL(`${API_URL}/beers/`);
   const params = new URLSearchParams({
     page: page.toString(),
     per_page: perPage,
@@ -23,7 +25,7 @@ export async function fetchItems(
 }
 
 export async function fetchItem(id: string) {
-  const api = `https://api.punkapi.com/v2/beers/${id}`;
+  const api = `${API_URL}/beers/${id}`;
 
   const data: Product[] = await fetch(api).then((res) => res.json());
 

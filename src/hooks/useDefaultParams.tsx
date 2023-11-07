@@ -2,26 +2,26 @@ import { useEffect } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
 
-const defaultParams = [
-  { key: 'page', value: '1' },
-  { key: 'perPage', value: '10' },
-];
+const defaultParams = {
+  page: '1',
+  perPage: '10',
+};
 
 export default function useDefaultParams() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const page = Number(searchParams.get('page') || 1);
-  const perPage = searchParams.get('perPage') || '10';
+  const page = Number(searchParams.get('page') || defaultParams.page);
+  const perPage = searchParams.get('perPage') || defaultParams.perPage;
 
   useEffect(() => {
-    defaultParams.forEach(({ key, value }) => {
+    for (const [key, value] of Object.entries(defaultParams)) {
       if (!searchParams.get(key)) {
         setSearchParams((searchParams) => {
           searchParams.set(key, value);
           return searchParams;
         });
       }
-    });
+    }
   }, [searchParams, setSearchParams]);
 
   return {

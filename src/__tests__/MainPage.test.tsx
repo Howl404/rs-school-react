@@ -5,7 +5,7 @@ import { expect, it, vi } from 'vitest';
 import { act } from 'react-dom/test-utils';
 import '@testing-library/jest-dom';
 
-import MainPage from 'src/pages/MainPage/MainPage';
+import MainPage from 'pages/MainPage/MainPage';
 
 vi.mock('services/apiService', () => ({
   fetchItems: vi.fn().mockResolvedValue([

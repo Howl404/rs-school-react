@@ -1,10 +1,11 @@
+import { useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { Product } from 'src/interfaces/product';
 
-import styles from 'components/card/Card.module.scss';
-import { DetailedProductContext } from 'src/contexts/DetailedProductContext';
-import { useContext } from 'react';
+import { DetailedProductContext } from 'contexts/DetailedProductContext';
+
+import styles from './Card.module.scss';
 
 export type CardProps = {
   product: Product;
@@ -26,7 +27,12 @@ export default function Card({
   };
 
   return (
-    <div className={styles.card} onClick={openDetailedPage} data-testid="card">
+    <div
+      className={styles.card}
+      onClick={openDetailedPage}
+      data-testid="card"
+      role="listitem"
+    >
       <h3 className={styles.cardHeading}>{name}</h3>
       <img src={image_url} alt={`${name} image`} className={styles.cardImage} />
       <p className={styles.cardText}>{tagline}</p>

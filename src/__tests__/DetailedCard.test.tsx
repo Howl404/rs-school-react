@@ -5,13 +5,14 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 
-import { DetailedProductContext } from 'src/contexts/DetailedProductContext';
-import { SearchTermContext } from 'src/contexts/SearchTermContext';
-import { ProductsContext } from 'src/contexts/ProductsContext';
+import { DetailedProductContext } from 'contexts/DetailedProductContext';
+import { SearchTermContext } from 'contexts/SearchTermContext';
+import { ProductsContext } from 'contexts/ProductsContext';
 
 import { Product } from 'src/interfaces/product';
 
-import DetailedPage from 'src/pages/DetailedPage/DetailedPage';
+import DetailedPage from 'pages/DetailedPage/DetailedPage';
+
 import Results from 'components/results/Results';
 
 vi.mock('services/apiService', () => ({

@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { pages } from 'src/router/pages';
+import { pages } from './pages';
 
 export default function Router() {
   return (

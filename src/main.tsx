@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ErrorBoundary from 'components/errorBoundary/ErrorBoundary';
 import Router from 'src/router/Router';
 
-import 'src/main.scss';
+import './main.scss';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

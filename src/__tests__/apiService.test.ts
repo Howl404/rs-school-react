@@ -1,6 +1,6 @@
 import { expect, describe, it, vi } from 'vitest';
 
-import { fetchItems, fetchItem } from 'src/services/apiService';
+import { fetchItems, fetchItem } from 'services/apiService';
 
 describe('fetchItems', () => {
   it('fetches items with a search term and page', async () => {

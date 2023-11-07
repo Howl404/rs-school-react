@@ -28,10 +28,12 @@ exports[`Renders main page with all components and 2 products 1`] = `
     <div
       class="_container_4eccd3"
       data-testid="card-container"
+      role="list"
     >
       <div
         class="_card_c39673"
         data-testid="card"
+        role="listitem"
       >
         <h3
           class="_cardHeading_c39673"
@@ -50,6 +52,7 @@ exports[`Renders main page with all components and 2 products 1`] = `
       <div
         class="_card_c39673"
         data-testid="card"
+        role="listitem"
       >
         <h3
           class="_cardHeading_c39673"

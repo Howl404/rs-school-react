@@ -1,0 +1,28 @@
+@import 'src/styles/variables.scss';
+
+.card {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: $white;
+  border: 1px solid $black;
+  border-radius: 6px;
+  padding: 5px;
+  box-shadow: $black-shadow;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.01;
+  }
+}
+
+.cardText {
+  font-size: 14px;
+}
+
+.cardImage {
+  height: 300px;
+}

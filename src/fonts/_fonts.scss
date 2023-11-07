@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'PlaypenSans-Medium';
+  src: url('src/fonts/PlaypenSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'PlaypenSans-Regular';
+  src: url('src/fonts/PlaypenSans-Regular.ttf') format('truetype');
+}
+
+$font-family-primary: 'PlaypenSans-Medium', sans-serif;
+$font-family-secondary: 'PlaypenSans-Regular', sans-serif;

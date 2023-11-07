@@ -1,0 +1,16 @@
+@import 'src/styles/variables.scss';
+
+.searchContainer {
+  width: 320px;
+  margin: 0 auto;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.submitButton,
+.searchInput {
+  padding: 7px 10px;
+}

@@ -1,0 +1,19 @@
+@import 'src/fonts/fonts.scss';
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  text-align: center;
+}
+
+.errorHeading {
+  font-family: $font-family-primary;
+}
+
+.errorText,
+.resetButton {
+  font-family: $font-family-secondary;
+}

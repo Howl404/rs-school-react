@@ -1,9 +1,12 @@
-import { useContext } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { Product } from 'src/interfaces/product';
 
-import { DetailedProductContext } from 'contexts/DetailedProductContext';
+import { AppDispatch } from 'src/store/store';
+import {
+  setDetailedProductId,
+  setViewMode,
+} from 'src/store/products/productsSlice';
 
 import styles from './Card.module.scss';
 
@@ -14,16 +17,11 @@ export type CardProps = {
 export default function Card({
   product: { id, tagline, name, image_url },
 }: CardProps): JSX.Element {
-  const [, setSearchParams] = useSearchParams();
-
-  const { setDetailedProductId } = useContext(DetailedProductContext);
+  const dispatch = useDispatch<AppDispatch>();
 
   const openDetailedPage = () => {
-    setSearchParams((searchParams) => {
-      searchParams.set('productId', id.toString());
-      return searchParams;
-    });
-    setDetailedProductId(id.toString());
+    dispatch(setDetailedProductId(id.toString()));
+    dispatch(setViewMode(true));
   };
 
   return (

@@ -1,12 +1,10 @@
-import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { RootState } from 'src/store/store';
+import { useGetItemsQuery } from 'src/store/api/api';
 
 import { cls } from 'src/utils/cls';
-
-import { DetailedProductContext } from 'contexts/DetailedProductContext';
-
-import useItems from 'hooks/useItems';
-import useDefaultParams from 'hooks/useDefaultParams';
 
 import Spinner from 'components/spinner/Spinner';
 import Pagination from 'components/pagination/Pagination';
@@ -15,22 +13,34 @@ import CardList from 'components/cardList/CardList';
 import styles from './Results.module.scss';
 
 export default function Results() {
-  const { detailedProductId } = useContext(DetailedProductContext);
-  const { page, perPage } = useDefaultParams();
-  const { isLoading } = useItems({ page, perPage });
+  const viewMode = useSelector((state: RootState) => state.products.viewMode);
+
+  const page = useSelector((state: RootState) => state.search.page);
+  const perPage = useSelector((state: RootState) => state.search.perPage);
+  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
+
+  const { data } = useGetItemsQuery({
+    searchTerm,
+    page,
+    perPage,
+  });
+
+  const isLoading = useSelector(
+    (state: RootState) => state.loading.mainPageIsLoading
+  );
 
   const content = () => {
     if (isLoading) {
       return <Spinner />;
     }
-    return <CardList />;
+    return data && <CardList data={data} />;
   };
 
   return (
-    <div className={cls(detailedProductId && styles.wrapper)}>
+    <div className={cls(viewMode && styles.wrapper)}>
       {content()}
-      {detailedProductId && <Outlet />}
-      <Pagination page={page} perPage={perPage} />
+      {viewMode && <Outlet />}
+      <Pagination />
     </div>
   );
 }

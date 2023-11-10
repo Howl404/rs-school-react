@@ -1,9 +1,11 @@
-import { useContext } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import useItem from 'hooks/useItem';
-
-import { DetailedProductContext } from 'contexts/DetailedProductContext';
+import { RootState, AppDispatch } from 'src/store/store';
+import {
+  setDetailedProductId,
+  setViewMode,
+} from 'src/store/products/productsSlice';
+import { useGetItemQuery } from 'src/store/api/api';
 
 import Spinner from 'components/spinner/Spinner';
 import DetailedCard from 'components/detailedCard/DetailedCard';
@@ -11,21 +13,22 @@ import DetailedCard from 'components/detailedCard/DetailedCard';
 import styles from './DetailedPage.module.scss';
 
 export default function DetailedPage() {
-  const [, setSearchParams] = useSearchParams();
-
-  const { detailedProductId, setDetailedProductId } = useContext(
-    DetailedProductContext
+  const detailedProductId = useSelector(
+    (state: RootState) => state.products.detailedProductId
   );
 
-  const { product, isLoading } = useItem(detailedProductId);
+  const detailsPageIsLoading = useSelector(
+    (state: RootState) => state.loading.detailsPageIsLoading
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { data } = useGetItemQuery(detailedProductId);
 
   const closeDetailedPage = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      setSearchParams((prevParams) => {
-        prevParams.delete('productId');
-        return prevParams;
-      });
-      setDetailedProductId('');
+      dispatch(setDetailedProductId(''));
+      dispatch(setViewMode(false));
     }
   };
 
@@ -35,12 +38,12 @@ export default function DetailedPage() {
 
   return (
     <div className={styles.container} onClick={closeDetailedPage}>
-      {isLoading ? (
+      {detailsPageIsLoading ? (
         <Spinner />
       ) : (
-        product && (
+        data && (
           <DetailedCard
-            product={product}
+            product={data[0]}
             closeDetailedPage={closeDetailedPage}
           />
         )

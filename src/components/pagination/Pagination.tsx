@@ -1,24 +1,23 @@
-import { useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { AppDispatch, RootState } from 'src/store/store';
+
+import { setPage, setPerPage } from 'src/store/search/searchSlice';
 
 import styles from './Pagination.module.scss';
 
-interface PaginationProps {
-  page: number;
-  perPage: string;
-}
-
 const perPageOptions = [5, 10, 15];
 
-export default function Pagination({ page, perPage }: PaginationProps) {
+export default function Pagination() {
+  const page = useSelector((state: RootState) => state.search.page);
+  const perPage = useSelector((state: RootState) => state.search.perPage);
+
+  const dispatch = useDispatch<AppDispatch>();
+
   const isFirstPage = page === 1;
 
-  const [, setSearchParams] = useSearchParams();
-
   const changePage = (page: number) => {
-    setSearchParams((searchParams) => {
-      searchParams.set('page', page.toString());
-      return searchParams;
-    });
+    dispatch(setPage(page));
   };
 
   const nextPage = () => {
@@ -31,10 +30,7 @@ export default function Pagination({ page, perPage }: PaginationProps) {
 
   const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     changePage(1);
-    setSearchParams((searchParams) => {
-      searchParams.set('perPage', event.target.value);
-      return searchParams;
-    });
+    dispatch(setPerPage(event.target.value));
   };
 
   return (

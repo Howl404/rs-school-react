@@ -1,15 +1,11 @@
-import React, { useContext } from 'react';
-
-import { ProductsContext } from 'contexts/ProductsContext';
+import { Product } from 'src/interfaces/product';
 
 import Card from 'components/card/Card';
 
 import styles from './CardList.module.scss';
 
-export default function CardList() {
-  const { products } = useContext(ProductsContext);
-
-  if (!products.length) {
+export default function CardList({ data }: { data: Product[] }) {
+  if (!data.length) {
     return (
       <div className={styles.container}>
         <h2>Nothing is found</h2>
@@ -19,7 +15,7 @@ export default function CardList() {
 
   return (
     <div className={styles.container} data-testid="card-container" role="list">
-      {products.map((product) => (
+      {data.map((product) => (
         <Card product={product} key={product.id} />
       ))}
     </div>

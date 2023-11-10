@@ -1,9 +1,5 @@
 import { useState } from 'react';
 
-import { SearchTermContextProvider } from 'contexts/SearchTermContext';
-import { ProductsContextProvider } from 'contexts/ProductsContext';
-import { DetailedProductContextProvider } from 'contexts/DetailedProductContext';
-
 import Search from 'components/search/Search';
 import Results from 'components/results/Results';
 
@@ -29,14 +25,8 @@ export default function MainPage() {
       >
         Throw Error
       </button>
-      <SearchTermContextProvider>
-        <Search />
-        <ProductsContextProvider>
-          <DetailedProductContextProvider>
-            <Results />
-          </DetailedProductContextProvider>
-        </ProductsContextProvider>
-      </SearchTermContextProvider>
+      <Search />
+      <Results />
     </>
   );
 }

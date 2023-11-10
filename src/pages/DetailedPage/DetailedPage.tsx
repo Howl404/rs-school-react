@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import useItem from 'hooks/useItem';
-
 import { DetailedProductContext } from 'contexts/DetailedProductContext';
 
-import Spinner from 'components/spinner/Spinner';
+import useItem from 'hooks/useItem';
+
 import DetailedCard from 'components/detailedCard/DetailedCard';
+import Spinner from 'components/spinner/Spinner';
 
 import styles from './DetailedPage.module.scss';
 

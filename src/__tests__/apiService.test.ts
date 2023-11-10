@@ -93,7 +93,6 @@ describe('fetchItems', () => {
     const params = new URLSearchParams({
       page: page.toString(),
       per_page: perPage,
-      beer_name: searchTerm,
     });
 
     url.search = params.toString();

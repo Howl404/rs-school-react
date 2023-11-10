@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { Product } from 'src/interfaces/product';
-
 import { fetchItem } from 'services/apiService';
+
+import { Product } from 'src/interfaces/product';
 
 export default function useItem(productId: string) {
   const [product, setProduct] = useState<Product | null>(null);

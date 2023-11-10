@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { Product } from 'src/interfaces/product';
-
 import { DetailedProductContext } from 'contexts/DetailedProductContext';
+
+import { Product } from 'src/interfaces/product';
 
 import styles from './Card.module.scss';
 
@@ -27,15 +27,16 @@ export default function Card({
   };
 
   return (
-    <div
+    <button
       className={styles.card}
       onClick={openDetailedPage}
       data-testid="card"
       role="listitem"
+      type="button"
     >
       <h3 className={styles.cardHeading}>{name}</h3>
       <img src={image_url} alt={`${name} image`} className={styles.cardImage} />
       <p className={styles.cardText}>{tagline}</p>
-    </div>
+    </button>
   );
 }

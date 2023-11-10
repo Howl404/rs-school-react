@@ -2,17 +2,16 @@ import { useContext, useEffect, useState } from 'react';
 
 import { fetchItems } from 'services/apiService';
 
-import { SearchTermContext } from 'contexts/SearchTermContext';
 import { ProductsContext } from 'contexts/ProductsContext';
+import { SearchTermContext } from 'contexts/SearchTermContext';
 
-interface UseItemsProps {
-  page: number;
-  perPage: string;
-}
+import useDefaultParams from 'hooks/useDefaultParams';
 
-export default function useItems({ page, perPage }: UseItemsProps) {
+export default function useItems() {
   const { searchTerm } = useContext(SearchTermContext);
   const { setProducts } = useContext(ProductsContext);
+
+  const { page, perPage } = useDefaultParams();
 
   const [isLoading, setIsLoading] = useState(false);
 

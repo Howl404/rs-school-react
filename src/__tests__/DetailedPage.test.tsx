@@ -1,6 +1,5 @@
-import { BrowserRouter } from 'react-router-dom';
-
 import { render, screen, waitFor } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import { expect, it } from 'vitest';
 import '@testing-library/jest-dom';
 

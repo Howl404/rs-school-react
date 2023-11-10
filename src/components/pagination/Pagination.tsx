@@ -1,15 +1,14 @@
 import { useSearchParams } from 'react-router-dom';
 
-import styles from './Pagination.module.scss';
+import useDefaultParams from 'hooks/useDefaultParams';
 
-interface PaginationProps {
-  page: number;
-  perPage: string;
-}
+import styles from './Pagination.module.scss';
 
 const perPageOptions = [5, 10, 15];
 
-export default function Pagination({ page, perPage }: PaginationProps) {
+export default function Pagination() {
+  const { page, perPage } = useDefaultParams();
+
   const isFirstPage = page === 1;
 
   const [, setSearchParams] = useSearchParams();
@@ -40,11 +39,13 @@ export default function Pagination({ page, perPage }: PaginationProps) {
   return (
     <>
       <div className={styles.paginationContainer}>
-        <button onClick={previousPage} disabled={isFirstPage}>
+        <button onClick={previousPage} disabled={isFirstPage} type="button">
           &#5176;
         </button>
         <p>{page}</p>
-        <button onClick={nextPage}>&#5171;</button>
+        <button onClick={nextPage} type="button">
+          &#5171;
+        </button>
         <select onChange={handlePerPageChange} value={perPage}>
           {perPageOptions.map((option) => (
             <option key={option} value={option}>

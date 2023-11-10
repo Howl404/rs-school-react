@@ -1,7 +1,6 @@
-import Router from 'src/router/Router';
-import { MemoryRouter } from 'react-router-dom';
-
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import Router from 'src/router/Router';
 import { expect, it } from 'vitest';
 import '@testing-library/jest-dom';
 

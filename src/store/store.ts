@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import searchReducer from './search/searchSlice';
-import productsReducer from './products/productsSlice';
-import loadingReducer from './loading/loadingSlice';
+
 import { apiService } from './api/api';
+import loadingReducer from './loading/loadingSlice';
+import productsReducer from './products/productsSlice';
+import searchReducer from './search/searchSlice';
 
 export const store = configureStore({
   reducer: {

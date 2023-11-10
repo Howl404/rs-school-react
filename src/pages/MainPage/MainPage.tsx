@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import Search from 'components/search/Search';
 import Results from 'components/results/Results';
+import Search from 'components/search/Search';
 
 import styles from './MainPage.module.scss';
 
@@ -22,6 +22,7 @@ export default function MainPage() {
         className={styles.errorButton}
         onClick={throwError}
         data-testid="error-button"
+        type="button"
       >
         Throw Error
       </button>

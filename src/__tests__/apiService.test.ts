@@ -89,12 +89,11 @@
 
 //     const data = await fetchItems(searchTerm, page, perPage);
 
-//     const url = new URL('https://api.punkapi.com/v2/beers/');
-//     const params = new URLSearchParams({
-//       page: page.toString(),
-//       per_page: perPage,
-//       beer_name: searchTerm,
-//     });
+// const url = new URL('https://api.punkapi.com/v2/beers/');
+// const params = new URLSearchParams({
+//   page: page.toString(),
+//   per_page: perPage,
+// });
 
 //     url.search = params.toString();
 

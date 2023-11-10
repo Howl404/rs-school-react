@@ -1,7 +1,6 @@
+import { fireEvent, render, screen } from '@testing-library/react';
 import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-
-import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 
@@ -42,7 +41,7 @@ describe('Make sure the component updates URL query parameter when page changes'
   it('When next page button is clicked', () => {
     render(
       <BrowserRouter>
-        <Pagination page={page} perPage={perPage} />
+        <Pagination />
       </BrowserRouter>
     );
 
@@ -58,7 +57,7 @@ describe('Make sure the component updates URL query parameter when page changes'
   it('When previous page button is clicked', () => {
     render(
       <BrowserRouter>
-        <Pagination page={page} perPage={perPage} />
+        <Pagination />
       </BrowserRouter>
     );
 
@@ -74,7 +73,7 @@ describe('Make sure the component updates URL query parameter when page changes'
   it('When user changes amount of items on page, reset page to first', () => {
     render(
       <BrowserRouter>
-        <Pagination page={page} perPage={perPage} />
+        <Pagination />
       </BrowserRouter>
     );
 

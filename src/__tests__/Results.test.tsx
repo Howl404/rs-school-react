@@ -1,13 +1,14 @@
+import { act, render, screen, waitFor } from '@testing-library/react';
 import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-
-import { act, render, screen, waitFor } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 
+import { fetchItemMock, fetchItemsMock } from './mock/apiServiceMocks';
+
+import { DetailedProductContextProvider } from 'contexts/DetailedProductContext';
 import { ProductsContext } from 'contexts/ProductsContext';
 import { SearchTermContext } from 'contexts/SearchTermContext';
-import { DetailedProductContextProvider } from 'contexts/DetailedProductContext';
 
 import { Product } from 'src/interfaces/product';
 
@@ -38,24 +39,8 @@ vi.mock('react-router-dom', async () => {
 
 it('Results is getting products from API and displays it', async () => {
   vi.mock('services/apiService', () => ({
-    fetchItems: vi.fn().mockResolvedValue([
-      {
-        id: 1,
-        name: 'Product 1',
-        description: '',
-        image_url: '',
-        tagline: '',
-        first_brewed: '',
-      },
-      {
-        id: 2,
-        name: 'Product 2',
-        description: '',
-        image_url: '',
-        tagline: '',
-        first_brewed: '',
-      },
-    ]),
+    fetchItem: fetchItemMock,
+    fetchItems: fetchItemsMock,
   }));
 
   const mockProducts: Product[] = [];

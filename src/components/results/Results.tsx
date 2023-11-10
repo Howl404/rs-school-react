@@ -1,14 +1,13 @@
-import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-import { RootState } from 'src/store/store';
+import { Outlet } from 'react-router-dom';
 import { useGetItemsQuery } from 'src/store/api/api';
+import { RootState } from 'src/store/store';
 
 import { cls } from 'src/utils/cls';
 
-import Spinner from 'components/spinner/Spinner';
-import Pagination from 'components/pagination/Pagination';
 import CardList from 'components/cardList/CardList';
+import Pagination from 'components/pagination/Pagination';
+import Spinner from 'components/spinner/Spinner';
 
 import styles from './Results.module.scss';
 

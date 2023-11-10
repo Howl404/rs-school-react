@@ -1,14 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
-
-import { RootState, AppDispatch } from 'src/store/store';
+import { useGetItemQuery } from 'src/store/api/api';
 import {
   setDetailedProductId,
   setViewMode,
 } from 'src/store/products/productsSlice';
-import { useGetItemQuery } from 'src/store/api/api';
+import { RootState, AppDispatch } from 'src/store/store';
 
-import Spinner from 'components/spinner/Spinner';
 import DetailedCard from 'components/detailedCard/DetailedCard';
+import Spinner from 'components/spinner/Spinner';
 
 import styles from './DetailedPage.module.scss';
 

@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-
-import { AppDispatch, RootState } from 'src/store/store';
-
 import { setPage, setPerPage } from 'src/store/search/searchSlice';
+import { AppDispatch, RootState } from 'src/store/store';
 
 import styles from './Pagination.module.scss';
 
@@ -36,11 +34,13 @@ export default function Pagination() {
   return (
     <>
       <div className={styles.paginationContainer}>
-        <button onClick={previousPage} disabled={isFirstPage}>
+        <button onClick={previousPage} disabled={isFirstPage} type="button">
           &#5176;
         </button>
         <p>{page}</p>
-        <button onClick={nextPage}>&#5171;</button>
+        <button onClick={nextPage} type="button">
+          &#5171;
+        </button>
         <select onChange={handlePerPageChange} value={perPage}>
           {perPageOptions.map((option) => (
             <option key={option} value={option}>

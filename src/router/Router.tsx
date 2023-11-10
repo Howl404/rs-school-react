@@ -1,20 +1,21 @@
-import { Route, Routes } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 
-import { pages } from './pages';
+import DetailedPage from 'pages/DetailedPage/DetailedPage';
+import MainPage from 'pages/MainPage/MainPage';
+import NotFoundPage from 'pages/NotFoundPage/NotFoundPage';
 
 export default function Router() {
-  return (
-    <Routes>
-      <Route path={pages.mainPage.path} element={pages.mainPage.element}>
-        <Route
-          path={pages.detailedPage.path}
-          element={pages.detailedPage.element}
-        />
-      </Route>
-      <Route
-        path={pages.notFoundPage.path}
-        element={pages.notFoundPage.element}
-      />
-    </Routes>
-  );
+  return useRoutes([
+    {
+      path: '/',
+      element: <MainPage />,
+      children: [
+        {
+          path: '',
+          element: <DetailedPage />,
+        },
+      ],
+    },
+    { path: '*', element: <NotFoundPage /> },
+  ]);
 }

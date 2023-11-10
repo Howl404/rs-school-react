@@ -5,6 +5,7 @@ exports[`Renders main page with all components and 2 products 1`] = `
   <button
     class="_errorButton_db53ca"
     data-testid="error-button"
+    type="button"
   >
     Throw Error
   </button>
@@ -30,10 +31,11 @@ exports[`Renders main page with all components and 2 products 1`] = `
       data-testid="card-container"
       role="list"
     >
-      <div
+      <button
         class="_card_c39673"
         data-testid="card"
         role="listitem"
+        type="button"
       >
         <h3
           class="_cardHeading_c39673"
@@ -48,11 +50,12 @@ exports[`Renders main page with all components and 2 products 1`] = `
         <p
           class="_cardText_c39673"
         />
-      </div>
-      <div
+      </button>
+      <button
         class="_card_c39673"
         data-testid="card"
         role="listitem"
+        type="button"
       >
         <h3
           class="_cardHeading_c39673"
@@ -67,20 +70,23 @@ exports[`Renders main page with all components and 2 products 1`] = `
         <p
           class="_cardText_c39673"
         />
-      </div>
+      </button>
     </div>
     <div
       class="_paginationContainer_5bac6f"
     >
       <button
         disabled=""
+        type="button"
       >
         ᐸ
       </button>
       <p>
         1
       </p>
-      <button>
+      <button
+        type="button"
+      >
         ᐳ
       </button>
       <select>

@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import { updateSearchParams } from 'src/utils/updateSearchParams';
 
 type SearchState = {

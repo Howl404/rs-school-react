@@ -1,12 +1,11 @@
+import { render, screen } from '@testing-library/react';
 import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-
-import { render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 
-import { ProductsContext } from 'contexts/ProductsContext';
 import { DetailedProductContextProvider } from 'contexts/DetailedProductContext';
+import { ProductsContext } from 'contexts/ProductsContext';
 
 import { Product } from 'src/interfaces/product';
 

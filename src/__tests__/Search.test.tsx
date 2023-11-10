@@ -1,6 +1,5 @@
-import { BrowserRouter } from 'react-router-dom';
-
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import { expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 
@@ -70,6 +69,28 @@ it('Clicking the Search button saves the entered value to local storage', () => 
   expect(localStorage.getItem('howl-searchTerm')).toBe('test search');
 });
 
+it('Component retrieves the value from local storage upon mounting', () => {
+  render(
+    <BrowserRouter>
+      <SearchTermContext.Provider
+        value={{
+          searchTerm: '',
+          setSearchTerm: mockSetSearchTerm,
+        }}
+      >
+        <Search />
+      </SearchTermContext.Provider>
+    </BrowserRouter>
+  );
+
+  const inputElement = screen.getByRole('textbox') as HTMLInputElement;
+
+  waitFor(() => {
+    expect(inputElement.value).toBe('test search');
+    expect(mockSetSearchTerm).toHaveBeenCalledWith('test search');
+  });
+});
+
 it('Clicking "Enter" saves the entered value to local storage', () => {
   render(
     <BrowserRouter>
@@ -93,26 +114,4 @@ it('Clicking "Enter" saves the entered value to local storage', () => {
   fireEvent.keyDown(inputElement, { key: 'Enter' });
 
   expect(localStorage.getItem('howl-searchTerm')).toBe('test enter');
-});
-
-it('Component retrieves the value from local storage upon mounting', () => {
-  render(
-    <BrowserRouter>
-      <SearchTermContext.Provider
-        value={{
-          searchTerm: '',
-          setSearchTerm: mockSetSearchTerm,
-        }}
-      >
-        <Search />
-      </SearchTermContext.Provider>
-    </BrowserRouter>
-  );
-
-  const inputElement = screen.getByRole('textbox') as HTMLInputElement;
-
-  waitFor(() => {
-    expect(inputElement.value).toBe('test search');
-    expect(mockSetSearchTerm).toHaveBeenCalledWith('test search');
-  });
 });

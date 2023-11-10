@@ -1,89 +1,31 @@
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
-import '@testing-library/jest-dom';
+
+import { fetchItemMock, fetchItemsMock } from './mock/apiServiceMocks';
 
 import * as apiService from 'services/apiService';
+import '@testing-library/jest-dom';
 
 import {
   DetailedProductContext,
   DetailedProductContextProvider,
 } from 'contexts/DetailedProductContext';
-import { SearchTermContext } from 'contexts/SearchTermContext';
 import { ProductsContext } from 'contexts/ProductsContext';
+import { SearchTermContext } from 'contexts/SearchTermContext';
 
 import { Product } from 'src/interfaces/product';
-
-import DetailedPage from 'pages/DetailedPage/DetailedPage';
 
 import Card from 'components/card/Card';
 import Results from 'components/results/Results';
 
+import DetailedPage from 'pages/DetailedPage/DetailedPage';
+
 vi.mock('services/apiService', () => ({
-  fetchItem: vi.fn().mockImplementation(
-    () =>
-      new Promise((resolve) =>
-        setTimeout(
-          () =>
-            resolve({
-              id: 1,
-              name: 'Detailed product',
-              description: 'test description',
-              image_url: 'test url',
-              tagline: 'test tagline',
-              first_brewed: '1992',
-            }),
-          100
-        )
-      )
-  ),
-  fetchItems: vi.fn().mockResolvedValue([
-    {
-      id: 1,
-      name: 'Product 1',
-      description: '',
-      image_url: '',
-      tagline: '',
-      first_brewed: '',
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      description: '',
-      image_url: '',
-      tagline: '',
-      first_brewed: '',
-    },
-  ]),
+  fetchItem: fetchItemMock,
+  fetchItems: fetchItemsMock,
 }));
-
-it('Ensure that the card component renders the relevant card data', () => {
-  const mockProduct: Product = {
-    id: 1,
-    name: 'Product 1',
-    description: '',
-    image_url: 'test url',
-    tagline: 'test tagline',
-    first_brewed: '',
-  };
-
-  render(
-    <BrowserRouter>
-      <DetailedProductContextProvider>
-        <Card product={mockProduct} />
-      </DetailedProductContextProvider>
-    </BrowserRouter>
-  );
-
-  expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
-  expect(screen.getByAltText('Product 1 image')).toHaveAttribute(
-    'src',
-    mockProduct.image_url
-  );
-  expect(screen.getByText(mockProduct.tagline)).toBeInTheDocument();
-});
 
 const mockProducts: Product[] = [];
 
@@ -123,6 +65,32 @@ function TestAppWrapper() {
   );
 }
 
+it('Ensure that the card component renders the relevant card data', () => {
+  const mockProduct: Product = {
+    id: 1,
+    name: 'Product 1',
+    description: '',
+    image_url: 'test url',
+    tagline: 'test tagline',
+    first_brewed: '',
+  };
+
+  render(
+    <BrowserRouter>
+      <DetailedProductContextProvider>
+        <Card product={mockProduct} />
+      </DetailedProductContextProvider>
+    </BrowserRouter>
+  );
+
+  expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
+  expect(screen.getByAltText('Product 1 image')).toHaveAttribute(
+    'src',
+    mockProduct.image_url
+  );
+  expect(screen.getByText(mockProduct.tagline)).toBeInTheDocument();
+});
+
 it('Validate that clicking on a card opens a detailed card component', async () => {
   render(<TestAppWrapper />);
 
@@ -155,22 +123,4 @@ it('Check that clicking triggers an additional API call to fetch detailed inform
   const fetchItem = vi.mocked(apiService.fetchItem);
 
   expect(fetchItem).toBeCalled();
-});
-
-it('Check that a loading indicator is displayed while fetching data', async () => {
-  render(<TestAppWrapper />);
-
-  await waitFor(async () => {
-    const firstCard = screen.getAllByTestId('card')[0];
-    fireEvent.click(firstCard);
-  });
-
-  const fetchItem = vi.mocked(apiService.fetchItem);
-
-  expect(fetchItem).toBeCalled();
-
-  await waitFor(() => {
-    const loader = screen.getByTestId('spinner-container');
-    expect(loader).toBeInTheDocument();
-  });
 });

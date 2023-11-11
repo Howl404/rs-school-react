@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { updateSearchParams } from 'src/utils/updateSearchParams';
+import { updateSearchParams } from 'utils/updateSearchParams';
 
 type ProductsState = {
   detailedProductId: string;

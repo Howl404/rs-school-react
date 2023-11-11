@@ -23,7 +23,8 @@
       "pages/*": ["./src/pages/*"],
       "services/*": ["./src/services/*"],
       "hooks/*": ["./src/hooks/*"],
-      "contexts/*": ["./src/contexts/*"]
+      "store/*": ["./src/store/*"],
+      "utils/*": ["./src/utils/*"]
     }
   },
   "include": ["src"],

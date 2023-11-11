@@ -1,69 +1,16 @@
+import { requests } from './mock/setupTests';
+
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { expect, it, vi } from 'vitest';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import Router from 'src/router/Router';
+import { expect, it } from 'vitest';
 
-import { fetchItemMock, fetchItemsMock } from './mock/apiServiceMocks';
-
-import * as apiService from 'services/apiService';
-import '@testing-library/jest-dom';
-
-import {
-  DetailedProductContext,
-  DetailedProductContextProvider,
-} from 'contexts/DetailedProductContext';
-import { ProductsContext } from 'contexts/ProductsContext';
-import { SearchTermContext } from 'contexts/SearchTermContext';
+import { store } from 'store/store';
 
 import { Product } from 'src/interfaces/product';
 
 import Card from 'components/card/Card';
-import Results from 'components/results/Results';
-
-import DetailedPage from 'pages/DetailedPage/DetailedPage';
-
-vi.mock('services/apiService', () => ({
-  fetchItem: fetchItemMock,
-  fetchItems: fetchItemsMock,
-}));
-
-const mockProducts: Product[] = [];
-
-const mockSetSearchTerm = vi.fn();
-
-const mockSetProducts = vi.fn((newProducts) => {
-  mockProducts.length = 0;
-  mockProducts.push(...newProducts);
-});
-
-function TestAppWrapper() {
-  const [testProductId, setTestProductId] = useState('');
-
-  return (
-    <BrowserRouter>
-      <SearchTermContext.Provider
-        value={{ searchTerm: '', setSearchTerm: mockSetSearchTerm }}
-      >
-        <ProductsContext.Provider
-          value={{ products: mockProducts, setProducts: mockSetProducts }}
-        >
-          <DetailedProductContext.Provider
-            value={{
-              detailedProductId: testProductId,
-              setDetailedProductId: setTestProductId,
-            }}
-          >
-            <Routes>
-              <Route path={'/'} element={<Results />}>
-                <Route path="" element={<DetailedPage />} />
-              </Route>
-            </Routes>
-          </DetailedProductContext.Provider>
-        </ProductsContext.Provider>
-      </SearchTermContext.Provider>
-    </BrowserRouter>
-  );
-}
 
 it('Ensure that the card component renders the relevant card data', () => {
   const mockProduct: Product = {
@@ -77,9 +24,9 @@ it('Ensure that the card component renders the relevant card data', () => {
 
   render(
     <BrowserRouter>
-      <DetailedProductContextProvider>
+      <Provider store={store}>
         <Card product={mockProduct} />
-      </DetailedProductContextProvider>
+      </Provider>
     </BrowserRouter>
   );
 
@@ -92,7 +39,13 @@ it('Ensure that the card component renders the relevant card data', () => {
 });
 
 it('Validate that clicking on a card opens a detailed card component', async () => {
-  render(<TestAppWrapper />);
+  render(
+    <BrowserRouter>
+      <Provider store={store}>
+        <Router />
+      </Provider>
+    </BrowserRouter>
+  );
 
   const detailedCard = screen.queryByTestId('detailed-card');
 
@@ -113,14 +66,20 @@ it('Validate that clicking on a card opens a detailed card component', async () 
 });
 
 it('Check that clicking triggers an additional API call to fetch detailed information', async () => {
-  render(<TestAppWrapper />);
+  render(
+    <BrowserRouter>
+      <Provider store={store}>
+        <Router />
+      </Provider>
+    </BrowserRouter>
+  );
 
   await waitFor(async () => {
     const firstCard = screen.getAllByTestId('card')[0];
     fireEvent.click(firstCard);
   });
 
-  const fetchItem = vi.mocked(apiService.fetchItem);
-
-  expect(fetchItem).toBeCalled();
+  expect(
+    requests.some((req) => req.url === 'https://api.punkapi.com/v2/beers/1')
+  ).toBeTruthy();
 });

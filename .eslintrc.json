@@ -43,7 +43,7 @@
         "pathGroups": [
           {
             "pattern": "./mock/**",
-            "group": "internal",
+            "group": "external",
             "position": "before"
           },
           {
@@ -52,12 +52,12 @@
             "position": "after"
           },
           {
-            "pattern": "src/utils/**",
+            "pattern": "utils/**",
             "group": "internal",
             "position": "after"
           },
           {
-            "pattern": "contexts/**",
+            "pattern": "store/**",
             "group": "internal",
             "position": "after"
           },

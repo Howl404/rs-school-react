@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import Router from 'src/router/Router';
-import { store } from 'src/store/store';
+
+import { store } from 'store/store';
 
 import ErrorBoundary from 'components/errorBoundary/ErrorBoundary';
 

@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPage, setSearchTerm } from 'src/store/search/searchSlice';
-import { AppDispatch, RootState } from 'src/store/store';
+
+import { setPage, setSearchTerm } from 'store/search/searchSlice';
+import { AppDispatch, RootState } from 'store/store';
 
 import styles from './Search.module.scss';
 

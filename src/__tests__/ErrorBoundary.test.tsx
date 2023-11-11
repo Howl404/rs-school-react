@@ -1,15 +1,20 @@
 import { fireEvent, waitFor, render, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import ErrorBoundary from 'src/components/errorBoundary/ErrorBoundary';
 import MainPage from 'src/pages/MainPage/MainPage';
 import { expect, it } from 'vitest';
 
+import { store } from 'store/store';
+
 it('Error boundary catches error', async () => {
   render(
     <BrowserRouter>
       <ErrorBoundary>
-        <MainPage />
+        <Provider store={store}>
+          <MainPage />
+        </Provider>
       </ErrorBoundary>
     </BrowserRouter>
   );

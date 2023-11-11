@@ -1,18 +1,18 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { expect, it } from 'vitest';
-import '@testing-library/jest-dom';
 
-import { DetailedProductContextProvider } from 'contexts/DetailedProductContext';
+import { store } from 'store/store';
 
 import DetailedPage from 'pages/DetailedPage/DetailedPage';
 
 it('Returns text if product id is not provided via context', async () => {
   render(
     <BrowserRouter>
-      <DetailedProductContextProvider>
+      <Provider store={store}>
         <DetailedPage />
-      </DetailedProductContextProvider>
+      </Provider>
     </BrowserRouter>
   );
 

@@ -1,9 +1,10 @@
 import { useDispatch } from 'react-redux';
+
 import {
   setDetailedProductId,
   setViewMode,
-} from 'src/store/products/productsSlice';
-import { AppDispatch } from 'src/store/store';
+} from 'store/products/productsSlice';
+import { AppDispatch } from 'store/store';
 
 import { Product } from 'src/interfaces/product';
 

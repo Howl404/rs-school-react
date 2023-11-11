@@ -1,9 +1,9 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { expect, it, vi } from 'vitest';
-import '@testing-library/jest-dom';
 
-import { SearchTermContext } from 'contexts/SearchTermContext';
+import { store } from 'store/store';
 
 import Search from 'components/search/Search';
 
@@ -48,14 +48,9 @@ const mockSetSearchTerm = vi.fn();
 it('Clicking the Search button saves the entered value to local storage', () => {
   render(
     <BrowserRouter>
-      <SearchTermContext.Provider
-        value={{
-          searchTerm: '',
-          setSearchTerm: mockSetSearchTerm,
-        }}
-      >
+      <Provider store={store}>
         <Search />
-      </SearchTermContext.Provider>
+      </Provider>
     </BrowserRouter>
   );
 
@@ -72,14 +67,9 @@ it('Clicking the Search button saves the entered value to local storage', () => 
 it('Component retrieves the value from local storage upon mounting', () => {
   render(
     <BrowserRouter>
-      <SearchTermContext.Provider
-        value={{
-          searchTerm: '',
-          setSearchTerm: mockSetSearchTerm,
-        }}
-      >
+      <Provider store={store}>
         <Search />
-      </SearchTermContext.Provider>
+      </Provider>
     </BrowserRouter>
   );
 
@@ -94,14 +84,9 @@ it('Component retrieves the value from local storage upon mounting', () => {
 it('Clicking "Enter" saves the entered value to local storage', () => {
   render(
     <BrowserRouter>
-      <SearchTermContext.Provider
-        value={{
-          searchTerm: '',
-          setSearchTerm: mockSetSearchTerm,
-        }}
-      >
+      <Provider store={store}>
         <Search />
-      </SearchTermContext.Provider>
+      </Provider>
     </BrowserRouter>
   );
 

@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-import { useGetItemsQuery } from 'src/store/api/api';
-import { RootState } from 'src/store/store';
 
-import { cls } from 'src/utils/cls';
+import { cls } from 'utils/cls';
+
+import { useGetItemsQuery } from 'store/api/api';
+import { RootState } from 'store/store';
 
 import CardList from 'components/cardList/CardList';
 import Pagination from 'components/pagination/Pagination';
@@ -24,12 +25,12 @@ export default function Results() {
     perPage,
   });
 
-  const isLoading = useSelector(
+  const mainPageIsLoading = useSelector(
     (state: RootState) => state.loading.mainPageIsLoading
   );
 
   const content = () => {
-    if (isLoading) {
+    if (mainPageIsLoading) {
       return <Spinner />;
     }
     return data && <CardList data={data} />;

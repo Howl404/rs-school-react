@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setPage, setPerPage } from 'src/store/search/searchSlice';
-import { AppDispatch, RootState } from 'src/store/store';
+
+import { setPage, setPerPage } from 'store/search/searchSlice';
+import { AppDispatch, RootState } from 'store/store';
 
 import styles from './Pagination.module.scss';
 

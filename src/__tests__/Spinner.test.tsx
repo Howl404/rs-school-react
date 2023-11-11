@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import { expect, it } from 'vitest';
-import '@testing-library/jest-dom';
 
 import Spinner from 'components/spinner/Spinner';
 

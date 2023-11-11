@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
 
-import { setPage, setSearchTerm } from 'store/search/searchSlice';
-import { AppDispatch } from 'store/store';
+import { searchActions } from 'store/search/searchSlice';
+import { useAppDispatch } from 'store/store';
 
 import useSavedParams from 'hooks/useSavedParams';
 
@@ -11,15 +10,15 @@ import styles from './Search.module.scss';
 export default function Search() {
   const { searchTerm } = useSavedParams();
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const input = useRef<HTMLInputElement | null>(null);
 
   function handleSearch() {
     if (input.current) {
       const trimmedSearchTerm = input.current.value.trim();
-      dispatch(setSearchTerm(trimmedSearchTerm));
-      dispatch(setPage(1));
+      dispatch(searchActions.setSearchTerm(trimmedSearchTerm));
+      dispatch(searchActions.setPage(1));
     }
   }
 

@@ -1,7 +1,5 @@
-import { useDispatch } from 'react-redux';
-
-import { setPage, setPerPage } from 'store/search/searchSlice';
-import { AppDispatch } from 'store/store';
+import { searchActions } from 'store/search/searchSlice';
+import { useAppDispatch } from 'store/store';
 
 import useSavedParams from 'hooks/useSavedParams';
 
@@ -12,12 +10,12 @@ const perPageOptions = [5, 10, 15];
 export default function Pagination() {
   const { page, perPage } = useSavedParams();
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const isFirstPage = page === 1;
 
   const changePage = (page: number) => {
-    dispatch(setPage(page));
+    dispatch(searchActions.setPage(page));
   };
 
   const nextPage = () => {
@@ -30,7 +28,7 @@ export default function Pagination() {
 
   const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     changePage(1);
-    dispatch(setPerPage(event.target.value));
+    dispatch(searchActions.setPerPage(event.target.value));
   };
 
   return (

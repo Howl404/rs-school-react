@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { expect, test } from 'vitest';
 
-import { setPerPage } from 'store/search/searchSlice';
+import { searchActions } from 'store/search/searchSlice';
 import { store } from 'store/store';
 
 import CardList from 'components/cardList/CardList';
@@ -24,7 +24,7 @@ test('Verify that the component renders the specified number of cards', async ()
 
   expect(cards).toHaveLength(10);
 
-  store.dispatch(setPerPage('5'));
+  store.dispatch(searchActions.setPerPage('5'));
 
   await waitFor(() => new Promise((resolve) => setTimeout(resolve, 50)));
 

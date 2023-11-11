@@ -35,6 +35,4 @@ const searchSlice = createSlice({
   },
 });
 
-export const { setSearchTerm, setPerPage, setPage } = searchSlice.actions;
-
-export default searchSlice.reducer;
+export const { reducer: searchReducer, actions: searchActions } = searchSlice;

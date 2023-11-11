@@ -28,6 +28,5 @@ const productsSlice = createSlice({
   },
 });
 
-export const { setDetailedProductId, setViewMode } = productsSlice.actions;
-
-export default productsSlice.reducer;
+export const { reducer: productsReducer, actions: productsActions } =
+  productsSlice;

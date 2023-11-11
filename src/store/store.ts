@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import { apiService } from './api/api';
-import loadingReducer from './loading/loadingSlice';
-import productsReducer from './products/productsSlice';
-import searchReducer from './search/searchSlice';
+import { apiService } from 'store/api/api';
+import { loadingReducer } from 'store/loading/loadingSlice';
+import { productsReducer } from 'store/products/productsSlice';
+import { searchReducer } from 'store/search/searchSlice';
 
 export const store = configureStore({
   reducer: {
@@ -19,3 +20,6 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

@@ -1,11 +1,6 @@
-import { useSelector, useDispatch } from 'react-redux';
-
-import { useGetItemQuery } from 'store/api/api';
-import {
-  setDetailedProductId,
-  setViewMode,
-} from 'store/products/productsSlice';
-import { RootState, AppDispatch } from 'store/store';
+import { apiService } from 'store/api/api';
+import { productsActions } from 'store/products/productsSlice';
+import { useAppDispatch, useAppSelector } from 'store/store';
 
 import DetailedCard from 'components/detailedCard/DetailedCard';
 import Spinner from 'components/spinner/Spinner';
@@ -13,22 +8,22 @@ import Spinner from 'components/spinner/Spinner';
 import styles from './DetailedPage.module.scss';
 
 export default function DetailedPage() {
-  const detailedProductId = useSelector(
-    (state: RootState) => state.products.detailedProductId
+  const detailedProductId = useAppSelector(
+    (state) => state.products.detailedProductId
   );
 
-  const detailsPageIsLoading = useSelector(
-    (state: RootState) => state.loading.detailsPageIsLoading
+  const detailsPageIsLoading = useAppSelector(
+    (state) => state.loading.detailsPageIsLoading
   );
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
-  const { data } = useGetItemQuery(detailedProductId);
+  const { data } = apiService.useGetItemQuery(detailedProductId);
 
   const closeDetailedPage = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      dispatch(setDetailedProductId(''));
-      dispatch(setViewMode(false));
+      dispatch(productsActions.setDetailedProductId(''));
+      dispatch(productsActions.setViewMode(false));
     }
   };
 

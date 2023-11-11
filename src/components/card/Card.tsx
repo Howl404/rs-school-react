@@ -1,10 +1,5 @@
-import { useDispatch } from 'react-redux';
-
-import {
-  setDetailedProductId,
-  setViewMode,
-} from 'store/products/productsSlice';
-import { AppDispatch } from 'store/store';
+import { productsActions } from 'store/products/productsSlice';
+import { useAppDispatch } from 'store/store';
 
 import { Product } from 'src/interfaces/product';
 
@@ -17,11 +12,11 @@ export type CardProps = {
 export default function Card({
   product: { id, tagline, name, image_url },
 }: CardProps): JSX.Element {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const openDetailedPage = () => {
-    dispatch(setDetailedProductId(id.toString()));
-    dispatch(setViewMode(true));
+    dispatch(productsActions.setDetailedProductId(id.toString()));
+    dispatch(productsActions.setViewMode(true));
   };
 
   return (

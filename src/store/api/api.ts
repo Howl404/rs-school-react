@@ -1,11 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { Product } from 'src/interfaces/product';
+import { loadingActions } from 'store/loading/loadingSlice';
 
-import {
-  setDetailsPageLoading,
-  setMainPageLoading,
-} from '../loading/loadingSlice';
+import { Product } from 'src/interfaces/product';
 
 export const API_URL = 'https://api.punkapi.com/v2';
 
@@ -28,13 +25,13 @@ export const apiService = createApi({
         return `beers/?${params}`;
       },
       onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
-        dispatch(setMainPageLoading(true));
+        dispatch(loadingActions.setIsMainPageLoading(true));
         queryFulfilled
           .catch(() => {
-            dispatch(setMainPageLoading(false));
+            dispatch(loadingActions.setIsMainPageLoading(false));
           })
           .finally(() => {
-            dispatch(setMainPageLoading(false));
+            dispatch(loadingActions.setIsMainPageLoading(false));
           });
       },
     }),
@@ -43,17 +40,17 @@ export const apiService = createApi({
         return `beers/${productId}`;
       },
       onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
-        dispatch(setDetailsPageLoading(true));
+        dispatch(loadingActions.setIsDetailsPageLoading(true));
         queryFulfilled
           .catch(() => {
-            dispatch(setDetailsPageLoading(false));
+            dispatch(loadingActions.setIsDetailsPageLoading(false));
           })
           .finally(() => {
-            dispatch(setDetailsPageLoading(false));
+            dispatch(loadingActions.setIsDetailsPageLoading(false));
           });
       },
     }),
   }),
 });
 
-export const { useGetItemsQuery, useGetItemQuery } = apiService;
+export const { reducer: apiServiceReducer } = apiService;

@@ -7,5 +7,9 @@ export function updateSearchParams(paramName: string, paramValue: string) {
     params.delete(paramName);
   }
 
-  window.history.pushState({}, '', `${window.location.pathname}?${params}`);
+  const newUrl = params.toString()
+    ? `${window.location.pathname}?${params}`
+    : window.location.pathname;
+
+  window.history.pushState({}, '', newUrl);
 }

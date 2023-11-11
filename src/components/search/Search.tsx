@@ -1,13 +1,15 @@
 import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { setPage, setSearchTerm } from 'store/search/searchSlice';
-import { AppDispatch, RootState } from 'store/store';
+import { AppDispatch } from 'store/store';
+
+import useSavedParams from 'hooks/useSavedParams';
 
 import styles from './Search.module.scss';
 
 export default function Search() {
-  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
+  const { searchTerm } = useSavedParams();
 
   const dispatch = useDispatch<AppDispatch>();
 

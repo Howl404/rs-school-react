@@ -1,15 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { setPage, setPerPage } from 'store/search/searchSlice';
-import { AppDispatch, RootState } from 'store/store';
+import { AppDispatch } from 'store/store';
+
+import useSavedParams from 'hooks/useSavedParams';
 
 import styles from './Pagination.module.scss';
 
 const perPageOptions = [5, 10, 15];
 
 export default function Pagination() {
-  const page = useSelector((state: RootState) => state.search.page);
-  const perPage = useSelector((state: RootState) => state.search.perPage);
+  const { page, perPage } = useSavedParams();
 
   const dispatch = useDispatch<AppDispatch>();
 

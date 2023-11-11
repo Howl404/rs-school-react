@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useMemo, useState } from 'react';
+import { PropsWithChildren, createContext, useState } from 'react';
 
 import { Product } from 'src/interfaces/product';
 
@@ -12,13 +12,10 @@ export const ProductsContext = createContext<ProductsContextType>(null!);
 export function ProductsContextProvider({ children }: PropsWithChildren) {
   const [products, setProducts] = useState<Product[]>([]);
 
-  const value = useMemo(
-    () => ({
-      products,
-      setProducts,
-    }),
-    [products]
-  );
+  const value = {
+    products,
+    setProducts,
+  };
 
   return (
     <ProductsContext.Provider value={value}>

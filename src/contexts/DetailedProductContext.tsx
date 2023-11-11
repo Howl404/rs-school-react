@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useMemo, useState } from 'react';
+import { PropsWithChildren, createContext, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export type DetailedProductContextType = {
@@ -19,13 +19,10 @@ export function DetailedProductContextProvider({
     searchParams.get('productId')?.toString() || ''
   );
 
-  const value = useMemo(
-    () => ({
-      detailedProductId,
-      setDetailedProductId,
-    }),
-    [detailedProductId]
-  );
+  const value = {
+    detailedProductId,
+    setDetailedProductId,
+  };
 
   return (
     <DetailedProductContext.Provider value={value}>

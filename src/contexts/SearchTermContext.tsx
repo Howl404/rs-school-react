@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useMemo, useState } from 'react';
+import { PropsWithChildren, createContext, useState } from 'react';
 
 export type SearchTermContextType = {
   searchTerm: string;
@@ -12,13 +12,10 @@ export function SearchTermContextProvider({ children }: PropsWithChildren) {
     localStorage.getItem('howl-searchTerm') || ''
   );
 
-  const value = useMemo(
-    () => ({
-      searchTerm,
-      setSearchTerm,
-    }),
-    [searchTerm]
-  );
+  const value = {
+    searchTerm,
+    setSearchTerm,
+  };
 
   return (
     <SearchTermContext.Provider value={value}>

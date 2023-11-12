@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { cls } from 'utils/cls';
 
 import { apiService } from 'store/api/api';
-import { RootState, useAppSelector } from 'store/store';
+import { useAppSelector } from 'store/store';
 
 import useSavedParams from 'hooks/useSavedParams';
 
@@ -16,7 +16,7 @@ import styles from './Results.module.scss';
 export default function Results() {
   const viewMode = useAppSelector((state) => state.products.viewMode);
   const mainPageIsLoading = useAppSelector(
-    (state: RootState) => state.loading.mainPageIsLoading
+    (state) => state.loading.mainPageIsLoading
   );
 
   const { page, perPage, searchTerm } = useSavedParams();

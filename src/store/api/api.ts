@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { loadingActions } from 'store/loading/loadingSlice';
+import { productsActions } from 'store/products/productsSlice';
 
 import { Product } from 'src/interfaces/product';
 
@@ -25,29 +25,32 @@ export const apiService = createApi({
         return `beers/?${params}`;
       },
       onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
-        dispatch(loadingActions.setIsMainPageLoading(true));
+        dispatch(productsActions.setIsMainPageLoading(true));
         queryFulfilled
           .catch(() => {
-            dispatch(loadingActions.setIsMainPageLoading(false));
+            dispatch(productsActions.setIsMainPageLoading(false));
           })
           .finally(() => {
-            dispatch(loadingActions.setIsMainPageLoading(false));
+            dispatch(productsActions.setIsMainPageLoading(false));
           });
       },
     }),
-    getItem: builder.query<Product[], string>({
+    getItem: builder.query<Product, string>({
       query: (productId) => {
         return `beers/${productId}`;
       },
       onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
-        dispatch(loadingActions.setIsDetailsPageLoading(true));
+        dispatch(productsActions.setIsDetailsPageLoading(true));
         queryFulfilled
           .catch(() => {
-            dispatch(loadingActions.setIsDetailsPageLoading(false));
+            dispatch(productsActions.setIsDetailsPageLoading(false));
           })
           .finally(() => {
-            dispatch(loadingActions.setIsDetailsPageLoading(false));
+            dispatch(productsActions.setIsDetailsPageLoading(false));
           });
+      },
+      transformResponse: (response: Product[]) => {
+        return response[0];
       },
     }),
   }),

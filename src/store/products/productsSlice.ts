@@ -5,6 +5,8 @@ import { updateSearchParams } from 'utils/updateSearchParams';
 type ProductsState = {
   detailedProductId: string;
   viewMode: boolean;
+  mainPageIsLoading: boolean;
+  detailsPageIsLoading: boolean;
 };
 
 const params = new URLSearchParams(window.location.search);
@@ -12,6 +14,8 @@ const params = new URLSearchParams(window.location.search);
 const initialState: ProductsState = {
   detailedProductId: params.get('productId') || '',
   viewMode: !!params.get('productId'),
+  mainPageIsLoading: false,
+  detailsPageIsLoading: false,
 };
 
 const productsSlice = createSlice({
@@ -24,6 +28,12 @@ const productsSlice = createSlice({
     },
     setViewMode: (state, action: PayloadAction<boolean>) => {
       state.viewMode = action.payload;
+    },
+    setIsMainPageLoading: (state, action) => {
+      state.mainPageIsLoading = action.payload;
+    },
+    setIsDetailsPageLoading: (state, action) => {
+      state.detailsPageIsLoading = action.payload;
     },
   },
 });

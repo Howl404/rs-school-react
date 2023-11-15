@@ -42,16 +42,6 @@
         "groups": ["builtin", "external", "internal"],
         "pathGroups": [
           {
-            "pattern": "./mock/**",
-            "group": "external",
-            "position": "before"
-          },
-          {
-            "pattern": "services/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
             "pattern": "utils/**",
             "group": "internal",
             "position": "after"
@@ -67,7 +57,7 @@
             "position": "after"
           },
           {
-            "pattern": "src/interfaces/**",
+            "pattern": "types/**",
             "group": "internal",
             "position": "after"
           },

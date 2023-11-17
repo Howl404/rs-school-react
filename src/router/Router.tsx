@@ -1,7 +1,7 @@
 import { useRoutes } from 'react-router-dom';
 
-import MainPage from 'pages/MainPage';
-import UncontrolledFormPage from 'pages/UncontrolledFormPage';
+import MainPage from 'pages/MainPage/MainPage';
+import UncontrolledFormPage from 'pages/UncontrolledFormPage/UncontrolledFormPage';
 
 export default function Router() {
   return useRoutes([

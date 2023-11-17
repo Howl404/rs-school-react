@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import { uncontrolledFormReducer } from 'store/uncontrolledForm/uncontrolledFormSlice';
+import { dataReducer } from 'store/data/dataSlice';
 
 export const store = configureStore({
   reducer: {
-    uncontrolled: uncontrolledFormReducer,
+    data: dataReducer,
   },
 });
 

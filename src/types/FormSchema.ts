@@ -20,8 +20,6 @@ export const formSchema = yup.object({
     .required('Email is required'),
   password: yup
     .string()
-    .min(8, 'Password must contain at least 8 characters')
-
     .matches(
       /[@$!%*?&]/,
       'Password must contain at least one special character'
@@ -29,6 +27,7 @@ export const formSchema = yup.object({
     .matches(/[0-9]/, 'Password must contain at least one number')
     .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
     .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .min(8, 'Password must contain at least 8 characters')
     .required('Password is required'),
   passwordConfirm: yup
     .string()

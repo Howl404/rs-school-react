@@ -32,13 +32,11 @@
   color: rgba(255, 0, 0, 0.579);
   animation: appearAnimation 500ms ease forwards;
   opacity: 0;
-  height: 1px;
 }
 
 @keyframes appearAnimation {
   to {
     opacity: 1;
-    height: 16px;
   }
 }
 

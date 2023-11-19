@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from 'store/store';
 
 import { formSchema } from 'types/FormSchema';
 
+import PasswordStrength from 'components/PasswordStrength';
+
 import styles from './UncontrolledFormPage.module.scss';
 
 type ErrorsState = {
@@ -134,7 +136,7 @@ export default function UncontrolledFormPage() {
             autoComplete="new-password"
           />
         </div>
-        {errors.password && <p className={styles.error}>{errors.password}</p>}
+        <PasswordStrength errorMessage={errors.password} />
 
         <div>
           <label htmlFor="passwordConfirm">Password Confirm</label>

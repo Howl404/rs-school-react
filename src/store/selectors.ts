@@ -1,6 +1,5 @@
 import { RootState } from 'store/store';
 
-export const selectViewMode = (state: RootState) => state.products.viewMode;
 export const selectDetailedProductId = (state: RootState) =>
   state.products.detailedProductId;
 export const selectMainPageIsLoading = (state: RootState) =>

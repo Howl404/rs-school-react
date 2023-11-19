@@ -25,7 +25,6 @@ export default function DetailedPage() {
   const closeDetailedPage = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       dispatch(productsActions.setDetailedProductId(''));
-      dispatch(productsActions.setViewMode(false));
     }
   };
 

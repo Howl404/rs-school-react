@@ -16,7 +16,6 @@ export default function Card({
 
   const openDetailedPage = () => {
     dispatch(productsActions.setDetailedProductId(id.toString()));
-    dispatch(productsActions.setViewMode(true));
   };
 
   return (

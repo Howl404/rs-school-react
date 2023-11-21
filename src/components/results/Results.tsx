@@ -1,43 +1,41 @@
-import { useSelector } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+// // import { useSelector } from 'react-redux';
+// // import { Outlet } from 'react-router-dom';
 
-import { cls } from 'utils/cls';
+// import { ReactNode } from 'react';
 
-import { apiService } from 'store/api/api';
-import { selectMainPageIsLoading, selectViewMode } from 'store/selectors';
+// import { cls } from 'utils/cls';
 
-import useSavedParams from 'hooks/useSavedParams';
+// // import { apiService } from 'store/api/api';
+// // import { selectMainPageIsLoading, selectViewMode } from 'store/selectors';
 
-import CardList from 'components/cardList/CardList';
-import Pagination from 'components/pagination/Pagination';
-import Spinner from 'components/spinner/Spinner';
+// // import useSavedParams from 'hooks/useSavedParams';
 
-import styles from './Results.module.scss';
+// import { Product } from 'src/interfaces/product';
 
-export default function Results() {
-  const viewMode = useSelector(selectViewMode);
-  const mainPageIsLoading = useSelector(selectMainPageIsLoading);
+// import CardList from 'components/cardList/CardList';
+// import Pagination from 'components/pagination/Pagination';
+// // import Spinner from 'components/spinner/Spinner';
 
-  const { page, perPage, searchTerm } = useSavedParams();
+// import styles from './Results.module.scss';
 
-  const { data } = apiService.useGetItemsQuery({
-    searchTerm,
-    page,
-    perPage,
-  });
+// export default function Results({ data }: { data: Product[] }) {
+//   // const viewMode = useSelector(selectViewMode);
+//   // const mainPageIsLoading = useSelector(selectMainPageIsLoading);
 
-  const content = () => {
-    if (mainPageIsLoading) {
-      return <Spinner />;
-    }
-    return data && <CardList data={data} />;
-  };
+//   // const { page, perPage, searchTerm } = useSavedParams();
 
-  return (
-    <div className={cls(viewMode && styles.wrapper)}>
-      {content()}
-      {viewMode && <Outlet />}
-      <Pagination />
-    </div>
-  );
-}
+//   // const { data } = apiService.useGetItemsQuery({
+//   //   searchTerm,
+//   //   page,
+//   //   perPage,
+//   // });
+
+//   // const content = () => {
+//   //   if (mainPageIsLoading) {
+//   //     return <Spinner />;
+//   //   }
+//   //   return data && <CardList data={data} />;
+//   // };
+
+//   return <div></div>;
+// }

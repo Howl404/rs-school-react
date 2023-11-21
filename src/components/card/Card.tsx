@@ -1,5 +1,4 @@
-import { productsActions } from 'store/products/productsSlice';
-import { useAppDispatch } from 'store/store';
+import { useRouter } from 'next/router';
 
 import { Product } from 'src/interfaces/product';
 
@@ -12,11 +11,12 @@ export type CardProps = {
 export default function Card({
   product: { id, tagline, name, image_url },
 }: CardProps): JSX.Element {
-  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const openDetailedPage = () => {
-    dispatch(productsActions.setDetailedProductId(id.toString()));
-    dispatch(productsActions.setViewMode(true));
+    router.push({
+      query: { ...router.query, id },
+    });
   };
 
   return (

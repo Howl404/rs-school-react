@@ -1,34 +1,40 @@
-import { searchActions } from 'store/search/searchSlice';
-import { useAppDispatch } from 'store/store';
-
-import useSavedParams from 'hooks/useSavedParams';
+import { useRouter } from 'next/router';
 
 import styles from './Pagination.module.scss';
 
 const perPageOptions = [5, 10, 15];
 
-export default function Pagination() {
-  const { page, perPage } = useSavedParams();
+export default function Pagination({
+  page,
+  perPage,
+}: {
+  page: number;
+  perPage: string;
+}) {
+  const router = useRouter();
 
-  const dispatch = useAppDispatch();
-
-  const isFirstPage = page === 1;
+  const isFirstPage = Number(page) === 1;
 
   const changePage = (page: number) => {
-    dispatch(searchActions.setPage(page));
+    router.push({
+      pathname: '/',
+      query: { ...router.query, page },
+    });
   };
 
   const nextPage = () => {
-    changePage(page + 1);
+    changePage(Number(page) + 1);
   };
 
   const previousPage = () => {
-    changePage(page - 1);
+    changePage(Number(page) - 1);
   };
 
   const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    changePage(1);
-    dispatch(searchActions.setPerPage(event.target.value));
+    router.push({
+      pathname: '/',
+      query: { ...router.query, page: 1, perPage: event.target.value },
+    });
   };
 
   return (

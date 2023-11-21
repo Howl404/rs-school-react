@@ -4,7 +4,11 @@ import Card from 'components/card/Card';
 
 import styles from './CardList.module.scss';
 
-export default function CardList({ data = [] }: { data: Product[] }) {
+export default function CardList({
+  data = [],
+}: {
+  data: Product[] | undefined;
+}) {
   if (!data.length) {
     return (
       <div className={styles.container}>

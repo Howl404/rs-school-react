@@ -1,45 +1,39 @@
-import React, { useRef } from 'react';
-
-import { searchActions } from 'store/search/searchSlice';
-import { useAppDispatch } from 'store/store';
-
-import useSavedParams from 'hooks/useSavedParams';
+import { useRouter } from 'next/router';
+import React, { FormEvent, useRef } from 'react';
 
 import styles from './Search.module.scss';
 
 export default function Search() {
-  const { searchTerm } = useSavedParams();
-
-  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { searchTerm } = router.query;
 
   const input = useRef<HTMLInputElement | null>(null);
 
-  function handleSearch() {
-    if (input.current) {
-      const trimmedSearchTerm = input.current.value.trim();
-      dispatch(searchActions.setSearchTerm(trimmedSearchTerm));
-      dispatch(searchActions.setPage(1));
-    }
-  }
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-  function handleKeyDown(event: React.KeyboardEvent) {
-    if (event.key === 'Enter') {
-      handleSearch();
-    }
+    const form = event.currentTarget as HTMLFormElement;
+
+    const trimmedSearchTerm = form.search.value.trim();
+
+    router.push({
+      pathname: '/',
+      query: { ...router.query, searchTerm: trimmedSearchTerm, page: 1 },
+    });
   }
 
   return (
-    <div className={styles.searchContainer}>
+    <form className={styles.searchContainer} onSubmit={handleSubmit}>
       <input
         type="text"
+        name="search"
         defaultValue={searchTerm}
         className={styles.searchInput}
         ref={input}
-        onKeyDown={handleKeyDown}
       />
-      <button onClick={handleSearch} className={styles.submitButton}>
+      <button className={styles.submitButton} type="submit" role="button">
         Search
       </button>
-    </div>
+    </form>
   );
 }

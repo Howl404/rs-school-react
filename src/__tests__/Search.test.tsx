@@ -1,7 +1,7 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { expect, it, vi } from 'vitest';
+import { expect, it } from 'vitest';
 
 import { store } from 'store/store';
 
@@ -43,8 +43,6 @@ class LocalStorageMock {
 const localStorage = new LocalStorageMock();
 global.localStorage = localStorage;
 
-const mockSetSearchTerm = vi.fn();
-
 it('Clicking the Search button saves the entered value to local storage', () => {
   render(
     <BrowserRouter>
@@ -64,7 +62,7 @@ it('Clicking the Search button saves the entered value to local storage', () => 
   expect(localStorage.getItem('howl-searchTerm')).toBe('test search');
 });
 
-it('Component retrieves the value from local storage upon mounting', () => {
+it('Component retrieves the value from local storage upon mounting', async () => {
   render(
     <BrowserRouter>
       <Provider store={store}>
@@ -75,9 +73,8 @@ it('Component retrieves the value from local storage upon mounting', () => {
 
   const inputElement = screen.getByRole('textbox') as HTMLInputElement;
 
-  waitFor(() => {
+  await waitFor(() => {
     expect(inputElement.value).toBe('test search');
-    expect(mockSetSearchTerm).toHaveBeenCalledWith('test search');
   });
 });
 

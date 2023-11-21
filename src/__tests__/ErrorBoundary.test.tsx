@@ -25,7 +25,7 @@ it('Error boundary catches error', async () => {
 
   fireEvent.click(errorButton);
 
-  waitFor(() => {
+  await waitFor(() => {
     const textError = screen.getByText('Something went wrong');
     const resetButton = screen.getByText('Reset');
 
@@ -35,7 +35,7 @@ it('Error boundary catches error', async () => {
     fireEvent.click(resetButton);
   });
 
-  waitFor(() => {
+  await waitFor(() => {
     const textError = screen.queryByText('Something went wrong');
     const resetButton = screen.queryByText('Reset');
 

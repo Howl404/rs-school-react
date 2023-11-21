@@ -1,58 +1,11 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { expect, it, vi } from 'vitest';
-
-import { store } from 'store/store';
+import mockRouter from 'next-router-mock';
+import { expect, it } from 'vitest';
 
 import Search from 'components/search/Search';
 
-class LocalStorageMock {
-  store: { [key: string]: string };
-
-  constructor() {
-    this.store = {};
-  }
-
-  getItem(key: string) {
-    return this.store[key] || null;
-  }
-
-  setItem(key: string, value: string) {
-    this.store[key] = value;
-  }
-
-  removeItem(key: string) {
-    delete this.store[key];
-  }
-
-  clear() {
-    this.store = {};
-  }
-
-  key(index: number) {
-    const keys = Object.keys(this.store);
-    return keys[index] || null;
-  }
-
-  get length() {
-    return Object.keys(this.store).length;
-  }
-}
-
-const localStorage = new LocalStorageMock();
-global.localStorage = localStorage;
-
-const mockSetSearchTerm = vi.fn();
-
-it('Clicking the Search button saves the entered value to local storage', () => {
-  render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <Search />
-      </Provider>
-    </BrowserRouter>
-  );
+it('Clicking the Search button saves the entered value to query params', async () => {
+  render(<Search />);
 
   const inputElement = screen.getByRole('textbox');
   const button = screen.getByText('Search');
@@ -61,42 +14,31 @@ it('Clicking the Search button saves the entered value to local storage', () => 
 
   fireEvent.click(button);
 
-  expect(localStorage.getItem('howl-searchTerm')).toBe('test search');
+  expect(mockRouter.query.searchTerm).toBe('test search');
+
+  await waitFor(() => {});
 });
 
-it('Component retrieves the value from local storage upon mounting', () => {
-  render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <Search />
-      </Provider>
-    </BrowserRouter>
-  );
+it('Component retrieves the value from query params upon mounting', () => {
+  mockRouter.push('?searchTerm=test');
+
+  render(<Search />);
 
   const inputElement = screen.getByRole('textbox') as HTMLInputElement;
 
-  waitFor(() => {
-    expect(inputElement.value).toBe('test search');
-    expect(mockSetSearchTerm).toHaveBeenCalledWith('test search');
-  });
+  expect(inputElement.value).toBe('test');
 });
 
-it('Clicking "Enter" saves the entered value to local storage', () => {
-  render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <Search />
-      </Provider>
-    </BrowserRouter>
-  );
+it('Clicking "Enter" saves the entered value to query params', () => {
+  render(<Search />);
 
   const inputElement = screen.getByRole('textbox');
 
+  const form = screen.getByTestId('search-form');
+
   fireEvent.change(inputElement, { target: { value: 'test enter' } });
 
-  fireEvent.focus(inputElement);
+  fireEvent.keyDown(form, { key: 'Enter' });
 
-  fireEvent.keyDown(inputElement, { key: 'Enter' });
-
-  expect(localStorage.getItem('howl-searchTerm')).toBe('test enter');
+  expect(mockRouter.query.searchTerm).toBe('test enter');
 });

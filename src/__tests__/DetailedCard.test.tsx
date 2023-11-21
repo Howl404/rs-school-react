@@ -1,77 +1,30 @@
 import { mockProduct } from './mock/handler';
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import Router from 'src/router/Router';
+import { fireEvent, render, screen } from '@testing-library/react';
+import mockRouter from 'next-router-mock';
+import DetailedCard from 'src/components/detailedCard/DetailedCard';
 import { expect, it } from 'vitest';
 
-import { store } from 'store/store';
-
-it('Check that a loading indicator is displayed while fetching data', async () => {
-  render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <Router />
-      </Provider>
-    </BrowserRouter>
-  );
-
-  await waitFor(async () => {
-    const firstCard = screen.getAllByTestId('card')[0];
-    fireEvent.click(firstCard);
-  });
-
-  await waitFor(() => {
-    const spinner = screen.queryByTestId('spinner-container');
-
-    expect(spinner).toBeInTheDocument();
-  });
-});
-
 it('Make sure the detailed card component correctly displays the detailed card data', async () => {
-  render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <Router />
-      </Provider>
-    </BrowserRouter>
+  render(<DetailedCard product={mockProduct} />);
+
+  const detailedCard = screen.getByTestId('detailed-card');
+
+  expect(detailedCard).toBeInTheDocument();
+
+  expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
+  expect(screen.getByAltText('Detailed product image')).toHaveAttribute(
+    'src',
+    mockProduct.image_url
   );
-
-  await waitFor(async () => {
-    const detailedCard = screen.getByTestId('detailed-card');
-
-    expect(detailedCard).toBeInTheDocument();
-
-    expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
-    expect(screen.getByAltText('Detailed product image')).toHaveAttribute(
-      'src',
-      mockProduct.image_url
-    );
-    expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
-  });
+  expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
 });
 
-it('Ensure that clicking the close button hides the component', async () => {
-  render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <Router />
-      </Provider>
-    </BrowserRouter>
-  );
+it('Ensure that clicking the close button deletes id from query params', async () => {
+  mockRouter.push('?id=1');
+  render(<DetailedCard product={mockProduct} />);
 
-  await waitFor(async () => {
-    const firstCard = screen.getAllByTestId('card')[0];
-    fireEvent.click(firstCard);
-  });
-
-  await waitFor(() => {
-    const loader = screen.getByTestId('spinner-container');
-    expect(loader).toBeInTheDocument();
-  });
-
-  await waitFor(() => new Promise((resolve) => setTimeout(resolve, 200)));
+  expect(mockRouter.query.id).toBe('1');
 
   const detailedCard = screen.getByTestId('detailed-card');
 
@@ -81,8 +34,5 @@ it('Ensure that clicking the close button hides the component', async () => {
 
   fireEvent.click(closeButton);
 
-  await waitFor(() => {
-    const detailedCard = screen.queryByTestId('detailed-card');
-    expect(detailedCard).not.toBeInTheDocument();
-  });
+  expect(mockRouter.query.id).toBeUndefined();
 });

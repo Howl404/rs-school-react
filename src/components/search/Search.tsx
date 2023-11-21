@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { FormEvent, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import styles from './Search.module.scss';
 
@@ -9,21 +9,30 @@ export default function Search() {
 
   const input = useRef<HTMLInputElement | null>(null);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  function handleKeyDown(event: React.KeyboardEvent) {
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
+  }
 
-    const form = event.currentTarget as HTMLFormElement;
+  function handleSubmit() {
+    if (input) {
+      const trimmedSearchTerm = input.current?.value.trim();
 
-    const trimmedSearchTerm = form.search.value.trim();
-
-    router.push({
-      pathname: '/',
-      query: { ...router.query, searchTerm: trimmedSearchTerm, page: 1 },
-    });
+      router.push({
+        pathname: '/',
+        query: { ...router.query, searchTerm: trimmedSearchTerm, page: 1 },
+      });
+    }
   }
 
   return (
-    <form className={styles.searchContainer} onSubmit={handleSubmit}>
+    <form
+      className={styles.searchContainer}
+      onSubmit={handleSubmit}
+      onKeyDown={handleKeyDown}
+      data-testid="search-form"
+    >
       <input
         type="text"
         name="search"

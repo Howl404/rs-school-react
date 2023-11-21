@@ -1,9 +1,6 @@
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
-import { beforeAll, afterEach, afterAll } from 'vitest';
-
-import { apiService } from 'store/api/api';
-import { store } from 'store/store';
+import { beforeAll, afterEach, afterAll, vi } from 'vitest';
 
 import { server } from './server';
 
@@ -19,11 +16,11 @@ server.events.on('request:start', (req) => {
 
 beforeAll(() => {
   server.listen();
+  vi.mock('next/router', () => require('next-router-mock'));
 });
 
 afterEach(() => {
   server.resetHandlers();
-  store.dispatch(apiService.util.resetApiState());
   requests.length = 0;
   cleanup();
 });

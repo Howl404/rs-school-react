@@ -35,7 +35,7 @@ export default function Search() {
     >
       <input
         type="text"
-        name="search"
+        name="searchTerm"
         defaultValue={searchTerm}
         className={styles.searchInput}
         ref={input}

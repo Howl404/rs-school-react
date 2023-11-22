@@ -5,6 +5,12 @@ import { Product } from 'src/interfaces/product';
 
 export const API_URL = 'https://api.punkapi.com/v2';
 
+interface GetItemsArguments {
+  searchTerm: string;
+  page: number;
+  perPage: string;
+}
+
 export const apiService = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
@@ -14,10 +20,7 @@ export const apiService = createApi({
     }
   },
   endpoints: (builder) => ({
-    getItems: builder.query<
-      Product[],
-      { searchTerm: string; page: number; perPage: string }
-    >({
+    getItems: builder.query<Product[], GetItemsArguments>({
       query: ({ searchTerm, page, perPage }) => {
         const params = new URLSearchParams({
           page: page.toString(),

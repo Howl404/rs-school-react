@@ -6,14 +6,6 @@ import { server } from './server';
 
 import '@testing-library/jest-dom';
 
-export const requests: { url: string }[] = [];
-
-server.events.on('request:start', (req) => {
-  requests.push({
-    url: req.request.url,
-  });
-});
-
 beforeAll(() => {
   server.listen();
   vi.mock('next/router', () => require('next-router-mock'));
@@ -21,7 +13,6 @@ beforeAll(() => {
 
 afterEach(() => {
   server.resetHandlers();
-  requests.length = 0;
   cleanup();
 });
 

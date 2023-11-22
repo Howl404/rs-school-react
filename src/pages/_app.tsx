@@ -5,6 +5,8 @@ import { wrapper } from 'store/store';
 
 import ErrorBoundary from 'components/errorBoundary/ErrorBoundary';
 
+import './_app.scss';
+
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
   return (

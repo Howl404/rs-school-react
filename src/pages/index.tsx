@@ -37,20 +37,25 @@ export const getServerSideProps: GetServerSideProps<MainPageProps> =
       })
     );
 
-    let product;
-
     const productId = query.id as string;
+    let product = null;
 
     if (productId) {
-      const { data } = await store.dispatch(
+      const response = await store.dispatch(
         apiService.endpoints.getItem.initiate(productId)
       );
-      product = data;
-    } else product = null;
+      product = response.data;
+    }
 
-    await Promise.all(store.dispatch(apiService.util.getRunningQueriesThunk()));
-
-    return { props: { products, product, searchTerm, page, perPage } };
+    return {
+      props: {
+        products,
+        product,
+        searchTerm,
+        page,
+        perPage,
+      },
+    };
   });
 
 export default function MainPage({

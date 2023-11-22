@@ -6,7 +6,12 @@ body {
   min-height: 100vh;
 }
 
+button {
+  font-family: $font-family-primary;
+}
+
 input,
+select,
 p {
   font-family: $font-family-secondary;
 }

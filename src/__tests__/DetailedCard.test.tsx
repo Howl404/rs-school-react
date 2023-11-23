@@ -13,10 +13,6 @@ it('Make sure the detailed card component correctly displays the detailed card d
   expect(detailedCard).toBeInTheDocument();
 
   expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
-  expect(screen.getByAltText('Detailed product image')).toHaveAttribute(
-    'src',
-    mockProduct.image_url
-  );
   expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
 });
 

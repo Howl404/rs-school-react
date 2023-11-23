@@ -37,8 +37,8 @@ export const getServerSideProps: GetServerSideProps<MainPageProps> =
       })
     );
 
-    const productId = query.id as string;
     let product = null;
+    const productId = query.id as string;
 
     if (productId) {
       const response = await store.dispatch(
@@ -61,12 +61,13 @@ export const getServerSideProps: GetServerSideProps<MainPageProps> =
 export default function MainPage({
   products,
   product,
+  searchTerm,
   page,
   perPage,
 }: MainPageProps) {
   return (
     <>
-      <Search />
+      <Search searchTerm={searchTerm} />
       <div className={cls(product && styles.wrapper)}>
         <CardList data={products} />
         {product && <DetailedCard product={product} />}

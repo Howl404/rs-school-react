@@ -10,7 +10,7 @@ export const mockProducts: Product[] = [
     name: 'Product 1',
     description: 'Description 1',
     tagline: 'test',
-    image_url: 'test',
+    image_url: '/test',
     first_brewed: 's',
   },
   {
@@ -18,7 +18,7 @@ export const mockProducts: Product[] = [
     name: 'Product 2',
     description: 'Description 2',
     tagline: 'test',
-    image_url: 'test',
+    image_url: '/test',
     first_brewed: 's',
   },
   {
@@ -26,7 +26,7 @@ export const mockProducts: Product[] = [
     name: 'Product 3',
     description: 'Description 3',
     tagline: 'test',
-    image_url: 'test',
+    image_url: '/test',
     first_brewed: 's',
   },
   {
@@ -34,7 +34,7 @@ export const mockProducts: Product[] = [
     name: 'Product 4',
     description: 'Description 4',
     tagline: 'test',
-    image_url: 'test',
+    image_url: '/test',
     first_brewed: 's',
   },
   {
@@ -42,7 +42,7 @@ export const mockProducts: Product[] = [
     name: 'Product 5',
     description: 'Description 5',
     tagline: 'test',
-    image_url: 'test',
+    image_url: '/test',
     first_brewed: 's',
   },
   {
@@ -50,7 +50,7 @@ export const mockProducts: Product[] = [
     name: 'Product 1',
     description: 'Description 1',
     tagline: 'test',
-    image_url: 'test',
+    image_url: '/test',
     first_brewed: 's',
   },
   {
@@ -58,7 +58,7 @@ export const mockProducts: Product[] = [
     name: 'Product 2',
     description: 'Description 2',
     tagline: 'test',
-    image_url: 'test',
+    image_url: '/test',
     first_brewed: 's',
   },
   {
@@ -66,7 +66,7 @@ export const mockProducts: Product[] = [
     name: 'Product 3',
     description: 'Description 3',
     tagline: 'test',
-    image_url: 'test',
+    image_url: '/test',
     first_brewed: 's',
   },
   {
@@ -74,7 +74,7 @@ export const mockProducts: Product[] = [
     name: 'Product 4',
     description: 'Description 4',
     tagline: 'test',
-    image_url: 'test',
+    image_url: '/test',
     first_brewed: 's',
   },
   {
@@ -82,7 +82,7 @@ export const mockProducts: Product[] = [
     name: 'Product 5',
     description: 'Description 5',
     tagline: 'test',
-    image_url: 'test',
+    image_url: '/test',
     first_brewed: 's',
   },
 ];
@@ -91,7 +91,7 @@ export const mockProduct: Product = {
   id: 1,
   name: 'Detailed product',
   description: 'test description',
-  image_url: 'test url',
+  image_url: '/testurl',
   tagline: 'test tagline',
   first_brewed: '1992',
 };

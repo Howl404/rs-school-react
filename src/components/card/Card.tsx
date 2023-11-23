@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import { Product } from 'src/interfaces/product';
@@ -28,7 +29,13 @@ export default function Card({
       type="button"
     >
       <h3 className={styles.cardHeading}>{name}</h3>
-      <img src={image_url} alt={`${name} image`} className={styles.cardImage} />
+      <Image
+        src={image_url}
+        alt={`${name} image`}
+        className={styles.cardImage}
+        height={0}
+        width={300}
+      />
       <p className={styles.cardText}>{tagline}</p>
     </button>
   );

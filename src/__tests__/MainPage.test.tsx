@@ -11,22 +11,22 @@ it('Ensure that MainPage renders correctly', async () => {
       products={mockProducts}
       product={mockProduct}
       page={1}
-      perPage="10"
+      perPage={mockProducts.length.toString()}
     />
   );
 
   const cards = await screen.findAllByTestId('card');
 
-  expect(cards).toHaveLength(10);
+  expect(cards).toHaveLength(mockProducts.length);
 
   const detailedCard = screen.getByTestId('detailed-card');
 
   expect(detailedCard).toBeInTheDocument();
 
   expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
-  expect(screen.getByAltText('Detailed product image')).toHaveAttribute(
-    'src',
-    mockProduct.image_url
-  );
   expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
+
+  const inputElement = screen.getByRole('textbox') as HTMLInputElement;
+
+  expect(inputElement.value).toBe('test');
 });

@@ -1,44 +1,34 @@
 import { useRouter } from 'next/router';
-import React, { useRef } from 'react';
+import React, { FormEvent } from 'react';
 
 import styles from './Search.module.scss';
 
-export default function Search() {
+type SearchProps = { searchTerm: string };
+
+export default function Search({ searchTerm }: SearchProps) {
   const router = useRouter();
-  const { searchTerm } = router.query;
 
-  const input = useRef<HTMLInputElement | null>(null);
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-  function handleKeyDown(event: React.KeyboardEvent) {
-    if (event.key === 'Enter') {
-      handleSubmit();
-    }
-  }
+    const formData = new FormData(e.currentTarget);
 
-  function handleSubmit() {
-    if (input) {
-      const trimmedSearchTerm = input.current?.value.trim();
+    const inputValue = formData.get('searchTerm') as string;
+    const trimmedInputValue = inputValue.trim();
 
-      router.push({
-        pathname: '/',
-        query: { ...router.query, searchTerm: trimmedSearchTerm, page: 1 },
-      });
-    }
+    router.push({
+      pathname: '/',
+      query: { ...router.query, searchTerm: trimmedInputValue, page: 1 },
+    });
   }
 
   return (
-    <form
-      className={styles.searchContainer}
-      onSubmit={handleSubmit}
-      onKeyDown={handleKeyDown}
-      data-testid="search-form"
-    >
+    <form className={styles.searchContainer} onSubmit={handleSubmit}>
       <input
         type="text"
         name="searchTerm"
         defaultValue={searchTerm}
         className={styles.searchInput}
-        ref={input}
       />
       <button className={styles.submitButton} type="submit" role="button">
         Search

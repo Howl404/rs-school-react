@@ -2,7 +2,7 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import mockRouter from 'next-router-mock';
 import { expect, it } from 'vitest';
 
-import Search from 'components/search/Search';
+import Search from './Search';
 
 it('Clicking the Search button saves the entered value to query params', async () => {
   render(<Search searchTerm="" />);

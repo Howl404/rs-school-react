@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useState } from 'react';
 import { expect, it } from 'vitest';
 
-import ErrorBoundary from 'components/errorBoundary/ErrorBoundary';
+import ErrorBoundary from './ErrorBoundary';
 
 function TestComponent() {
   const [error, setError] = useState(false);

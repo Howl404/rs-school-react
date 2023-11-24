@@ -1,9 +1,8 @@
-import { mockProducts } from './mock/handler';
-
 import { render, screen } from '@testing-library/react';
+import { mockProducts } from 'mock/handler';
 import { expect, test } from 'vitest';
 
-import CardList from 'components/cardList/CardList';
+import CardList from './CardList';
 
 test('Verify that the component renders the specified number of cards', async () => {
   render(<CardList data={mockProducts} />);

@@ -25,9 +25,10 @@ export const getServerSideProps: GetServerSideProps<MainPageProps> =
   wrapper.getServerSideProps((store) => async (context) => {
     const { query } = context;
 
-    const searchTerm = (query.searchTerm as string) || '';
-    const page = Number(query.page) || 1;
-    const perPage = (query.perPage as string) || '10';
+    const searchTerm =
+      typeof query.searchTerm === 'string' ? query.searchTerm : '';
+    const page = typeof query.page === 'string' ? +query.page : 1;
+    const perPage = typeof query.perPage === 'string' ? query.perPage : '10';
 
     const { data: products } = await store.dispatch(
       apiService.endpoints.getItems.initiate({
@@ -38,7 +39,8 @@ export const getServerSideProps: GetServerSideProps<MainPageProps> =
     );
 
     let product = null;
-    const productId = query.id as string;
+    const productId =
+      typeof query.productId === 'string' ? query.productId : '';
 
     if (productId) {
       const response = await store.dispatch(

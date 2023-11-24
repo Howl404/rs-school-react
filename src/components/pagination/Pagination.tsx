@@ -4,16 +4,15 @@ import styles from './Pagination.module.scss';
 
 const perPageOptions = [5, 10, 15];
 
-export default function Pagination({
-  page,
-  perPage,
-}: {
+type PaginationProps = {
   page: number;
   perPage: string;
-}) {
+};
+
+export default function Pagination({ page, perPage }: PaginationProps) {
   const router = useRouter();
 
-  const isFirstPage = Number(page) === 1;
+  const isFirstPage = +page === 1;
 
   const changePage = (page: number) => {
     router.push({
@@ -23,11 +22,11 @@ export default function Pagination({
   };
 
   const nextPage = () => {
-    changePage(Number(page) + 1);
+    changePage(+page + 1);
   };
 
   const previousPage = () => {
-    changePage(Number(page) - 1);
+    changePage(+page - 1);
   };
 
   const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import mockRouter from 'next-router-mock';
 import { describe, expect, it } from 'vitest';
 
-import Pagination from 'components/pagination/Pagination';
+import Pagination from './Pagination';
 
 describe('Make sure the component updates URL query parameter when page changes', () => {
   it('When user clicks next page', () => {

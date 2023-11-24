@@ -1,9 +1,9 @@
-import { mockProduct } from './mock/handler';
-
 import { fireEvent, render, screen } from '@testing-library/react';
+import { mockProduct } from 'mock/handler';
 import mockRouter from 'next-router-mock';
-import DetailedCard from 'src/components/detailedCard/DetailedCard';
 import { expect, it } from 'vitest';
+
+import DetailedCard from './DetailedCard';
 
 it('Make sure the detailed card component correctly displays the detailed card data', async () => {
   render(<DetailedCard product={mockProduct} />);

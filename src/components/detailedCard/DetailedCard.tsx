@@ -19,13 +19,18 @@ export default function DetailedCard({
       delete router.query.id;
       router.push({
         pathname: '/',
-        query: { ...router.query },
+        query: router.query,
       });
     }
   };
+
   return (
     <div className={styles.container} onClick={closeDetailedPage}>
-      <div className={styles.detailedCard} data-testid="detailed-card">
+      <div
+        className={styles.detailedCard}
+        data-testid="detailed-card"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           type="button"
           className={styles.closeButton}

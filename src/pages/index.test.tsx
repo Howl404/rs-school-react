@@ -1,8 +1,8 @@
-import { mockProduct, mockProducts } from './mock/handler';
-
 import { render, screen } from '@testing-library/react';
-import MainPage from 'src/pages';
+import { mockProduct, mockProducts } from 'mock/handler';
 import { expect, it } from 'vitest';
+
+import MainPage from './index';
 
 it('Ensure that MainPage renders correctly', async () => {
   render(

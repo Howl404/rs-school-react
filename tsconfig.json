@@ -28,7 +28,8 @@
       "components/*": ["./src/components/*"],
       "pages/*": ["./src/pages/*"],
       "store/*": ["./src/store/*"],
-      "utils/*": ["./src/utils/*"]
+      "utils/*": ["./src/utils/*"],
+      "mock/*": ["./src/__tests__/mock/*"]
     }
   },
   "include": ["src", "./dist/types/**/*.ts", "declaration.d.ts"],

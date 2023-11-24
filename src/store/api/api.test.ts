@@ -1,9 +1,8 @@
-import { mockProduct, mockProducts } from './mock/handler';
-
-import { store } from 'src/store/store';
+import { mockProduct, mockProducts } from 'mock/handler';
 import { expect, it } from 'vitest';
 
 import { apiService } from 'store/api/api';
+import { store } from 'store/store';
 
 it('getItems fetches beers successfully', async () => {
   const { data } = await store().dispatch(

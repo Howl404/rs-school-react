@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { mockProduct, mockProducts } from 'mock/handler';
 import { expect, it } from 'vitest';
 
-import MainPage from './index';
+import MainPage from '../pages/index';
 
 it('Ensure that MainPage renders correctly', async () => {
   render(

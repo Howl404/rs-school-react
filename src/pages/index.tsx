@@ -39,8 +39,7 @@ export const getServerSideProps: GetServerSideProps<MainPageProps> =
     );
 
     let product = null;
-    const productId =
-      typeof query.productId === 'string' ? query.productId : '';
+    const productId = typeof query.id === 'string' ? query.id : '';
 
     if (productId) {
       const response = await store.dispatch(

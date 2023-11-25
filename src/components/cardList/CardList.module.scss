@@ -1,14 +1,13 @@
 @import 'src/styles/variables.scss';
 
 .container {
+  margin: 50px 0 70px;
+  padding: 0 40px;
   display: flex;
   flex-wrap: wrap;
-  justify-items: center;
   justify-content: center;
   align-content: center;
-  gap: 10px;
-  padding: 50px 6px 100px 6px;
+  gap: 30px;
   border-radius: 6px;
   min-height: 70vh;
-  width: calc(100% - 12px);
 }

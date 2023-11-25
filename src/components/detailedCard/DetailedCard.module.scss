@@ -3,39 +3,32 @@
 @import 'src/components/card/Card.module.scss';
 
 .detailedCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid $black;
   border-radius: 6px;
-  padding: 5px;
-  margin-right: 5px;
-  box-shadow: $black-shadow;
-  text-align: center;
+  padding: 20px;
+  margin-right: 20px;
   background-color: $white;
-  position: relative;
-  height: fit-content;
   grid-column-start: 2;
 }
 
 .closeButton {
   position: absolute;
-  right: 3px;
-  top: 3px;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
 }
 
 .container {
   display: grid;
-  justify-content: center;
   width: 100%;
   height: 100%;
-  left: 0;
   top: 0;
   position: fixed;
   grid-template-columns: 2fr 1fr;
-  margin: 0 auto;
-  z-index: 2;
   background-color: $transparent-black;
   align-items: center;
-  overflow: hidden;
+  overflow: hidden; // не работает, знаю механизм, что на body overflow-hidden вешают с модалками
 }

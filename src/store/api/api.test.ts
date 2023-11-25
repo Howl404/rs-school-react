@@ -1,11 +1,11 @@
 import { mockProduct, mockProducts } from 'mock/handler';
 import { expect, it } from 'vitest';
 
-import { apiService } from 'store/api/api';
-import { store } from 'store/store';
+import { apiService } from 'store/api/index';
+import { index } from 'src/store';
 
 it('getItems fetches beers successfully', async () => {
-  const { data } = await store().dispatch(
+  const { data } = await index().dispatch(
     apiService.endpoints.getItems.initiate({
       searchTerm: '',
       page: 1,
@@ -17,7 +17,7 @@ it('getItems fetches beers successfully', async () => {
 });
 
 it('getItems fetches specified amount of beers', async () => {
-  const { data } = await store().dispatch(
+  const { data } = await index().dispatch(
     apiService.endpoints.getItems.initiate({
       searchTerm: '',
       page: 1,
@@ -29,7 +29,7 @@ it('getItems fetches specified amount of beers', async () => {
 });
 
 it('getItem fetches beer successfully', async () => {
-  const { data } = await store().dispatch(
+  const { data } = await index().dispatch(
     apiService.endpoints.getItem.initiate('1')
   );
 

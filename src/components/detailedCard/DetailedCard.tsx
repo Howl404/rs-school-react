@@ -14,11 +14,9 @@ export default function DetailedCard({
 }: DetailedCardProps): JSX.Element {
   const router = useRouter();
 
-  console.log(1);
-
   const closeDetailedPage = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      delete router.query.id;
+      delete router.query.productId;
       router.push({
         pathname: '/',
         query: router.query,

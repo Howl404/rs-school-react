@@ -19,5 +19,5 @@ it('Validate that clicking on a card sets id to query params', async () => {
 
   fireEvent.click(firstCard);
 
-  expect(mockRouter.query.id).toBe(1);
+  expect(mockRouter.query.productId).toBe(1);
 });

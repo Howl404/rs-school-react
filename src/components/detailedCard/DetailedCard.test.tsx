@@ -17,10 +17,10 @@ it('Make sure the detailed card component correctly displays the detailed card d
 });
 
 it('Ensure that clicking the close button deletes id from query params', async () => {
-  mockRouter.push('?id=1');
+  mockRouter.push('?productId=1');
   render(<DetailedCard product={mockProduct} />);
 
-  expect(mockRouter.query.id).toBe('1');
+  expect(mockRouter.query.productId).toBe('1');
 
   const detailedCard = screen.getByTestId('detailed-card');
 
@@ -30,5 +30,5 @@ it('Ensure that clicking the close button deletes id from query params', async (
 
   fireEvent.click(closeButton);
 
-  expect(mockRouter.query.id).toBeUndefined();
+  expect(mockRouter.query.productId).toBeUndefined();
 });

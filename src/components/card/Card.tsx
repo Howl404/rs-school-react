@@ -16,7 +16,7 @@ export default function Card({
 
   const openDetailedPage = () => {
     router.push({
-      query: { ...router.query, id },
+      query: { ...router.query, productId: id },
     });
   };
 

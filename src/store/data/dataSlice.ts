@@ -1,24 +1,43 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { FormStoreState } from 'src/types/FormStoreState';
+
+type FormStoreState = {
+  name: string;
+  age: number;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  gender: string;
+  acceptedTC: boolean;
+  pictureBase64: string;
+  country: string;
+};
+
+type DataSliceState = {
+  countries: string[];
+  uncontrolledSubmissions: FormStoreState[];
+  hookFormSubmissions: FormStoreState[];
+};
+
+const initialState: DataSliceState = {
+  countries: [
+    'United States',
+    'Canada',
+    'France',
+    'Germany',
+    'Russia',
+    'Belarus',
+    'Georgia',
+    'Lithuania',
+    'United Kingdom',
+    'Ireland',
+  ],
+  uncontrolledSubmissions: [],
+  hookFormSubmissions: [],
+};
 
 const dataSlice = createSlice({
   name: 'dataForm',
-  initialState: {
-    countries: [
-      'United States',
-      'Canada',
-      'France',
-      'Germany',
-      'Russia',
-      'Belarus',
-      'Georgia',
-      'Lithuania',
-      'United Kingdom',
-      'Ireland',
-    ],
-    uncontrolledSubmissions: [] as FormStoreState[],
-    hookFormSubmissions: [] as FormStoreState[],
-  },
+  initialState,
   reducers: {
     addUncontrolledSubmission: (
       state,

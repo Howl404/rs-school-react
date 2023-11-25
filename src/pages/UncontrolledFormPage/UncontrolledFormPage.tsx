@@ -2,28 +2,17 @@ import { FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
+import { convertToBase64 } from 'utils/convertToBase64';
+
 import { dataActions } from 'store/data/dataSlice';
 import { useAppDispatch, useAppSelector } from 'store/store';
 
-import { formSchema } from 'types/FormSchema';
+import { FormErrorsState } from 'types/FormErrorsState';
+import { UncontrolledFormSchema } from 'types/UncontrolledFormSchema';
 
 import PasswordStrength from 'components/PasswordStrength';
 
-import styles from './UncontrolledFormPage.module.scss';
-
-type ErrorsState = {
-  name: string;
-  age: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  gender: string;
-  acceptedTC: string;
-  picture: string;
-  country: string;
-} & {
-  [key: string]: string;
-};
+import styles from 'src/styles/Form.module.scss';
 
 const initialState = {
   name: '',
@@ -37,17 +26,8 @@ const initialState = {
   country: '',
 };
 
-const convertToBase64 = (file: Blob): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-};
-
-export default function UncontrolledFormPage() {
-  const [errors, setErrors] = useState<ErrorsState>(
+export function UncontrolledFormPage() {
+  const [errors, setErrors] = useState<FormErrorsState>(
     structuredClone(initialState)
   );
 
@@ -61,15 +41,16 @@ export default function UncontrolledFormPage() {
 
     const form = event.target as HTMLFormElement;
 
-    setErrors(structuredClone(initialState));
-
     const formData = new FormData(form);
     const formValues = Object.fromEntries(formData.entries());
 
     try {
-      const validatedInputs = await formSchema.validate(formValues, {
-        abortEarly: false,
-      });
+      const validatedInputs = await UncontrolledFormSchema.validate(
+        formValues,
+        {
+          abortEarly: false,
+        }
+      );
 
       const pictureBase64 = await convertToBase64(
         validatedInputs.picture as Blob
@@ -93,14 +74,15 @@ export default function UncontrolledFormPage() {
     } catch (error) {
       const yupErrors = error as yup.ValidationError;
 
-      console.log(yupErrors);
-
-      const errorsObject = yupErrors.inner.reduce<ErrorsState>((acc, error) => {
-        if (typeof error.path === 'string') {
-          acc[error.path] = error.message;
-        }
-        return acc;
-      }, structuredClone(initialState));
+      const errorsObject = yupErrors.inner.reduce<FormErrorsState>(
+        (acc, error) => {
+          if (typeof error.path === 'string') {
+            acc[error.path] = error.message;
+          }
+          return acc;
+        },
+        structuredClone(initialState)
+      );
 
       setErrors(errorsObject);
     }
@@ -136,7 +118,7 @@ export default function UncontrolledFormPage() {
             autoComplete="new-password"
           />
         </div>
-        <PasswordStrength errorMessage={errors.password} />
+        {errors.password && <PasswordStrength errorMessage={errors.password} />}
 
         <div>
           <label htmlFor="passwordConfirm">Password Confirm</label>

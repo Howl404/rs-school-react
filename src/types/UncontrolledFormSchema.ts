@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const formSchema = yup.object({
+export const UncontrolledFormSchema = yup.object({
   name: yup
     .string()
     .matches(/^[A-Z]/, 'Name must start with a capital letter')
@@ -25,8 +25,8 @@ export const formSchema = yup.object({
       'Password must contain at least one special character'
     )
     .matches(/[0-9]/, 'Password must contain at least one number')
-    .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
     .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
     .min(8, 'Password must contain at least 8 characters')
     .required('Password is required'),
   passwordConfirm: yup
@@ -35,7 +35,8 @@ export const formSchema = yup.object({
     .required('Password confirmation is required'),
   acceptedTC: yup
     .boolean()
-    .required('You must accept the terms and conditions'),
+    .required()
+    .isTrue('You must accept the terms and conditions'),
   picture: yup
     .mixed()
     .test(

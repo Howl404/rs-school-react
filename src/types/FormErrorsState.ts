@@ -1,11 +1,13 @@
-export type FormStoreState = {
+export type FormErrorsState = {
   name: string;
-  age: number;
+  age: string;
   email: string;
   password: string;
   passwordConfirm: string;
   gender: string;
-  acceptedTC: boolean;
-  pictureBase64: string;
+  acceptedTC: string;
+  picture: string;
   country: string;
+} & {
+  [key: string]: string;
 };

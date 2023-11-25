@@ -1,7 +1,6 @@
 import { useRoutes } from 'react-router-dom';
 
-import MainPage from 'pages/MainPage/MainPage';
-import UncontrolledFormPage from 'pages/UncontrolledFormPage/UncontrolledFormPage';
+import { MainPage, UncontrolledFormPage, HookFormPage } from 'pages/index';
 
 export default function Router() {
   return useRoutes([
@@ -12,6 +11,10 @@ export default function Router() {
     {
       path: '/uncontrolled',
       element: <UncontrolledFormPage />,
+    },
+    {
+      path: '/hookform',
+      element: <HookFormPage />,
     },
   ]);
 }

@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
   font-size: 14px;
+  padding: 6px;
+  margin: 4px;
   img {
     width: 100px;
   }
@@ -29,4 +31,15 @@
 .linksContainer {
   display: flex;
   gap: 50px;
+}
+
+.hookFormSubmissions,
+.uncontrolledSubmissions {
+  display: flex;
+  flex-direction: column-reverse;
+  border: 1px solid black;
+
+  .submissionContainer:last-child {
+    border: 1px solid red;
+  }
 }

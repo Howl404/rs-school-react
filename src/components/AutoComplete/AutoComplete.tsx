@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react';
-import { cls } from 'src/utils/cls';
+
+import { cls } from 'utils/cls';
 
 import styles from './AutoComplete.module.scss';
 

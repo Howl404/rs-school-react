@@ -1,13 +1,13 @@
 import { FormEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { selectCountries } from 'src/store/selectors';
 import * as yup from 'yup';
 
 import { convertToBase64 } from 'utils/convertToBase64';
 import { createUncontrolledFormSchema } from 'utils/createUncontrolledFormSchema';
 
 import { FormErrorsState, dataActions } from 'store/data/dataSlice';
+import { selectCountries } from 'store/selectors';
 import { useAppDispatch } from 'store/store';
 
 import { PasswordStrength, AutoComplete } from 'components/index';

@@ -15,8 +15,6 @@ export default function Search({ searchTerm }: SearchProps) {
     const inputValue = ref.current?.value.trim() || '';
 
     if (inputValue !== router.query.searchTerm) {
-      const query = { ...router.query, page: 1, searchTerm: inputValue };
-
       const params = new URLSearchParams({
         page: '' + 1,
       });
@@ -35,6 +33,7 @@ export default function Search({ searchTerm }: SearchProps) {
         type="text"
         name="searchTerm"
         ref={ref}
+        defaultValue={searchTerm}
         className={styles.searchInput}
       />
       <button className={styles.submitButton} type="submit" role="button">

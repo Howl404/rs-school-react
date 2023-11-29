@@ -1,9 +1,13 @@
 import { Product } from 'src/interfaces/product';
 
-import styles from './CardList.module.scss';
 import Card from 'components/card/Card';
 
-type CardListProps = { data?: Product[]; setSelected: any };
+import styles from './CardList.module.scss';
+
+type CardListProps = {
+  data?: Product[];
+  setSelected: (productId: number) => void;
+};
 
 export default function CardList({ data = [], setSelected }: CardListProps) {
   if (!data.length) {

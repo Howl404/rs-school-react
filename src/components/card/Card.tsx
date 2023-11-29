@@ -1,9 +1,9 @@
 import Image from 'next/image';
+import React from 'react';
 
 import { Product } from 'src/interfaces/product';
 
 import styles from './Card.module.scss';
-import React from 'react';
 
 export type CardProps = {
   product: Product;

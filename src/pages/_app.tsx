@@ -1,6 +1,5 @@
 import { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
-
 import { wrapper } from 'src/store';
 
 import ErrorBoundary from 'components/errorBoundary/ErrorBoundary';

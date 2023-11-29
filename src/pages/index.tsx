@@ -1,15 +1,18 @@
 import { GetServerSideProps } from 'next';
-
+import { useSelector } from 'react-redux';
+import useProduct from 'src/hooks/useProduct';
 import { useAppDispatch, wrapper } from 'src/store';
+
 import { apiService } from 'store/api';
+import { productsActions } from 'store/products/productsSlice';
+import { selectProductId } from 'store/selectors';
 
 import { Product } from 'src/interfaces/product';
 
 import CardList from 'components/cardList/CardList';
+import DetailedCard from 'components/detailedCard/DetailedCard';
 import Pagination from 'components/pagination/Pagination';
 import Search from 'components/search/Search';
-import DetailedCard from 'src/components/detailedCard/DetailedCard';
-import { useEffect, useState } from 'react';
 
 type MainPageProps = {
   products?: Product[];
@@ -24,23 +27,18 @@ export default function MainPage({
   page,
   perPage,
 }: MainPageProps) {
-  const [selected, setSelected] = useState<number>(-1); // вынеси это в стор
-  const [product, setProduct] = useState<Product | null | undefined>(null);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (selected !== -1) {
-      dispatch(apiService.endpoints.getItem.initiate(selected)).then((res) => {
-        setProduct(res.data);
-      });
-      return;
-    }
+  const selectedProductId = useSelector(selectProductId);
 
-    setProduct(null);
-  }, [selected]);
+  const { product } = useProduct(selectedProductId);
 
   const closeModal = () => {
-    setSelected(-1);
+    dispatch(productsActions.setSelectedProductId(-1));
+  };
+
+  const setSelected = (productId: number) => {
+    dispatch(productsActions.setSelectedProductId(productId));
   };
 
   return (

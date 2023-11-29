@@ -3,10 +3,12 @@ import { createWrapper } from 'next-redux-wrapper';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import { apiService } from 'store/api';
+import { productsReducer } from 'store/products/productsSlice';
 
 export const store = () =>
   configureStore({
     reducer: {
+      products: productsReducer,
       [apiService.reducerPath]: apiService.reducer,
     },
     middleware: (getDefaultMiddleware) =>

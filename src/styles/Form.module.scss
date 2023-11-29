@@ -1,3 +1,4 @@
+@import 'src/styles/variables.scss';
 .formContainer {
   display: flex;
   height: 100vh;
@@ -12,7 +13,7 @@
 
   input {
     border-radius: 6px;
-    border: 1px solid grey;
+    border: 1px solid $grey;
     padding: 6px;
   }
 
@@ -25,7 +26,7 @@
 
 .error {
   margin: 0;
-  color: rgba(255, 0, 0, 0.579);
+  color: $red;
   animation: appearAnimation 500ms ease forwards;
   opacity: 0;
 }
@@ -38,12 +39,12 @@
 
 .submitButton {
   border-radius: 6px;
-  border: 1px solid grey;
+  border: 1px solid $grey;
   transition: 500ms;
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(255, 0, 0, 0.579);
-    color: white;
+    background-color: $red;
+    color: $white;
   }
 }

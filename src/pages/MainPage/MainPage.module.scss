@@ -1,24 +1,4 @@
-.submissionContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 14px;
-  padding: 6px;
-  margin: 4px;
-  img {
-    width: 100px;
-  }
-
-  p {
-    margin: 4px;
-  }
-}
-
-.submissionsContainer {
-  display: flex;
-  gap: 20px;
-  padding: 10px;
-}
+@import 'src/styles/variables.scss';
 
 .mainContainer {
   height: 100vh;
@@ -33,13 +13,35 @@
   gap: 50px;
 }
 
+.submissionsContainer {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+}
+
 .hookFormSubmissions,
 .uncontrolledSubmissions {
   display: flex;
   flex-direction: column-reverse;
-  border: 1px solid black;
+  border: 1px solid $black;
 
   .submissionContainer:last-child {
-    border: 1px solid red;
+    border: 1px solid $red;
+  }
+}
+
+.submissionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  padding: 6px;
+  margin: 4px;
+  img {
+    width: 100px;
+  }
+
+  p {
+    margin: 4px;
   }
 }

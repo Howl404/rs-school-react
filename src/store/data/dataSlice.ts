@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-type FormStoreState = {
+export type FormStoreState = {
   name: string;
   age: number;
   email: string;
@@ -10,6 +10,18 @@ type FormStoreState = {
   acceptedTC: boolean;
   pictureBase64: string;
   country: string;
+};
+//   picture: string;
+// } & {
+//   [key: string]: string;
+// };
+
+export type FormErrorsState = {
+  [Property in keyof Omit<FormStoreState, 'pictureBase64'>]: string;
+} & {
+  picture: string;
+} & {
+  [key: string]: string;
 };
 
 type DataSliceState = {

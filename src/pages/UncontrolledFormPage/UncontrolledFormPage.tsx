@@ -5,16 +5,14 @@ import * as yup from 'yup';
 import { convertToBase64 } from 'utils/convertToBase64';
 import { createUncontrolledFormSchema } from 'utils/createUncontrolledFormSchema';
 
-import { dataActions } from 'store/data/dataSlice';
+import { FormErrorsState, dataActions } from 'store/data/dataSlice';
 import { useAppDispatch, useAppSelector } from 'store/store';
-
-import { FormErrorsState } from 'types/FormErrorsState';
 
 import { PasswordStrength, AutoComplete } from 'components/index';
 
 import styles from 'src/styles/Form.module.scss';
 
-const initialState = {
+const initialState: FormErrorsState = {
   name: '',
   age: '',
   email: '',
@@ -27,9 +25,7 @@ const initialState = {
 };
 
 export function UncontrolledFormPage() {
-  const [errors, setErrors] = useState<FormErrorsState>(
-    structuredClone(initialState)
-  );
+  const [errors, setErrors] = useState(structuredClone(initialState));
 
   const navigate = useNavigate();
 

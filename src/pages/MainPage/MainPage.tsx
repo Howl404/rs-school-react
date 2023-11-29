@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { FormStoreState } from 'src/store/data/dataSlice';
 
 import { useAppSelector } from 'store/store';
 
@@ -13,6 +14,22 @@ export function MainPage() {
     (state) => state.data.hookFormSubmissions
   );
 
+  function renderSubmissionsList(list: FormStoreState[]) {
+    return list.map((submission) => (
+      <div key={submission.name} className={styles.submissionContainer}>
+        <p>Name: {submission.name}</p>
+        <p>Age: {submission.age}</p>
+        <p>Email: {submission.email}</p>
+        <p>Password: {submission.password}</p>
+        <p>Password Confirm: {submission.passwordConfirm}</p>
+        <p>Gender: {submission.gender}</p>
+        <p>Accepted T&C: {submission.acceptedTC ? 'true' : 'false'}</p>
+        <p>Country: {submission.country}</p>
+        <img src={submission.pictureBase64} alt="Uploaded image" />
+      </div>
+    ));
+  }
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.submissionsContainer}>
@@ -20,38 +37,14 @@ export function MainPage() {
           <Link to={'/uncontrolled'}>Uncontrolled form</Link>
           <h2>Uncontrolled form submissions</h2>
           <div className={styles.uncontrolledSubmissions}>
-            {uncontrolledSubmissions.map((submission) => (
-              <div key={submission.name} className={styles.submissionContainer}>
-                <p>Name: {submission.name}</p>
-                <p>Age: {submission.age}</p>
-                <p>Email: {submission.email}</p>
-                <p>Password: {submission.password}</p>
-                <p>Password Confirm: {submission.passwordConfirm}</p>
-                <p>Gender: {submission.gender}</p>
-                <p>Accepted T&C: {submission.acceptedTC ? 'true' : 'false'}</p>
-                <p>Country: {submission.country}</p>
-                <img src={submission.pictureBase64} alt="Uploaded image" />
-              </div>
-            ))}
+            {renderSubmissionsList(uncontrolledSubmissions)}
           </div>
         </div>
         <div>
           <Link to={'/hookform'}>Hook form</Link>
           <h2>Hook form submissions</h2>
           <div className={styles.hookFormSubmissions}>
-            {hookFormSubmissions.map((submission) => (
-              <div key={submission.name} className={styles.submissionContainer}>
-                <p>Name: {submission.name}</p>
-                <p>Age: {submission.age}</p>
-                <p>Email: {submission.email}</p>
-                <p>Password: {submission.password}</p>
-                <p>Password Confirm: {submission.passwordConfirm}</p>
-                <p>Gender: {submission.gender}</p>
-                <p>Accepted T&C: {submission.acceptedTC ? 'true' : 'false'}</p>
-                <p>Country: {submission.country}</p>
-                <img src={submission.pictureBase64} alt="Uploaded image" />
-              </div>
-            ))}
+            {renderSubmissionsList(hookFormSubmissions)}
           </div>
         </div>
       </div>

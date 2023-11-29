@@ -3,19 +3,21 @@ import { cls } from 'src/utils/cls';
 
 import styles from './AutoComplete.module.scss';
 
+type AutoCompleteProps = {
+  options: string[];
+  label: string;
+  onChange?: (value: string) => void;
+  inputType: string;
+  name: string;
+};
+
 export function AutoComplete({
   options,
   label,
   onChange,
   inputType,
   name,
-}: {
-  options: string[];
-  label: string;
-  onChange?: (value: string) => void;
-  inputType: string;
-  name: string;
-}) {
+}: AutoCompleteProps) {
   const [suitableOptions, setSuitableOptions] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
 

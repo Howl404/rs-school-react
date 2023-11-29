@@ -65,10 +65,10 @@ export function AutoComplete({
       </label>
 
       <div
-        className={
-          (styles.optionsList,
-          cls(styles.optionsList, suitableOptions.length && styles.visible))
-        }
+        className={cls(
+          styles.optionsList,
+          suitableOptions.length && styles.visible
+        )}
       >
         {suitableOptions.map((option) => (
           <button

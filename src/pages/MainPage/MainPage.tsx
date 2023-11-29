@@ -1,34 +1,33 @@
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { FormStoreState } from 'src/store/data/dataSlice';
 
-import { useAppSelector } from 'store/store';
+import { FormStoreState } from 'store/data/dataSlice';
+import {
+  selectHookFormSubmissions,
+  selectUncontrolledSubmissions,
+} from 'store/selectors';
 
 import styles from './MainPage.module.scss';
 
+function renderSubmissionsList(list: FormStoreState[]) {
+  return list.map((submission) => (
+    <div key={submission.name} className={styles.submissionContainer}>
+      <p>Name: {submission.name}</p>
+      <p>Age: {submission.age}</p>
+      <p>Email: {submission.email}</p>
+      <p>Password: {submission.password}</p>
+      <p>Password Confirm: {submission.passwordConfirm}</p>
+      <p>Gender: {submission.gender}</p>
+      <p>Accepted T&C: {submission.acceptedTC ? 'true' : 'false'}</p>
+      <p>Country: {submission.country}</p>
+      <img src={submission.pictureBase64} alt="Uploaded image" />
+    </div>
+  ));
+}
+
 export function MainPage() {
-  const uncontrolledSubmissions = useAppSelector(
-    (state) => state.data.uncontrolledSubmissions
-  );
-
-  const hookFormSubmissions = useAppSelector(
-    (state) => state.data.hookFormSubmissions
-  );
-
-  function renderSubmissionsList(list: FormStoreState[]) {
-    return list.map((submission) => (
-      <div key={submission.name} className={styles.submissionContainer}>
-        <p>Name: {submission.name}</p>
-        <p>Age: {submission.age}</p>
-        <p>Email: {submission.email}</p>
-        <p>Password: {submission.password}</p>
-        <p>Password Confirm: {submission.passwordConfirm}</p>
-        <p>Gender: {submission.gender}</p>
-        <p>Accepted T&C: {submission.acceptedTC ? 'true' : 'false'}</p>
-        <p>Country: {submission.country}</p>
-        <img src={submission.pictureBase64} alt="Uploaded image" />
-      </div>
-    ));
-  }
+  const uncontrolledSubmissions = useSelector(selectUncontrolledSubmissions);
+  const hookFormSubmissions = useSelector(selectHookFormSubmissions);
 
   return (
     <div className={styles.mainContainer}>

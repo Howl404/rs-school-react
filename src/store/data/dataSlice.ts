@@ -11,10 +11,6 @@ export type FormStoreState = {
   pictureBase64: string;
   country: string;
 };
-//   picture: string;
-// } & {
-//   [key: string]: string;
-// };
 
 export type FormErrorsState = {
   [Property in keyof Omit<FormStoreState, 'pictureBase64'>]: string;

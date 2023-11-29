@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { InferType } from 'yup';
 
@@ -7,7 +8,8 @@ import { convertToBase64 } from 'utils/convertToBase64';
 import { createHookFormSchema } from 'utils/createHookFormSchema';
 
 import { dataActions } from 'store/data/dataSlice';
-import { useAppDispatch, useAppSelector } from 'store/store';
+import { selectCountries } from 'store/selectors';
+import { useAppDispatch } from 'store/store';
 
 import { PasswordStrength, AutoComplete } from 'components/index';
 
@@ -16,7 +18,8 @@ import styles from 'src/styles/Form.module.scss';
 export function HookFormPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const countries = useAppSelector((state) => state.data.countries);
+
+  const countries = useSelector(selectCountries);
 
   const HookFormSchema = createHookFormSchema(countries);
 
@@ -38,17 +41,15 @@ export function HookFormPage() {
 
     const pictureBase64 = await convertToBase64(picture as Blob);
 
+    const validatedDataWithoutPicture = {
+      ...data,
+      picture: undefined,
+    };
+
     dispatch(
       dataActions.addHookFormSubmission({
-        name: data.name,
-        age: data.age,
-        email: data.email,
-        password: data.password,
-        passwordConfirm: data.passwordConfirm,
-        gender: data.gender,
-        acceptedTC: data.acceptedTC,
-        pictureBase64: pictureBase64,
-        country: data.country,
+        ...validatedDataWithoutPicture,
+        pictureBase64,
       })
     );
 

@@ -1,18 +1,20 @@
 import { FormEvent, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { selectCountries } from 'src/store/selectors';
 import * as yup from 'yup';
 
 import { convertToBase64 } from 'utils/convertToBase64';
 import { createUncontrolledFormSchema } from 'utils/createUncontrolledFormSchema';
 
 import { FormErrorsState, dataActions } from 'store/data/dataSlice';
-import { useAppDispatch, useAppSelector } from 'store/store';
+import { useAppDispatch } from 'store/store';
 
 import { PasswordStrength, AutoComplete } from 'components/index';
 
 import styles from 'src/styles/Form.module.scss';
 
-const initialState: FormErrorsState = {
+const initialErrorState: FormErrorsState = {
   name: '',
   age: '',
   email: '',
@@ -25,19 +27,19 @@ const initialState: FormErrorsState = {
 };
 
 export function UncontrolledFormPage() {
-  const [errors, setErrors] = useState(structuredClone(initialState));
+  const [errors, setErrors] = useState(structuredClone(initialErrorState));
 
   const navigate = useNavigate();
 
-  const countries = useAppSelector((state) => state.data.countries);
+  const countries = useSelector(selectCountries);
 
   const UncontrolledFormSchema = createUncontrolledFormSchema(countries);
   const dispatch = useAppDispatch();
 
-  const handleSubmit = async (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form = event.target as HTMLFormElement;
+    const form = event.currentTarget;
     const formData = new FormData(form);
     const formValues = Object.fromEntries(formData.entries());
 
@@ -53,17 +55,15 @@ export function UncontrolledFormPage() {
         validatedInputs.picture as Blob
       );
 
+      const validatedInputsWithoutPicture = {
+        ...validatedInputs,
+        picture: undefined,
+      };
+
       dispatch(
         dataActions.addUncontrolledSubmission({
-          name: validatedInputs.name,
-          age: validatedInputs.age,
-          email: validatedInputs.email,
-          password: validatedInputs.password,
-          passwordConfirm: validatedInputs.passwordConfirm,
-          gender: validatedInputs.gender,
-          acceptedTC: validatedInputs.acceptedTC,
-          pictureBase64: pictureBase64,
-          country: validatedInputs.country,
+          ...validatedInputsWithoutPicture,
+          pictureBase64,
         })
       );
 
@@ -78,7 +78,7 @@ export function UncontrolledFormPage() {
           }
           return acc;
         },
-        structuredClone(initialState)
+        structuredClone(initialErrorState)
       );
 
       setErrors(errorsObject);

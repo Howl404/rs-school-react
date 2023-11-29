@@ -3,14 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { convertToBase64 } from 'utils/convertToBase64';
+import { createUncontrolledFormSchema } from 'utils/createUncontrolledFormSchema';
 
 import { dataActions } from 'store/data/dataSlice';
 import { useAppDispatch, useAppSelector } from 'store/store';
 
 import { FormErrorsState } from 'types/FormErrorsState';
-import { UncontrolledFormSchema } from 'types/UncontrolledFormSchema';
 
-import PasswordStrength from 'components/PasswordStrength';
+import { PasswordStrength, AutoComplete } from 'components/index';
 
 import styles from 'src/styles/Form.module.scss';
 
@@ -34,13 +34,14 @@ export function UncontrolledFormPage() {
   const navigate = useNavigate();
 
   const countries = useAppSelector((state) => state.data.countries);
+
+  const UncontrolledFormSchema = createUncontrolledFormSchema(countries);
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     const form = event.target as HTMLFormElement;
-
     const formData = new FormData(form);
     const formValues = Object.fromEntries(formData.entries());
 
@@ -91,58 +92,71 @@ export function UncontrolledFormPage() {
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit}>
         <Link to={'/'}>Main page</Link>
-        <div>
-          <label htmlFor="name">Name</label>
+        <label htmlFor="name">
+          Name
           <input type="text" name="name" id="name" />
-        </div>
+        </label>
         {errors.name && <p className={styles.error}>{errors.name}</p>}
 
-        <div>
-          <label htmlFor="age">Age</label>
+        <label htmlFor="age">
+          Age
           <input type="number" name="age" id="age" />
-        </div>
+        </label>
         {errors.age && <p className={styles.error}>{errors.age}</p>}
 
-        <div>
-          <label htmlFor="email">Email</label>
+        <label htmlFor="email">
+          Email
           <input type="text" name="email" id="email" autoComplete="email" />
-        </div>
+        </label>
         {errors.email && <p className={styles.error}>{errors.email}</p>}
 
-        <div>
-          <label htmlFor="password">Password</label>
+        <label htmlFor="password">
+          Password
           <input
             type="password"
             name="password"
             id="password"
             autoComplete="new-password"
           />
-        </div>
+        </label>
         {errors.password && <PasswordStrength errorMessage={errors.password} />}
 
-        <div>
-          <label htmlFor="passwordConfirm">Password Confirm</label>
+        <label htmlFor="passwordConfirm">
+          Password Confirm
           <input
             type="password"
             name="passwordConfirm"
             id="passwordConfirm"
             autoComplete="new-password"
           />
-        </div>
+        </label>
         {errors.passwordConfirm && (
           <p className={styles.error}>{errors.passwordConfirm}</p>
         )}
 
-        <div>
-          <label htmlFor="gender">Gender</label>
+        <label htmlFor="gender">
+          Gender
           <select name="gender" id="gender" autoComplete="sex">
             <option value="">Select gender...</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
-        </div>
+        </label>
         {errors.gender && <p className={styles.error}>{errors.gender}</p>}
+
+        <AutoComplete
+          options={countries}
+          label="Country"
+          inputType="text"
+          name="country"
+        />
+        {errors.country && <p className={styles.error}>{errors.country}</p>}
+
+        <label htmlFor="picture">
+          Picture <input type="file" name="picture" id="picture" />
+        </label>
+        {errors.picture && <p className={styles.error}>{errors.picture}</p>}
 
         <label htmlFor="acceptedTC">
           Terms and conditions
@@ -156,25 +170,6 @@ export function UncontrolledFormPage() {
         {errors.acceptedTC && (
           <p className={styles.error}>{errors.acceptedTC}</p>
         )}
-
-        <div>
-          <label htmlFor="country">Country</label>
-          <select name="country" id="country" autoComplete="country-name">
-            <option value="">Select country...</option>
-            {countries.map((country) => (
-              <option value={country} key={country}>
-                {country}
-              </option>
-            ))}
-          </select>
-        </div>
-        {errors.country && <p className={styles.error}>{errors.country}</p>}
-
-        <div>
-          <label htmlFor="picture">Picture</label>
-          <input type="file" name="picture" id="picture" />
-        </div>
-        {errors.picture && <p className={styles.error}>{errors.picture}</p>}
 
         <button type="submit" className={styles.submitButton}>
           Submit

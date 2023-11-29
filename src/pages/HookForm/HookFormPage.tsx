@@ -1,16 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { InferType } from 'yup';
 
 import { convertToBase64 } from 'utils/convertToBase64';
+import { createHookFormSchema } from 'utils/createHookFormSchema';
 
 import { dataActions } from 'store/data/dataSlice';
 import { useAppDispatch, useAppSelector } from 'store/store';
 
-import { HookFormSchema } from 'types/HookFormSchema';
-
-import PasswordStrength from 'components/PasswordStrength';
+import { PasswordStrength, AutoComplete } from 'components/index';
 
 import styles from 'src/styles/Form.module.scss';
 
@@ -18,12 +17,18 @@ export function HookFormPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const countries = useAppSelector((state) => state.data.countries);
-  const { register, handleSubmit, formState } = useForm({
+
+  const HookFormSchema = createHookFormSchema(countries);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm({
     resolver: yupResolver(HookFormSchema),
     mode: 'onChange',
   });
-
-  const errors = formState.errors;
 
   const onSubmit: SubmitHandler<InferType<typeof HookFormSchema>> = async (
     data
@@ -54,59 +59,85 @@ export function HookFormPage() {
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <Link to={'/'}>Main page</Link>
-        <div>
-          <label htmlFor="name">Name</label>
+        <label htmlFor="name">
+          Name
           <input type="text" {...register('name')} />
-        </div>
+        </label>
         {errors.name && <p className={styles.error}>{errors.name.message}</p>}
 
-        <div>
-          <label htmlFor="age">Age</label>
+        <label htmlFor="age">
+          Age
           <input type="number" {...register('age')} />
-        </div>
+        </label>
         {errors.age && <p className={styles.error}>{errors.age.message}</p>}
 
-        <div>
-          <label htmlFor="email">Email</label>
+        <label htmlFor="email">
+          Email
           <input type="text" {...register('email')} autoComplete="email" />
-        </div>
+        </label>
         {errors.email && <p className={styles.error}>{errors.email.message}</p>}
 
-        <div>
-          <label htmlFor="password">Password</label>
+        <label htmlFor="password">
+          Password
           <input
             type="password"
             {...register('password')}
             autoComplete="new-password"
           />
-        </div>
+        </label>
         {errors.password && (
           <PasswordStrength errorMessage={errors.password.message} />
         )}
 
-        <div>
-          <label htmlFor="passwordConfirm">Password Confirm</label>
+        <label htmlFor="passwordConfirm">
+          Password Confirm
           <input
             type="password"
             {...register('passwordConfirm')}
             autoComplete="new-password"
           />
-        </div>
+        </label>
         {errors.passwordConfirm && (
           <p className={styles.error}>{errors.passwordConfirm.message}</p>
         )}
 
-        <div>
-          <label htmlFor="gender">Gender</label>
+        <label htmlFor="gender">
+          Gender
           <select {...register('gender')} autoComplete="sex">
             <option value="">Select gender...</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
-        </div>
+        </label>
         {errors.gender && (
           <p className={styles.error}>{errors.gender.message}</p>
+        )}
+
+        <Controller
+          control={control}
+          name="country"
+          render={({ field: { onChange } }) => (
+            <AutoComplete
+              options={countries}
+              label="Country"
+              name="country"
+              onChange={onChange}
+              inputType="text"
+            />
+          )}
+        />
+
+        {errors.country && (
+          <p className={styles.error}>{errors.country.message}</p>
+        )}
+
+        <label htmlFor="picture">
+          Picture
+          <input type="file" {...register('picture')} />
+        </label>
+        {errors.picture && (
+          <p className={styles.error}>{errors.picture.message}</p>
         )}
 
         <label htmlFor="acceptedTC">
@@ -115,29 +146,6 @@ export function HookFormPage() {
         </label>
         {errors.acceptedTC && (
           <p className={styles.error}>{errors.acceptedTC.message}</p>
-        )}
-
-        <div>
-          <label htmlFor="country">Country</label>
-          <select {...register('country')} autoComplete="country-name">
-            <option value="">Select country...</option>
-            {countries.map((country) => (
-              <option value={country} key={country}>
-                {country}
-              </option>
-            ))}
-          </select>
-        </div>
-        {errors.country && (
-          <p className={styles.error}>{errors.country.message}</p>
-        )}
-
-        <div>
-          <label htmlFor="picture">Picture</label>
-          <input type="file" {...register('picture')} />
-        </div>
-        {errors.picture && (
-          <p className={styles.error}>{errors.picture.message}</p>
         )}
 
         <button type="submit" className={styles.submitButton}>

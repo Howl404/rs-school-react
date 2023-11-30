@@ -64,6 +64,7 @@ export function UncontrolledFormPage() {
         dataActions.addUncontrolledSubmission({
           ...validatedInputsWithoutPicture,
           pictureBase64,
+          isNew: true,
         })
       );
 

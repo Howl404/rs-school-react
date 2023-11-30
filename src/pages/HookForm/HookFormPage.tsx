@@ -50,6 +50,7 @@ export function HookFormPage() {
       dataActions.addHookFormSubmission({
         ...validatedDataWithoutPicture,
         pictureBase64,
+        isNew: true,
       })
     );
 

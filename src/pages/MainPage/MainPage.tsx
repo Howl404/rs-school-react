@@ -1,7 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { FormStoreState } from 'store/data/dataSlice';
+import { cls } from 'utils/cls';
+
+import { FormStoreState, dataActions } from 'store/data/dataSlice';
 import {
   selectHookFormSubmissions,
   selectUncontrolledSubmissions,
@@ -11,7 +14,13 @@ import styles from './MainPage.module.scss';
 
 function renderSubmissionsList(list: FormStoreState[]) {
   return list.map((submission) => (
-    <div key={submission.name} className={styles.submissionContainer}>
+    <div
+      key={submission.name}
+      className={cls(
+        styles.submissionContainer,
+        submission.isNew && styles.newSubmission
+      )}
+    >
       <p>Name: {submission.name}</p>
       <p>Age: {submission.age}</p>
       <p>Email: {submission.email}</p>
@@ -26,8 +35,18 @@ function renderSubmissionsList(list: FormStoreState[]) {
 }
 
 export function MainPage() {
+  const dispatch = useDispatch();
+
   const uncontrolledSubmissions = useSelector(selectUncontrolledSubmissions);
   const hookFormSubmissions = useSelector(selectHookFormSubmissions);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(dataActions.markAllSubmissionsAsOld());
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [dispatch]);
 
   return (
     <div className={styles.mainContainer}>

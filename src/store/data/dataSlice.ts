@@ -10,10 +10,11 @@ export type FormStoreState = {
   acceptedTC: boolean;
   pictureBase64: string;
   country: string;
+  isNew: boolean;
 };
 
 export type FormErrorsState = {
-  [Property in keyof Omit<FormStoreState, 'pictureBase64'>]: string;
+  [Property in keyof Omit<FormStoreState, 'pictureBase64' | 'isNew'>]: string;
 } & {
   picture: string;
 } & {
@@ -55,6 +56,14 @@ const dataSlice = createSlice({
     },
     addHookFormSubmission: (state, action: PayloadAction<FormStoreState>) => {
       state.hookFormSubmissions.push(action.payload);
+    },
+    markAllSubmissionsAsOld: (state) => {
+      state.uncontrolledSubmissions.forEach((submission) => {
+        submission.isNew = false;
+      });
+      state.hookFormSubmissions.forEach((submission) => {
+        submission.isNew = false;
+      });
     },
   },
 });

@@ -23,10 +23,20 @@
 .uncontrolledSubmissions {
   display: flex;
   flex-direction: column-reverse;
-  border: 1px solid $black;
+}
 
-  .submissionContainer:last-child {
-    border: 1px solid $red;
+.newSubmission {
+  border: 1px solid $red;
+  animation: borderFade 500ms ease-in-out infinite;
+}
+
+@keyframes borderFade {
+  0%,
+  100% {
+    border-color: $red;
+  }
+  50% {
+    border-color: $black;
   }
 }
 

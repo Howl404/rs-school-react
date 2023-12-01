@@ -1,5 +1,7 @@
 import * as yup from 'yup';
 
+import { PasswordErrorMessage } from 'enums/PasswordEnums';
+
 export const createUncontrolledFormSchema = (countries: string[]) =>
   yup.object({
     name: yup
@@ -21,15 +23,12 @@ export const createUncontrolledFormSchema = (countries: string[]) =>
       .required('Email is required'),
     password: yup
       .string()
-      .matches(
-        /[@$!%*?&]/,
-        'Password must contain at least one special character'
-      )
-      .matches(/[0-9]/, 'Password must contain at least one number')
-      .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-      .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
-      .min(8, 'Password must contain at least 8 characters')
-      .required('Password is required'),
+      .matches(/[@$!%*?&]/, PasswordErrorMessage.SpecialChar)
+      .matches(/[0-9]/, PasswordErrorMessage.Number)
+      .matches(/[A-Z]/, PasswordErrorMessage.Uppercase)
+      .matches(/[a-z]/, PasswordErrorMessage.Lowercase)
+      .min(8, PasswordErrorMessage.MinLength)
+      .required(PasswordErrorMessage.Required),
     passwordConfirm: yup
       .string()
       .oneOf([yup.ref('password')], 'Passwords must match')
@@ -38,21 +37,18 @@ export const createUncontrolledFormSchema = (countries: string[]) =>
       .boolean()
       .required('You must accept the terms and conditions'),
     picture: yup
-      .mixed()
+      .mixed<File>()
       .test(
-        'type',
+        'fileType',
         'Only the following formats are accepted: .jpeg, .png',
-        (value) => {
-          const file = value as File;
-          return (
-            file && (file.type === 'image/jpeg' || file.type === 'image/png')
-          );
-        }
+        (value) =>
+          value && (value.type === 'image/jpeg' || value.type === 'image/png')
       )
-      .test('type', 'Picture is required', (value) => {
-        const file = value as File;
-        return file && file.size >= 1;
-      })
+      .test(
+        'fileSize',
+        'Picture is required',
+        (value) => value && value.size >= 1
+      )
       .required(),
     country: yup
       .string()

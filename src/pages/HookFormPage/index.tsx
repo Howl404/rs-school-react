@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { Routes } from 'src/router/Router';
 import { InferType } from 'yup';
 
 import { convertToBase64 } from 'utils/convertToBase64';
@@ -11,7 +12,8 @@ import { dataActions } from 'store/data/dataSlice';
 import { selectCountries } from 'store/selectors';
 import { useAppDispatch } from 'store/store';
 
-import { PasswordStrength, AutoComplete } from 'components/index';
+import { AutoComplete } from 'components/AutoComplete';
+import { PasswordStrength } from 'components/PasswordStrength';
 
 import styles from 'src/styles/Form.module.scss';
 
@@ -36,14 +38,13 @@ export function HookFormPage() {
   const onSubmit: SubmitHandler<InferType<typeof HookFormSchema>> = async (
     data
   ) => {
-    const filesList = data.picture as FileList;
-    const picture = filesList.item(0);
+    const picture = data.picturesList[0];
 
-    const pictureBase64 = await convertToBase64(picture as Blob);
+    const pictureBase64 = await convertToBase64(picture);
 
     const validatedDataWithoutPicture = {
       ...data,
-      picture: undefined,
+      picturesList: undefined,
     };
 
     dispatch(
@@ -54,13 +55,13 @@ export function HookFormPage() {
       })
     );
 
-    navigate('/');
+    navigate(Routes.Home);
   };
 
   return (
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <Link to={'/'}>Main page</Link>
+        <Link to={Routes.Home}>Main page</Link>
         <label htmlFor="name">
           Name
           <input type="text" {...register('name')} />
@@ -136,10 +137,10 @@ export function HookFormPage() {
 
         <label htmlFor="picture">
           Picture
-          <input type="file" {...register('picture')} />
+          <input type="file" {...register('picturesList')} />
         </label>
-        {errors.picture && (
-          <p className={styles.error}>{errors.picture.message}</p>
+        {errors.picturesList && (
+          <p className={styles.error}>{errors.picturesList.message}</p>
         )}
 
         <label htmlFor="acceptedTC">

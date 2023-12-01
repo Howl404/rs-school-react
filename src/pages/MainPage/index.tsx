@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Routes } from 'src/router/Router';
 
 import { cls } from 'utils/cls';
 
@@ -52,14 +53,14 @@ export function MainPage() {
     <div className={styles.mainContainer}>
       <div className={styles.submissionsContainer}>
         <div>
-          <Link to={'/uncontrolled'}>Uncontrolled form</Link>
+          <Link to={Routes.UncontrolledForm}>Uncontrolled form</Link>
           <h2>Uncontrolled form submissions</h2>
           <div className={styles.uncontrolledSubmissions}>
             {renderSubmissionsList(uncontrolledSubmissions)}
           </div>
         </div>
         <div>
-          <Link to={'/hookform'}>Hook form</Link>
+          <Link to={Routes.HookForm}>Hook form</Link>
           <h2>Hook form submissions</h2>
           <div className={styles.hookFormSubmissions}>
             {renderSubmissionsList(hookFormSubmissions)}

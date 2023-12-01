@@ -1,5 +1,7 @@
 import * as yup from 'yup';
 
+import { PasswordErrorMessage } from 'enums/PasswordEnums';
+
 export const createHookFormSchema = (countries: string[]) =>
   yup.object({
     name: yup
@@ -21,16 +23,13 @@ export const createHookFormSchema = (countries: string[]) =>
       ),
     password: yup
       .string()
-      .required('Password is required')
-      .min(8, 'Password must contain at least 8 characters')
-      .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
-      .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+      .required(PasswordErrorMessage.Required)
+      .min(8, PasswordErrorMessage.MinLength)
+      .matches(/[a-z]/, PasswordErrorMessage.Lowercase)
+      .matches(/[A-Z]/, PasswordErrorMessage.Uppercase)
 
-      .matches(/[0-9]/, 'Password must contain at least one number')
-      .matches(
-        /[@$!%*?&]/,
-        'Password must contain at least one special character'
-      ),
+      .matches(/[0-9]/, PasswordErrorMessage.Number)
+      .matches(/[@$!%*?&]/, PasswordErrorMessage.SpecialChar),
     passwordConfirm: yup
       .string()
       .required('Password confirmation is required')
@@ -39,20 +38,18 @@ export const createHookFormSchema = (countries: string[]) =>
       .boolean()
       .required()
       .isTrue('You must accept the terms and conditions'),
-    picture: yup
-      .mixed()
+    picturesList: yup
+      .mixed<FileList>()
       .required()
-      .test('type', 'Picture is required', (value) => {
-        const fileList = value as FileList;
-        const file = fileList.item(0);
+      .test('fileSize', 'Picture is required', (value) => {
+        const file = value.item(0);
         return file ? file.size >= 1 : false;
       })
       .test(
-        'type',
+        'fileType',
         'Only the following formats are accepted: .jpeg, .png',
         (value) => {
-          const fileList = value as FileList;
-          const file = fileList.item(0);
+          const file = value.item(0);
           return file?.type === 'image/jpeg' || file?.type === 'image/png';
         }
       ),

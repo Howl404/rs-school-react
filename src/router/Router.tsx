@@ -1,19 +1,27 @@
 import { useRoutes } from 'react-router-dom';
 
-import { MainPage, UncontrolledFormPage, HookFormPage } from 'pages/index';
+import { HookFormPage } from 'pages/HookFormPage';
+import { MainPage } from 'pages/MainPage';
+import { UncontrolledFormPage } from 'pages/UncontrolledFormPage';
+
+export enum Routes {
+  Home = '/',
+  UncontrolledForm = '/uncontrolled',
+  HookForm = '/hookform',
+}
 
 export default function Router() {
   return useRoutes([
     {
-      path: '/',
+      path: Routes.Home,
       element: <MainPage />,
     },
     {
-      path: '/uncontrolled',
+      path: Routes.UncontrolledForm,
       element: <UncontrolledFormPage />,
     },
     {
-      path: '/hookform',
+      path: Routes.HookForm,
       element: <HookFormPage />,
     },
   ]);

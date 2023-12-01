@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { Routes } from 'src/router/Router';
 import * as yup from 'yup';
 
 import { convertToBase64 } from 'utils/convertToBase64';
@@ -10,7 +11,8 @@ import { FormErrorsState, dataActions } from 'store/data/dataSlice';
 import { selectCountries } from 'store/selectors';
 import { useAppDispatch } from 'store/store';
 
-import { PasswordStrength, AutoComplete } from 'components/index';
+import { AutoComplete } from 'components/AutoComplete';
+import { PasswordStrength } from 'components/PasswordStrength';
 
 import styles from 'src/styles/Form.module.scss';
 
@@ -51,9 +53,7 @@ export function UncontrolledFormPage() {
         }
       );
 
-      const pictureBase64 = await convertToBase64(
-        validatedInputs.picture as Blob
-      );
+      const pictureBase64 = await convertToBase64(validatedInputs.picture);
 
       const validatedInputsWithoutPicture = {
         ...validatedInputs,
@@ -68,7 +68,7 @@ export function UncontrolledFormPage() {
         })
       );
 
-      navigate('/');
+      navigate(Routes.Home);
     } catch (error) {
       const yupErrors = error as yup.ValidationError;
 
@@ -88,7 +88,7 @@ export function UncontrolledFormPage() {
   return (
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <Link to={'/'}>Main page</Link>
+        <Link to={Routes.Home}>Main page</Link>
         <label htmlFor="name">
           Name
           <input type="text" name="name" id="name" />

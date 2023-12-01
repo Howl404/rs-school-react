@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 
 import { cls } from 'utils/cls';
+import { filterBySubstring } from 'utils/filterBySubstring';
 
 import styles from './AutoComplete.module.scss';
 
@@ -23,31 +24,26 @@ export function AutoComplete({
   const [inputValue, setInputValue] = useState<string>('');
 
   const updateSuitableOptions = (input: string) => {
-    if (options.includes(input) || !input) {
+    if (!input || options.includes(input)) {
       setSuitableOptions([]);
-    } else {
-      const filteredOptions = options.filter((option) =>
-        option.toLowerCase().includes(input.toLowerCase())
-      );
-
-      setSuitableOptions(filteredOptions);
+      return;
     }
+
+    const filteredOptions = filterBySubstring(options, input);
+
+    setSuitableOptions(filteredOptions);
   };
 
   const handleButtonClick = (option: string) => {
     setInputValue(option);
-    if (onChange) {
-      onChange(option);
-    }
+    onChange?.(option);
 
     updateSuitableOptions(option);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-    if (onChange) {
-      onChange(e.target.value);
-    }
+    onChange?.(e.target.value);
 
     updateSuitableOptions(e.target.value);
   };

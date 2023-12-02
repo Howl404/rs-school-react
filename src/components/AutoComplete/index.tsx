@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 
 import { cls } from 'utils/cls';
 import { filterBySubstring } from 'utils/filterBySubstring';
@@ -21,7 +21,8 @@ export function AutoComplete({
   name,
 }: AutoCompleteProps) {
   const [suitableOptions, setSuitableOptions] = useState<string[]>([]);
-  const [inputValue, setInputValue] = useState<string>('');
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const updateSuitableOptions = (input: string) => {
     if (!input || options.includes(input)) {
@@ -35,14 +36,18 @@ export function AutoComplete({
   };
 
   const handleButtonClick = (option: string) => {
-    setInputValue(option);
+    if (inputRef.current) {
+      inputRef.current.value = option;
+    }
     onChange?.(option);
 
     updateSuitableOptions(option);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    if (inputRef.current) {
+      inputRef.current.value = e.target.value;
+    }
     onChange?.(e.target.value);
 
     updateSuitableOptions(e.target.value);
@@ -53,7 +58,7 @@ export function AutoComplete({
       <label htmlFor={name}>
         {label}
         <input
-          value={inputValue}
+          ref={inputRef}
           type={inputType}
           onChange={handleInputChange}
           id={name}

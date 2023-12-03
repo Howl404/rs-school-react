@@ -126,7 +126,7 @@ export function HookFormPage() {
               label="Country"
               name="country"
               onChange={onChange}
-              inputType="text"
+              type="text"
             />
           )}
         />

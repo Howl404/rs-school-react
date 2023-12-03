@@ -8,17 +8,17 @@ import styles from './AutoComplete.module.scss';
 type AutoCompleteProps = {
   options: string[];
   label: string;
-  onChange?: (value: string) => void;
-  inputType: string;
+  type: string;
   name: string;
+  onChange?: (value: string) => void;
 };
 
 export default function AutoComplete({
   options,
   label,
-  onChange,
-  inputType,
+  type,
   name,
+  onChange,
 }: AutoCompleteProps) {
   const [suitableOptions, setSuitableOptions] = useState<string[]>([]);
 
@@ -50,9 +50,8 @@ export default function AutoComplete({
         {label}
         <input
           ref={inputRef}
-          type={inputType}
+          type={type}
           onChange={(e) => handleInputChange(e.target.value)}
-          id={name}
           name={name}
         />
       </label>

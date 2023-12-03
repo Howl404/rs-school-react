@@ -145,7 +145,7 @@ export function UncontrolledFormPage() {
         <AutoComplete
           options={countries}
           label="Country"
-          inputType="text"
+          type="text"
           name="country"
         />
         {errors.country && <p className={styles.error}>{errors.country}</p>}

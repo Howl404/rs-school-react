@@ -47,4 +47,10 @@
     background-color: $red;
     color: $white;
   }
+
+  &:disabled:hover {
+    background-color: $grey;
+    color: $black;
+    cursor: auto;
+  }
 }

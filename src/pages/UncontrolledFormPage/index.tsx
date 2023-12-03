@@ -93,19 +93,19 @@ export function UncontrolledFormPage() {
           Name
           <input type="text" name="name" id="name" />
         </label>
-        {errors.name && <p className={styles.error}>{errors.name}</p>}
+        <p className={styles.error}>{errors.name}</p>
 
         <label htmlFor="age">
           Age
           <input type="number" name="age" id="age" />
         </label>
-        {errors.age && <p className={styles.error}>{errors.age}</p>}
+        <p className={styles.error}>{errors.age}</p>
 
         <label htmlFor="email">
           Email
           <input type="text" name="email" id="email" autoComplete="email" />
         </label>
-        {errors.email && <p className={styles.error}>{errors.email}</p>}
+        <p className={styles.error}>{errors.email}</p>
 
         <label htmlFor="password">
           Password
@@ -116,7 +116,7 @@ export function UncontrolledFormPage() {
             autoComplete="new-password"
           />
         </label>
-        {errors.password && <PasswordStrength errorMessage={errors.password} />}
+        <PasswordStrength errorMessage={errors.password} />
 
         <label htmlFor="passwordConfirm">
           Password Confirm
@@ -127,9 +127,7 @@ export function UncontrolledFormPage() {
             autoComplete="new-password"
           />
         </label>
-        {errors.passwordConfirm && (
-          <p className={styles.error}>{errors.passwordConfirm}</p>
-        )}
+        <p className={styles.error}>{errors.passwordConfirm}</p>
 
         <label htmlFor="gender">
           Gender
@@ -140,7 +138,7 @@ export function UncontrolledFormPage() {
             <option value="other">Other</option>
           </select>
         </label>
-        {errors.gender && <p className={styles.error}>{errors.gender}</p>}
+        <p className={styles.error}>{errors.gender}</p>
 
         <AutoComplete
           options={countries}
@@ -148,12 +146,12 @@ export function UncontrolledFormPage() {
           type="text"
           name="country"
         />
-        {errors.country && <p className={styles.error}>{errors.country}</p>}
+        <p className={styles.error}>{errors.country}</p>
 
         <label htmlFor="picture">
           Picture <input type="file" name="picture" id="picture" />
         </label>
-        {errors.picture && <p className={styles.error}>{errors.picture}</p>}
+        <p className={styles.error}>{errors.picture}</p>
 
         <label htmlFor="acceptedTC">
           Terms and conditions
@@ -164,9 +162,7 @@ export function UncontrolledFormPage() {
             value="true"
           />
         </label>
-        {errors.acceptedTC && (
-          <p className={styles.error}>{errors.acceptedTC}</p>
-        )}
+        <p className={styles.error}>{errors.acceptedTC}</p>
 
         <button type="submit" className={styles.submitButton}>
           Submit

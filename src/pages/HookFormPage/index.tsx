@@ -66,19 +66,19 @@ export function HookFormPage() {
           Name
           <input type="text" {...register('name')} />
         </label>
-        {errors.name && <p className={styles.error}>{errors.name.message}</p>}
+        <p className={styles.error}>{errors.name?.message}</p>
 
         <label htmlFor="age">
           Age
           <input type="number" {...register('age')} />
         </label>
-        {errors.age && <p className={styles.error}>{errors.age.message}</p>}
+        <p className={styles.error}>{errors.age?.message}</p>
 
         <label htmlFor="email">
           Email
           <input type="text" {...register('email')} autoComplete="email" />
         </label>
-        {errors.email && <p className={styles.error}>{errors.email.message}</p>}
+        <p className={styles.error}>{errors.email?.message}</p>
 
         <label htmlFor="password">
           Password
@@ -88,9 +88,7 @@ export function HookFormPage() {
             autoComplete="new-password"
           />
         </label>
-        {errors.password && (
-          <PasswordStrength errorMessage={errors.password.message} />
-        )}
+        <PasswordStrength errorMessage={errors.password?.message} />
 
         <label htmlFor="passwordConfirm">
           Password Confirm
@@ -100,9 +98,7 @@ export function HookFormPage() {
             autoComplete="new-password"
           />
         </label>
-        {errors.passwordConfirm && (
-          <p className={styles.error}>{errors.passwordConfirm.message}</p>
-        )}
+        <p className={styles.error}>{errors.passwordConfirm?.message}</p>
 
         <label htmlFor="gender">
           Gender
@@ -113,9 +109,7 @@ export function HookFormPage() {
             <option value="other">Other</option>
           </select>
         </label>
-        {errors.gender && (
-          <p className={styles.error}>{errors.gender.message}</p>
-        )}
+        <p className={styles.error}>{errors.gender?.message}</p>
 
         <Controller
           control={control}
@@ -130,26 +124,19 @@ export function HookFormPage() {
             />
           )}
         />
-
-        {errors.country && (
-          <p className={styles.error}>{errors.country.message}</p>
-        )}
+        <p className={styles.error}>{errors.country?.message}</p>
 
         <label htmlFor="picture">
           Picture
           <input type="file" {...register('picturesList')} />
         </label>
-        {errors.picturesList && (
-          <p className={styles.error}>{errors.picturesList.message}</p>
-        )}
+        <p className={styles.error}>{errors.picturesList?.message}</p>
 
         <label htmlFor="acceptedTC">
           Terms and conditions
           <input type="checkbox" {...register('acceptedTC')} value="true" />
         </label>
-        {errors.acceptedTC && (
-          <p className={styles.error}>{errors.acceptedTC.message}</p>
-        )}
+        <p className={styles.error}>{errors.acceptedTC?.message}</p>
 
         <button
           type="submit"

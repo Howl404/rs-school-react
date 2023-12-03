@@ -151,7 +151,11 @@ export function HookFormPage() {
           <p className={styles.error}>{errors.acceptedTC.message}</p>
         )}
 
-        <button type="submit" className={styles.submitButton}>
+        <button
+          type="submit"
+          className={styles.submitButton}
+          disabled={Object.keys(errors).length > 0}
+        >
           Submit
         </button>
       </form>

@@ -12,8 +12,8 @@ import { dataActions } from 'store/data/dataSlice';
 import { selectCountries } from 'store/selectors';
 import { useAppDispatch } from 'store/store';
 
-import { AutoComplete } from 'components/AutoComplete';
-import { PasswordStrength } from 'components/PasswordStrength';
+import AutoComplete from 'components/AutoComplete';
+import PasswordStrength from 'components/PasswordStrength';
 
 import styles from 'src/styles/Form.module.scss';
 

@@ -13,7 +13,7 @@ type AutoCompleteProps = {
   name: string;
 };
 
-export function AutoComplete({
+export default function AutoComplete({
   options,
   label,
   onChange,

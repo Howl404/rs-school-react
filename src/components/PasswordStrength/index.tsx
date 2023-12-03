@@ -22,7 +22,7 @@ const errorStyles: {
   [PasswordErrorMessage.SpecialChar]: PasswordStrengthLevel.Strong,
 };
 
-export function PasswordStrength({ errorMessage }: PasswordStrengthProps) {
+function PasswordStrength({ errorMessage }: PasswordStrengthProps) {
   if (!errorMessage) return;
 
   const styleKey = errorStyles[errorMessage];

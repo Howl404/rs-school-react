@@ -1,0 +1,56 @@
+@import 'src/styles/variables.scss';
+.formContainer {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  input {
+    border-radius: 6px;
+    border: 1px solid $grey;
+    padding: 6px;
+  }
+
+  label {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+}
+
+.error {
+  margin: 0;
+  color: $red;
+  animation: appearAnimation 500ms ease forwards;
+  opacity: 0;
+}
+
+@keyframes appearAnimation {
+  to {
+    opacity: 1;
+  }
+}
+
+.submitButton {
+  border-radius: 6px;
+  border: 1px solid $grey;
+  transition: 500ms;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $red;
+    color: $white;
+  }
+
+  &:disabled:hover {
+    background-color: $grey;
+    color: $black;
+    cursor: auto;
+  }
+}

@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { cls } from 'utils/cls';
 import { filterBySubstring } from 'utils/filterBySubstring';
@@ -35,22 +35,13 @@ export default function AutoComplete({
     setSuitableOptions(filteredOptions);
   };
 
-  const handleButtonClick = (option: string) => {
+  const handleInputChange = (newInput: string) => {
     if (inputRef.current) {
-      inputRef.current.value = option;
+      inputRef.current.value = newInput;
     }
-    onChange?.(option);
+    onChange?.(newInput);
 
-    updateSuitableOptions(option);
-  };
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (inputRef.current) {
-      inputRef.current.value = e.target.value;
-    }
-    onChange?.(e.target.value);
-
-    updateSuitableOptions(e.target.value);
+    updateSuitableOptions(newInput);
   };
 
   return (
@@ -60,7 +51,7 @@ export default function AutoComplete({
         <input
           ref={inputRef}
           type={inputType}
-          onChange={handleInputChange}
+          onChange={(e) => handleInputChange(e.target.value)}
           id={name}
           name={name}
         />
@@ -76,7 +67,7 @@ export default function AutoComplete({
           <button
             key={option}
             type="button"
-            onMouseDown={() => handleButtonClick(option)}
+            onMouseDown={() => handleInputChange(option)}
           >
             {option}
           </button>

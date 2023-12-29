@@ -1,24 +1,54 @@
 import { GetServerSideProps } from 'next';
-import DetailedCard from 'src/components/detailedCard/DetailedCard';
-import { wrapper } from 'src/store/store';
-import { cls } from 'src/utils/cls';
+import { useSelector } from 'react-redux';
+import useProduct from 'src/hooks/useProduct';
+import { useAppDispatch, wrapper } from 'src/store';
 
-import { apiService } from 'store/api/api';
+import { apiService } from 'store/api';
+import { productsActions } from 'store/products/productsSlice';
+import { selectProductId } from 'store/selectors';
 
 import { Product } from 'src/interfaces/product';
 
 import CardList from 'components/cardList/CardList';
+import DetailedCard from 'components/detailedCard/DetailedCard';
 import Pagination from 'components/pagination/Pagination';
 import Search from 'components/search/Search';
 
-import styles from './index.module.scss';
-
-interface MainPageProps {
-  products: Product[] | undefined;
-  product: Product | undefined | null;
+type MainPageProps = {
+  products?: Product[];
   searchTerm: string;
   page: number;
-  perPage: string;
+  perPage: number;
+};
+
+export default function MainPage({
+  products,
+  searchTerm,
+  page,
+  perPage,
+}: MainPageProps) {
+  const dispatch = useAppDispatch();
+
+  const selectedProductId = useSelector(selectProductId);
+
+  const { product } = useProduct(selectedProductId);
+
+  const closeModal = () => {
+    dispatch(productsActions.setSelectedProductId(-1));
+  };
+
+  const setSelected = (productId: number) => {
+    dispatch(productsActions.setSelectedProductId(productId));
+  };
+
+  return (
+    <>
+      <Search searchTerm={searchTerm} />
+      <CardList data={products} setSelected={setSelected} />
+      <Pagination page={page} perPage={perPage} />
+      {product && <DetailedCard product={product} closeModal={closeModal} />}
+    </>
+  );
 }
 
 export const getServerSideProps: GetServerSideProps<MainPageProps> =
@@ -26,8 +56,8 @@ export const getServerSideProps: GetServerSideProps<MainPageProps> =
     const { query } = context;
 
     const searchTerm = query.searchTerm?.toString() || '';
-    const page = Number(query.page?.toString()) || 1;
-    const perPage = query.perPage?.toString() || '10';
+    const page = Number(query?.page) || 1;
+    const perPage = Number(query?.perPage) || 10;
 
     const { data: products } = await store.dispatch(
       apiService.endpoints.getItems.initiate({
@@ -37,42 +67,12 @@ export const getServerSideProps: GetServerSideProps<MainPageProps> =
       })
     );
 
-    let product = null;
-    const productId = query.productId?.toString() || '';
-
-    if (productId) {
-      const response = await store.dispatch(
-        apiService.endpoints.getItem.initiate(productId)
-      );
-      product = response.data;
-    }
-
     return {
       props: {
         products,
-        product,
         searchTerm,
         page,
         perPage,
       },
     };
   });
-
-export default function MainPage({
-  products,
-  product,
-  searchTerm,
-  page,
-  perPage,
-}: MainPageProps) {
-  return (
-    <>
-      <Search searchTerm={searchTerm} />
-      <div className={cls(product && styles.wrapper)}>
-        <CardList data={products} />
-        {product && <DetailedCard product={product} />}
-      </div>
-      <Pagination page={page} perPage={perPage} />
-    </>
-  );
-}

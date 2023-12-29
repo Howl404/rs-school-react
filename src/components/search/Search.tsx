@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useRef } from 'react';
 
 import styles from './Search.module.scss';
 
@@ -7,19 +7,24 @@ type SearchProps = { searchTerm: string };
 
 export default function Search({ searchTerm }: SearchProps) {
   const router = useRouter();
+  const ref = useRef<HTMLInputElement>(null);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
+    const inputValue = ref.current?.value.trim() || '';
 
-    const inputValue = formData.get('searchTerm') as string;
-    const trimmedInputValue = inputValue.trim();
+    if (inputValue !== router.query.searchTerm) {
+      const params = new URLSearchParams({
+        page: '' + 1,
+      });
 
-    router.push({
-      pathname: '/',
-      query: { ...router.query, searchTerm: trimmedInputValue, page: 1 },
-    });
+      if (inputValue) {
+        params.set('searchTerm', inputValue);
+      }
+
+      void router.push(`/?${params}`);
+    }
   }
 
   return (
@@ -27,6 +32,7 @@ export default function Search({ searchTerm }: SearchProps) {
       <input
         type="text"
         name="searchTerm"
+        ref={ref}
         defaultValue={searchTerm}
         className={styles.searchInput}
       />

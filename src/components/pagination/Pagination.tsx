@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { ChangeEvent } from 'react';
 
 import styles from './Pagination.module.scss';
 
@@ -6,7 +7,7 @@ const perPageOptions = [5, 10, 15];
 
 type PaginationProps = {
   page: number;
-  perPage: string;
+  perPage: number;
 };
 
 export default function Pagination({ page, perPage }: PaginationProps) {
@@ -15,22 +16,22 @@ export default function Pagination({ page, perPage }: PaginationProps) {
   const isFirstPage = +page === 1;
 
   const changePage = (page: number) => {
-    router.push({
+    void router.push({
       pathname: '/',
       query: { ...router.query, page },
     });
   };
 
   const nextPage = () => {
-    changePage(+page + 1);
+    changePage(page + 1);
   };
 
   const previousPage = () => {
-    changePage(+page - 1);
+    changePage(page - 1);
   };
 
-  const handlePerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    router.push({
+  const handlePerPageChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    void router.push({
       pathname: '/',
       query: { ...router.query, page: 1, perPage: event.target.value },
     });

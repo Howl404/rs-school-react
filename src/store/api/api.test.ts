@@ -1,15 +1,15 @@
 import { mockProduct, mockProducts } from 'mock/handler';
+import { store } from 'src/store';
 import { expect, it } from 'vitest';
 
-import { apiService } from 'store/api/api';
-import { store } from 'store/store';
+import { apiService } from 'store/api';
 
 it('getItems fetches beers successfully', async () => {
   const { data } = await store().dispatch(
     apiService.endpoints.getItems.initiate({
       searchTerm: '',
       page: 1,
-      perPage: '10',
+      perPage: 10,
     })
   );
 
@@ -21,7 +21,7 @@ it('getItems fetches specified amount of beers', async () => {
     apiService.endpoints.getItems.initiate({
       searchTerm: '',
       page: 1,
-      perPage: '5',
+      perPage: 5,
     })
   );
 
@@ -30,7 +30,7 @@ it('getItems fetches specified amount of beers', async () => {
 
 it('getItem fetches beer successfully', async () => {
   const { data } = await store().dispatch(
-    apiService.endpoints.getItem.initiate('1')
+    apiService.endpoints.getItem.initiate(1)
   );
 
   expect(data).toEqual(mockProduct);

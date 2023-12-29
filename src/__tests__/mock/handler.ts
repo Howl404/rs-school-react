@@ -1,6 +1,6 @@
 import { delay, http, HttpResponse } from 'msw';
 
-import { API_URL } from 'store/api/api';
+import { API_URL } from 'store/api';
 
 import { Product } from 'src/interfaces/product';
 

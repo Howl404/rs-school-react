@@ -8,7 +8,7 @@ export const API_URL = 'https://api.punkapi.com/v2';
 interface GetItemsArguments {
   searchTerm: string;
   page: number;
-  perPage: string;
+  perPage: number;
 }
 
 export const apiService = createApi({
@@ -23,8 +23,8 @@ export const apiService = createApi({
     getItems: builder.query<Product[], GetItemsArguments>({
       query: ({ searchTerm, page, perPage }) => {
         const params = new URLSearchParams({
-          page: page.toString(),
-          per_page: perPage,
+          page: '' + page,
+          per_page: '' + perPage,
         });
         if (searchTerm) {
           params.set('beer_name', searchTerm);
@@ -32,7 +32,7 @@ export const apiService = createApi({
         return `beers/?${params}`;
       },
     }),
-    getItem: builder.query<Product, string>({
+    getItem: builder.query<Product, number>({
       query: (productId) => {
         return `beers/${productId}`;
       },

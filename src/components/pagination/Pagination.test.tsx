@@ -6,7 +6,7 @@ import Pagination from './Pagination';
 
 describe('Make sure the component updates URL query parameter when page changes', () => {
   it('When user clicks next page', () => {
-    render(<Pagination page={1} perPage="10" />);
+    render(<Pagination page={1} perPage={10} />);
 
     const nextButton = screen.getByText('ᐳ');
 
@@ -16,7 +16,7 @@ describe('Make sure the component updates URL query parameter when page changes'
   });
 
   it('When user clicks previous page', () => {
-    render(<Pagination page={2} perPage="10" />);
+    render(<Pagination page={2} perPage={10} />);
 
     const prevButton = screen.getByText('ᐸ');
 
@@ -26,7 +26,7 @@ describe('Make sure the component updates URL query parameter when page changes'
   });
 
   it('When user changes amount of items on page, reset page to first', () => {
-    render(<Pagination page={1} perPage="10" />);
+    render(<Pagination page={1} perPage={10} />);
     const nextButton = screen.getByText('ᐳ');
 
     fireEvent.click(nextButton);
